@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:06:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/08 17:54:17 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/09 12:58:21 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,3 +53,4 @@ t_corewar *get_struct(t_corewar *lst);
 void ft_print_arena();
 unsigned char *ft_get_arena(void);
 char *addr_to_hex(void *addr, size_t size);
+int ft_sign(unsigned int s, int size);

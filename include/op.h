@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/03/08 11:57:57 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/09 13:18:05 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,15 @@ typedef char	t_arg_type;
 /*
 **
 */
+
+// #define REG					0b01000000
+// #define DIR					
+// #define IND					4
+// #define LAB					8
+
+
+
+
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
