@@ -6,13 +6,13 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 20:24:48 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/08 15:22:09 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/10 12:04:35 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-void print_byte(const void *addr)
+static void print_byte(const void *addr)
 {
     const char *str = "0123456789abcdef";
     char_t *p;
@@ -55,4 +55,6 @@ void ft_print_arena()
             ft_putchar('\n');
         print_byte(&war->arena[i]);
     }
+	ft_putchar('\n');
+	ft_putchar('\n');
 }

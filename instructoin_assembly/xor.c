@@ -6,30 +6,36 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/09 18:28:41 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/11 22:30:48 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-
-
-
-int xor(t_process *p)
+int ft_xor(t_process *p)
 {
-    t_corewar *war;
-    char_t r;
-    char_t d;
-    unsigned int arg1;
-    unsigned int arg2;
-    unsigned int i;
+	t_corewar *war;
+	char_t d;
+	unsigned int len1;
+	int len;
+	int r;
+	int ret = 0;
 
-    war = get_struct(0);
-    ft_memcpy((void *)&d, (void *)&war->arena[p->pc + 1], 1);
-    i = get_flag_1(d, &arg1,p->pc + 2);
-    i = get_flag_2(d, &arg2,p->pc + 2 + i);
-    ft_memcpy((void *)&r, (void *)&war->arena[p->pc + 2 + i], 1);
-    arg1 = (arg1 ^ arg2);
-    ft_memcpy((void *)&p->regster[r],(void *)&arg1, 1);
-    return (i);
+	war = get_struct(0);
+	len = p->pc + 2;
+	len1 = 0;
+	ft_memcpy((void *)&d, (void *)&war->arena[p->pc + 1], 1);
+	if ((r = get_size_of_flag(d, hex(addr_to_hex(&war->arena[p->pc], 1)), &ret)) && ret == 1)
+		return (r + 1);
+	len1 = ((shift_byte(d, &len, p, &ret, p->pc + len, 6, 4)) ^ (shift_byte(d, &len, p, &ret, p->pc + len, 4, 4)));
+	if (ret == 1)
+		return (r);
+	if ((ret = read_regster(len, war)) == -1)
+		return (r + 1);
+
+	ft_memcpy(&p->regster[ret - 1],&len1,4);
+	p->carry = 0;
+    if (!(p->regster[ret - 1]))
+    p->carry = 1;
+	return (r + 1);
 }

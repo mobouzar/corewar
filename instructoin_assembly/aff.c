@@ -6,10 +6,13 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/09 15:09:29 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/10 11:20:25 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-
+int		ft_aff(t_process *p)
+{
+	return (p->id);
+}

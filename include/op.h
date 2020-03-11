@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/03/09 13:18:05 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/10 11:35:53 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
 */
+
+
+
 
 #define IND_SIZE				2
 #define REG_SIZE				4
@@ -77,6 +80,10 @@ typedef char	t_arg_type;
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
+
+
+
+
 typedef struct		s_header
 {
   unsigned int		magic;
@@ -99,4 +106,3 @@ typedef struct    s_op
   int   size1_dir;
   int   size2_dir;
 }               t_op;
-
