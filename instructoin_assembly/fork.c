@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/10 11:56:10 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/12 22:07:16 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,21 @@ int   ft_fork(t_process *p)
     t_process *new;
 
     war = get_struct(0);
-    ft_memcpy((void *)&dir, (void *)&war->arena[p->pc + 1], sizeof(size_t));
+	// ft_putendl("fork");
+    ft_memcpy((void *)&dir, (void *)&war->arena[p->pc + 1], 2);
     if (!(new = (t_process *)malloc(sizeof(t_process))))
         return (0);
     ft_memset((void *)new, 0, sizeof(t_process));
     ft_memcpy((void *)new, (void *)p, sizeof(t_process));
-    new->pc += hex(addr_to_hex(&dir,4)) % IDX_MOD;
+    new->pc += ft_sign(dir,2) % IDX_MOD;
     new->next = war->players[p->id - 1].process;
     war->players[p->id - 1].process = new;
-	return (1);
+	ft_exec(new, war);
+	// while(new)
+	// {
+
+	// 	printf("ppp1  %d	id = %d\n",new->pc, new->id);
+	// 	new = new->next;
+	// }
+	return (3);
 }

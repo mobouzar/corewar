@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:06:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/11 22:27:34 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/13 18:26:19 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_player
 typedef struct s_corewar
 {
 	unsigned char *arena;
-	int cycle;
+	long long  cycle;
 	int cycle_to_die;
 	int nbr_live;
 	int nbr_checks;
@@ -52,11 +52,12 @@ typedef struct s_corewar
 	t_player players[4];
 } t_corewar;
 
+typedef enum {false,true} bool;
 t_corewar *get_struct(t_corewar *lst);
 void ft_print_arena();
 unsigned char *ft_get_arena(void);
 char *addr_to_hex(void *addr, size_t size);
-int ft_sign(unsigned int s, int size);
+int ft_sign( unsigned  int s, int size);
 
 
 int hex(char *value);
@@ -103,9 +104,12 @@ int overrided_pos(int pos);
 int get_size_of_flag(char_t d, int index, int *ret);
 int	 read_regster(int p,t_corewar *war);
 unsigned int	binary_rev( unsigned int s);
+void ft_exec(t_process *p, t_corewar *war);
 
 unsigned int ldi_cpy(t_process *p, int size);
 void cpy_arena_to_reg(t_corewar *war, t_process *p, int size, char_t r);
 void cpy_reg_to_arena(t_corewar *war, t_process *p, int size, char_t r);
-int shift_data(char_t d, int *len, t_process *p, int *status, int pos, int shift, int s_dir);
+unsigned int shift_data(char_t d, int *len, t_process *p, int *status, int pos, int shift, int s_dir);
 unsigned int shift_byte(char_t d, int *len, t_process *p, int *status, int pos, int shift, int s_dir);
+int shift_data_int(char_t d, int *len, t_process *p, int *status, int pos, int shift, int s_dir);
+

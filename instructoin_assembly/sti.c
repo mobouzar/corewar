@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/11 19:42:10 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/12 22:08:39 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,15 @@ int ft_sti(t_process *p)
 		return (r + 1);
 	while (i >= 2)
 	{
-		len1 += shift_data(d, &len, p, &ret, p->pc + len, i, 2);/////222
-		printf("lll = %d\n",len1);
+		len1 += shift_data(d, &len, p, &ret,len, i, 2);
+		// printf("lll = %d\n",len1);
 		if (ret == 1)
 			return (r);
 		i -= 2;
 	}
 	if ((ret = read_regster(p->pc + 2, war)) == -1)
 		return (r + 1);
+	// printf("xx = %d\n", ret);
 	cpy_reg_to_arena(war, p, (len1 % IDX_MOD), ret);
 	return (r + 1);
 }

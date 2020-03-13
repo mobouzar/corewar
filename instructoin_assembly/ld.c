@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/11 20:39:07 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/12 22:06:50 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,26 @@ int read_regster(int p, t_corewar *war)
 	i = hex(addr_to_hex(&r, 1));
 	if (i > 0 && i <= 16)
 		return (i);
-	printf("ff= %d\n", p);
+	// printf("ff= %d    i i  = %d\n", p,i);
 	return (-1);
 }
 
 void cpy_arena_to_reg(t_corewar *war, t_process *p, int size, char_t r)
 {
-	printf("size => %d\n", size);
-	size = overrided_pos(size);
+
+	size = overrided_pos(p->pc + size);
+	// printf("mmm = %d\n", size);
 	if (size + 4 > MEM_SIZE)
 	{
-		ft_memcpy((void *)&p->regster[r - 1], (void *)&war->arena[p->pc + size], (MEM_SIZE - size));
+		ft_memcpy((void *)&p->regster[r - 1], (void *)&war->arena[size], (MEM_SIZE - size));
 		ft_memcpy((void *)&p->regster[r - 1] + (MEM_SIZE - size), (void *)&war->arena[0], 4 - (MEM_SIZE - size));
 	}
 	else
-		ft_memcpy((void *)&p->regster[r - 1], (void *)&war->arena[p->pc + size], 4);
+	{
+		ft_memcpy((void *)&p->regster[r - 1], (void *)&war->arena[size], 4);
+		// printf("aa = %s\n",addr_to_hex(&p->regster[r - 1],4));
+	}
+	
 }
 
 // int ft_ld(t_process *p)
@@ -71,6 +76,7 @@ void cpy_arena_to_reg(t_corewar *war, t_process *p, int size, char_t r)
 // 		p->carry = 1;
 // 	return (r + 1);
 // }
+
 int ft_ld(t_process *p)
 {
 	t_corewar *war;
@@ -88,15 +94,14 @@ int ft_ld(t_process *p)
 	ft_memcpy((void *)&d, (void *)&war->arena[p->pc + 1], 1);
 	if ((r = get_size_of_flag(d, hex(addr_to_hex(&war->arena[p->pc], 1)), &ret)) && ret == 1)
 		return (r + 1);
-	len1 = shift_data(d, &len, p, &ret, p->pc + len, 6, 4);
-	// printf("tt = %d\n",len1);
+	len1 = shift_byte(d, &len, p, &ret,len, 6, 4);
 	if (ret == 1)
 		return (r);
 	if ((ret = read_regster(len, war)) == -1)
 		return (r + 1);
-	cpy_arena_to_reg(war, p, (len1 % IDX_MOD), ret);
+	ft_memcpy(&p->regster[ret - 1], &len1,4);
 	p->carry = 0;
-	if (!p->regster[hex(addr_to_hex(&d, 1)) - 1])
+	if (!p->regster[ret - 1])
 		p->carry = 1;
 	return (r + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 22:04:41 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/11 22:19:48 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/13 21:50:39 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,16 @@ void ft_exec(t_process *p, t_corewar *war)
 
 	i = hex(addr_to_hex(&war->arena[p->pc], 1));
 	int a;
+	// ft_putendl("ghdghghd");
 	ft_memcpy(&a, &war->arena[3], 4);
-	// printf("aaaa => %s\n", addr_to_hex(&a, 4));
 	if (i >= 1 && i <= 16)
 	{
-		// printf("kadekhel = %d		cycle =%d  op = %d   i=%d   pc = %d\n",i,p->cycle_count, 
-		// op_tab[i - 1].nbr_cycler, i - 1,  p->pc);
 		p->wait = 1;
-		p->regster[1] = 0;
-		p->regster[3] = 5;
-		p->regster[2] = 201326592;
-
-		// printf("after  == %d   cycle => %d\n", p->regster[1], p->cycle_count);
 		if (p->cycle_count == op_tab[i - 1].nbr_cycler)
 		{
-			// printf("func = %d\n", i);
+			printf("register ==> %s  cycle => %d,   pc = %d  iicary = %d \n", addr_to_hex(&p->regster[2], 4), p->cycle_count,p->pc,p->carry);
 			p->pc += func[i - 1](p);
-			printf("register ==> %s  cycle => %d\n", addr_to_hex(&p->regster[1], 4), p->cycle_count);
+			printf("register ==> %s  cycle => %d,   pc = %d  iicary = %d \n", addr_to_hex(&p->regster[2], 4), p->cycle_count,p->pc,p->carry);
 			p->cycle_count = 0;
 			p->wait = 0;
 		}
@@ -65,7 +58,6 @@ void ft_exec(t_process *p, t_corewar *war)
 	}
 	if (!p->wait)
 		p->pc++;
-	// printf("id live  == %d\n",war->players[0].live);
 }
 
 void ft_loop(void)
@@ -73,11 +65,10 @@ void ft_loop(void)
 	int i;
 	t_corewar *war;
 	t_process *p;
-	// int fd;
 
 	war = get_struct(0);
-	 war->arena[6] = 0x09;
-	while (++war->cycle < 8)
+	// war->arena[55] = 90;
+	while (++war->cycle < 100000)
 	{
 		i = -1;
 		while (++i < war->nbr_fighters)
@@ -85,6 +76,7 @@ void ft_loop(void)
 			p = war->players[i].process;
 			while (p)
 			{
+				//if (p->live)
 				ft_exec(p, war);
 				p = p->next;
 			}

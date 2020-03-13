@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/11 20:48:52 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/12 22:09:16 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,115 @@ unsigned int ldi_cpy(t_process *p, int size)
 	t_corewar *war;
 
 	war = get_struct(0);
-	size = overrided_pos(size);
+	size = overrided_pos(p->pc + size);
+	printf("ll = %d\n",size);
 	if ((size + 4) >= MEM_SIZE)/////khatae
 	{
-		ft_memcpy((void *)&stock  , (void *)&war->arena[p->pc + size], (MEM_SIZE - size));
+		ft_memcpy((void *)&stock  , (void *)&war->arena[size], (MEM_SIZE - size));
 		ft_memcpy((void *)&stock + (MEM_SIZE - size), (void *)&war->arena[0], 4 - (MEM_SIZE - size));
 	}
 	else
-		ft_memcpy((void *)&stock, (void *)&war->arena[p->pc + size], 4);
-		//  printf("ooo = %d\n",ft_sign(stock,4));
+		ft_memcpy((void *)&stock, (void *)&war->arena[size], 4);
+	// printf("ooo = %s\n",addr_to_hex(&stock,4));
 	return (stock);
 }
 
- int shift_data(char_t d, int *len, t_process *p, int *status, int pos, int shift, int s_dir)
+//  int shift_data_int(char_t d, int *len, t_process *p, int *status, int pos, int shift, int s_dir)
+// {
+// 	t_corewar *war;
+// 	char_t r;
+// 	size_t dir;
+// 	unsigned short indir;
+
+// 	war = get_struct(0);
+// 	*status = 0;
+// 	if (((d >> shift) & 0x03) == 0x03)
+// 	{
+// 		ft_memcpy((void *)&indir, (void *)&war->arena[pos], 2);
+// 		(*len) += 2;
+// 		 shift = ft_sign(indir, 2);
+// 		 printf("  = = |%d| pos = %d = =\n",shift,pos);
+// 		return (shift);
+// 		// return (ft_sign(ldi_cpy(p,  shift),4));
+// 	}
+// 	if (((d >> shift) & T_REG) == T_REG)
+// 	{
+// 		// ft_putendl("\n\nrrrrrr\n");
+// 		ft_memcpy((void *)&r, (void *)&war->arena[pos], 1);
+// 		//f("pos00000 = %d\n", pos);
+// 		if ((pos = read_regster(pos, war)) == -1)
+// 		{
+// 			//f("pos = %d\n", pos);
+// 			*status = 1;
+// 			return (-1);
+// 		}
+// 		(*len) += 1;
+// 		//f("hh pos= %d\n",pos);
+// 		return (ft_sign(p->regster[pos - 1],4));
+// 	}
+// 	if (((d >> shift) & T_DIR) == T_DIR)
+// 	{
+// 		// ft_putendl("dakhlat");
+// 		if (s_dir == 2)
+// 			ft_memcpy((void *)&dir, (void *)&war->arena[pos], 2);
+// 		else
+// 			ft_memcpy((void *)&dir, (void *)&war->arena[pos], 4);
+// 		(*len) += s_dir;
+// 		//f("dir =====> %s\n", addr_to_hex(&dir, 2));
+// 		return (ft_sign(dir,s_dir));
+// 	}
+// 	*status = 1;
+// 	return (0);
+// }
+
+// int shift_data_int(char_t d, int *len, t_process *p, int *status, int pos, int shift, int s_dir)
+// {
+// 	t_corewar *war;
+// 	char_t r;
+// 	size_t dir;
+// 	unsigned short indir;
+
+// 	war = get_struct(0);
+// 	*status = 0;
+// 	if (((d >> shift) & 0x03) == 0x03)
+// 	{
+// 		ft_memcpy((void *)&indir, (void *)&war->arena[pos], 2);
+// 		(*len) += 2;
+// 		 shift = ft_sign(indir, 2);
+// 		 printf("  = = |%d| pos = %d = =\n",shift,pos);
+// 		return (shift);
+// 		// return (ft_sign(ldi_cpy(p,  shift),4));
+// 	}
+// 	if (((d >> shift) & T_REG) == T_REG)
+// 	{
+// 		// ft_putendl("\n\nrrrrrr\n");
+// 		ft_memcpy((void *)&r, (void *)&war->arena[pos], 1);
+// 		//f("pos00000 = %d\n", pos);
+// 		if ((pos = read_regster(pos, war)) == -1)
+// 		{
+// 			//f("pos = %d\n", pos);
+// 			*status = 1;
+// 			return (-1);
+// 		}
+// 		(*len) += 1;
+// 		//f("hh pos= %d\n",pos);
+// 		return (ft_sign(p->regster[pos - 1],4));
+// 	}
+// 	if (((d >> shift) & T_DIR) == T_DIR)
+// 	{
+// 		// ft_putendl("dakhlat");
+// 		if (s_dir == 2)
+// 			ft_memcpy((void *)&dir, (void *)&war->arena[pos], 2);
+// 		else
+// 			ft_memcpy((void *)&dir, (void *)&war->arena[pos], 4);
+// 		(*len) += s_dir;
+// 		//f("dir =====> %s\n", addr_to_hex(&dir, 2));
+// 		return (ft_sign(dir,s_dir));
+// 	}
+// 	*status = 1;
+// 	return (0);
+// }
+unsigned int shift_data(char_t d, int *len, t_process *p, int *status, int pos, int shift, int s_dir)
 {
 	t_corewar *war;
 	char_t r;
@@ -44,8 +140,9 @@ unsigned int ldi_cpy(t_process *p, int size)
 		ft_memcpy((void *)&indir, (void *)&war->arena[pos], 2);
 		(*len) += 2;
 		 shift = ft_sign(indir, 2);
-		
-		return (ft_sign(ldi_cpy(p,  shift),4));
+	//   printf("  = =aaa |%d| pos = %d = =\n",ft_sign(ldi_cpy(p,  shift),4),shift);
+		// return (shift);
+	 return (ft_sign(ldi_cpy(p,  shift),4));
 	}
 	if (((d >> shift) & T_REG) == T_REG)
 	{
@@ -81,7 +178,7 @@ int ft_ldi(t_process *p)
 {
 	t_corewar *war;
 	char_t d;
-	int len1;
+	unsigned int len1;
 	int len;
 	int r;
 	int i;
@@ -96,15 +193,18 @@ int ft_ldi(t_process *p)
 		return (r + 1);
 	while (i >= 4)
 	{
-		len1 += shift_data(d, &len, p, &ret, p->pc + len, i, 2);
+		len1 += shift_data(d, &len, p, &ret, len, i, 2);
 		if (ret == 1)
 			return (r);
 		i -= 2;
 	}
 	if ((ret = read_regster(len, war)) == -1)
 	{
+	//  printf("\n\naatfdt = %d\n",ret);
 		return (r + 1);
 	}
+	//  printf("\n\naatfdt = %d\n",ret);
+
 	cpy_arena_to_reg(war, p, (len1 % IDX_MOD), ret);
 	return (r + 1);
 }

@@ -180,7 +180,8 @@ void	ft_init_process(t_corewar *war)
 			return ;
 		ft_memset((void*)war->players[i].process, 0, sizeof(t_process));
 		war->players[i].process->id = i + 1;
-		war->players[i].process->regster[0] = binary_rev((i + 1));
+		war->players[i].process->regster[0] = 0xffffffff;
+		//binary_rev((i + 1));
 
 	}
 }

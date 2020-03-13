@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/11 22:31:07 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/12 22:06:38 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ unsigned int shift_byte(char_t d, int *len, t_process *p, int *status, int pos, 
 		ft_memcpy((void *)&indir, (void *)&war->arena[pos], 2);
 		(*len) += 2;
 		shift = ft_sign(indir, 2);
+		pos = ldi_cpy(p, shift);
+		// printf("zz = %d     bbb = %s  \n",shift,addr_to_hex(&pos,4));
 		return (ldi_cpy(p, shift));
 	}
 	if (((d >> shift) & T_REG) == T_REG)

@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/11 20:43:11 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/13 18:58:37 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,18 @@ int ft_lld(t_process *p)
 	ft_memcpy((void *)&d, (void *)&war->arena[p->pc + 1], 1);
 	if ((r = get_size_of_flag(d, hex(addr_to_hex(&war->arena[p->pc], 1)), &ret)) && ret == 1)
 		return (r + 1);
-	len1 = shift_data(d, &len, p, &ret, p->pc + len, 6, 4);
-	// printf("tt = %d\n",len1);
+	len1 = shift_byte(d, &len, p, &ret, p->pc + len, 6, 4);
+	//  printf("tt = %s\n",addr_to_hex(&len1,4));
 	if (ret == 1)
 		return (r);
 	if ((ret = read_regster(len, war)) == -1)
 		return (r + 1);
-	cpy_arena_to_reg(war, p, len1, ret);
+	// cpy_arena_to_reg(war, p, len1, ret);
+	ft_memcpy(&p->regster[ret - 1],&len1,4);
+	//  printf("tt = %s\n",addr_to_hex(&p->regster[ret - 1],4));
+	// printf("pp = %d\n",ret);
 	p->carry = 0;
-	if (!p->regster[hex(addr_to_hex(&d, 1)) - 1])
+	if (!p->regster[ret - 1])
 		p->carry = 1;
 	return (r + 1);
 }

@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/11 22:37:05 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/03/12 22:07:03 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,16 @@ int overrided_pos(int pos)
 
 void cpy_reg_to_arena(t_corewar *war, t_process *p, int size, char_t r)
 {
-	size = overrided_pos(size);
+	size = overrided_pos( p->pc + size);
+	size = size % MEM_SIZE; 
+	// printf("kkkk = %d				ss=%d\n",r,hex(addr_to_hex(&p->regster[0], 4)));
 	if (size + 4 > MEM_SIZE)
 	{
-		ft_memcpy((void *)&war->arena[p->pc + size], (void *)&p->regster[hex(addr_to_hex(&r, 1)) - 1], (MEM_SIZE - size));
-		ft_memcpy((void *)&war->arena[0], (void *)&p->regster[hex(addr_to_hex(&r, 1)) - 1], 4 - (MEM_SIZE - size));
+		ft_memcpy((void *)&war->arena[size], (void *)&p->regster[r - 1], (MEM_SIZE - size));
+		ft_memcpy((void *)&war->arena[0], (void *)&p->regster[r - 1], 4 - (MEM_SIZE - size));
 	}
 	else
-		ft_memcpy((void *)&war->arena[p->pc + size], (void *)&p->regster[hex(addr_to_hex(&r, 1)) - 1], 4);
+		ft_memcpy((void *)&war->arena[size], (void *)&p->regster[r - 1], 4);
 }
 
 int ft_st(t_process *p)
@@ -144,7 +146,7 @@ int ft_st(t_process *p)
 	if (((d >> 4) & (0x03)) == 3)
 	{
 		ft_memcpy((void *)&indir, (void *)&war->arena[p->pc + 3], sizeof(unsigned short));
-		cpy_reg_to_arena(war, p, ft_sign(indir, 2), r);
+		cpy_reg_to_arena(war, p, ft_sign(indir, 2) % IDX_MOD, r);
 	}
 	else
 	{

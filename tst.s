@@ -1,6 +1,8 @@
-.name "name"
-.comment "this is comment"
+.name "zork"
+.comment "just a basic living prog"
+		
+l2:	sti	r1,%:live,%0
+	and	r1,%0,r1
+live:	live	%1
+	zjmp	%:live
 
-#live %-2
-and -2, r3, r2
-#st r2, 50
