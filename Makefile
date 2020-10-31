@@ -32,7 +32,8 @@ c_srcs = machine_virtuelle/ft_load.o \
 		instructoin_assembly/xor.o \
 		instructoin_assembly/zjmp.o\
 
-VISU =  visualizer/arena_viewer.o
+VISU =  visualizer/arena_viewer.o \
+		visualizer/menu_viewer.o \
 
 INCLUDES = ./include
 CFLAGS = -Wall -Wextra -Werror -g

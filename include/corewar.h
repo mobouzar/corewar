@@ -55,7 +55,6 @@ typedef struct s_corewar
 	t_player players[4];
 } t_corewar;
 
-// typedef enum {0, true} bool;
 t_corewar *get_struct(t_corewar *lst);
 void ft_print_arena();
 unsigned char *ft_get_arena(void);
@@ -67,7 +66,7 @@ int hex(char *value);
 char *addr_to_hex(void *addr, size_t size);
 
 /*
-** ==> instructions 
+** ==> instruction functions
 */
 
 int		ft_live(t_process *p);
@@ -116,6 +115,11 @@ unsigned int shift_data(char_t d, int *len, t_process *p, int *status, int pos, 
 unsigned int shift_byte(char_t d, int *len, t_process *p, int *status, int pos, int shift, int s_dir);
 int shift_data_int(char_t d, int *len, t_process *p, int *status, int pos, int shift, int s_dir);
 
-int board(t_corewar *war);
+/*
+**	VISUALIZER FUNCTIONS
+*/
+
+int		board(t_corewar *war);
+void	event_handler(t_visu *visu, int listener);
 
 #endif

@@ -16,7 +16,7 @@ typedef struct  s_visu
     WINDOW      *mwin;
     WINDOW      *bwin;
     char        *pause;
-    char         key;
+    int         key;
 }               t_visu;
 
 #endif
