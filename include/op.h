@@ -10,11 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef OP_H
+#define OP_H
+
 /*
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
 */
-
 
 
 
@@ -80,10 +82,6 @@ typedef char	t_arg_type;
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-
-
-
-
 typedef struct		s_header
 {
   unsigned int		magic;
@@ -106,3 +104,5 @@ typedef struct    s_op
   int   size1_dir;
   int   size2_dir;
 }               t_op;
+
+#endif

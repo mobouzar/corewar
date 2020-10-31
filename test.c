@@ -1,20 +1,15 @@
+#include <ncurses.h>
 
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
-
-
-int	main(int ac, char **av)
+int main(int argc, char *argv[])
 {
-	int		fd;
-	char	tab[4];
-	int		i;
-
-	fd = open(av[1], O_RDONLY);
-	i   = 3;
-	while (i >= 0)
-		read(fd, tab + i--, 1);
-	printf("%d\n", *(int *)tab);
-	close(fd);
-
+    initscr();
+    WINDOW * win = newwin(8,15,1,1);
+    box(win,0,0);
+    start_color();
+    init_pair(1, COLOR_BLACK, COLOR_RED);
+    attron(COLOR_PAIR(1));
+    mvwprintw(win,1,1,"colored text");
+    wrefresh(win);
+    getch();
+    return 0;
 }

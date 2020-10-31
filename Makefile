@@ -13,24 +13,26 @@
 NAME = corewar
 
 c_srcs = machine_virtuelle/ft_load.o \
-			machine_virtuelle/ft_arena.o \
-			machine_virtuelle/battlefield.o \
-			instructoin_assembly/live.o\
-			instructoin_assembly/add.o \
-			instructoin_assembly/aff.o \
-			instructoin_assembly/and.o \
-			instructoin_assembly/fork.o  \
-			instructoin_assembly/ld.o \
-			instructoin_assembly/ldi.o \
-			instructoin_assembly/lfork.o \
-			instructoin_assembly/lld.o  \
-			instructoin_assembly/lldi.o\
-			instructoin_assembly/or.o \
-			instructoin_assembly/st.o \
-			instructoin_assembly/sti.o\
-			instructoin_assembly/sub.o \
-			instructoin_assembly/xor.o \
-			instructoin_assembly/zjmp.o\
+		machine_virtuelle/ft_arena.o \
+		machine_virtuelle/battlefield.o \
+		instructoin_assembly/live.o\
+		instructoin_assembly/add.o \
+		instructoin_assembly/aff.o \
+		instructoin_assembly/and.o \
+		instructoin_assembly/fork.o  \
+		instructoin_assembly/ld.o \
+		instructoin_assembly/ldi.o \
+		instructoin_assembly/lfork.o \
+		instructoin_assembly/lld.o  \
+		instructoin_assembly/lldi.o\
+		instructoin_assembly/or.o \
+		instructoin_assembly/st.o \
+		instructoin_assembly/sti.o\
+		instructoin_assembly/sub.o \
+		instructoin_assembly/xor.o \
+		instructoin_assembly/zjmp.o\
+
+VISU =  visualizer/arena_viewer.o
 
 INCLUDES = ./include
 CFLAGS = -Wall -Wextra -Werror -g
@@ -40,14 +42,12 @@ all: libft_ $(NAME)
 libft_:
 	@make -C libft
 
-$(NAME): $(c_srcs)  libft/libft.a
-	gcc -o $(NAME) $(FLAGS) $(c_srcs) -L ./libft -lft -I $(INCLUDES)
+$(NAME): $(c_srcs) $(VISU) libft/libft.a
+	$(CC) -o $(NAME) $(FLAGS) $(c_srcs) -lncurses $(VISU) -L ./libft -lft -I $(INCLUDES)
 clean:
 	@make clean -C libft
-	@rm -rf $(c_srcs)
+	@rm -rf $(c_srcs) $(VISU)
 
 fclean: clean
 	@make fclean -C libft
 	@rm -rf $(NAME)
-
-re: fclean all

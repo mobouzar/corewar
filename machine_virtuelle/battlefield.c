@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
+#include "../include/visualizer.h"
 
 const t_op op_tab[17] =
 {
@@ -48,9 +49,9 @@ void ft_exec(t_process *p, t_corewar *war)
 		p->wait = 1;
 		if (p->cycle_count == op_tab[i - 1].nbr_cycler)
 		{
-			printf("register ==> %s  cycle => %d,   pc = %d  iicary = %d \n", addr_to_hex(&p->regster[2], 4), p->cycle_count,p->pc,p->carry);
+			// printf("register ==> %s  cycle => %d,   pc = %d  iicary = %d \n", addr_to_hex(&p->regster[2], 4), p->cycle_count,p->pc,p->carry);
 			p->pc += func[i - 1](p);
-			printf("register ==> %s  cycle => %d,   pc = %d  iicary = %d \n", addr_to_hex(&p->regster[2], 4), p->cycle_count,p->pc,p->carry);
+			// printf("register ==> %s  cycle => %d,   pc = %d  iicary = %d \n", addr_to_hex(&p->regster[2], 4), p->cycle_count,p->pc,p->carry);
 			p->cycle_count = 0;
 			p->wait = 0;
 		}
@@ -85,6 +86,7 @@ void ft_loop(void)
 			// close(fd);
 		}
 	}
-	ft_print_arena();
+	board(war);
+	// ft_print_arena();
 	
 }
