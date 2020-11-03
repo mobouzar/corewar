@@ -15,31 +15,49 @@
 int ft_sti(t_process *p)
 {
 	t_corewar *war;
-	char_t d;
-	int len1;
-	int len;
-	int r;
-	int i;
-	int ret =0;
-
+	unsigned char byt_arg;
+	unsigned int byt;
+	int data;
+	int size_flg;
+	int reg;
+	int cursor0 ;
+ 
+	// printf("\n\n nnnnnnn \n\n");
 	war = get_struct(0);
-	len = p->pc + 3;
-	len1 = 0;
-	i = 4;
-	ft_memcpy((void *)&d, (void *)&war->arena[p->pc + 1], 1);
-	if ((r = get_size_of_flag(d, hex(addr_to_hex(&war->arena[p->pc], 1)), &ret)) && ret == 1)
-		return (r + 1);
-	while (i >= 2)
-	{
-		len1 += shift_data(d, &len, p, &ret,len, i, 2);
-		// printf("lll = %d\n",len1);
-		if (ret == 1)
-			return (r);
-		i -= 2;
-	}
-	if ((ret = read_regster(p->pc + 2, war)) == -1)
-		return (r + 1);
-	// printf("xx = %d\n", ret);
-	cpy_reg_to_arena(war, p, (len1 % IDX_MOD), ret);
-	return (r + 1);
+	cursor0 = p->pc;
+	ft_memcpy(&byt_arg, &war->arena[++p->pc], 1);
+	size_flg =  get_size_beyt_flag(byt_arg, 11);
+	p->pc++;
+	if ((reg = read_regster(p)) == -1)
+		return (0);
+	p->pc++;
+	//  printf("sizeof flg = %d\n\n", size_flg);
+	byt = return_data_of_arg(p,((byt_arg >> 4) & 0x03),11, cursor0);
+	// // ft_putendl("444");
+	//  printf("sizeof argument22222 = %s\n\n", addr_to_hex(&p->regster[1] , 2));
+	//  printf("sizeof argument44444 = %s\n\n", addr_to_hex(&p->regster[1] , 4));
+
+	if ((((byt_arg >> 4) & 0x03) & DIR_CODE	) == DIR_CODE	)
+		data = ft_sign(byt,2);// hex(addr_to_hex(&byt, 2));
+	else
+		data = ft_sign(byt,4);
+	
+	//  printf("sizeof argument11 = %d\n\n", data);
+	byt = return_data_of_arg(p,((byt_arg >> 2) & 0x03), 11, cursor0);
+	//  printf("sizeof argument22222_--_ = %s\n\n", addr_to_hex(&byt, 4));
+
+	if ((((byt_arg >> 2) & 0x03) & DIR_CODE	) == DIR_CODE	)
+		data +=ft_sign(byt,2);
+	else
+		data += ft_sign(byt,4);
+	p->pc++;
+ 	// printf("sizeof len1 = %d\n\n", data);
+	// printf("nbr lregesetr = %d\n\n", reg);
+	
+	cpy_reg_to_arena(p, cursor0, (data % IDX_MOD), reg);
+	// // ft_memcpy(&p->regster[reg - 1], &data, size_flg - 1);
+	//  printf("sizeof lregesetrdata = %s\n\n", addr_to_hex(&p->regster[1],4));
+	//  printf("\n positoin of cursor = %d\n\n", p->pc);
+	return (0);
+
 }

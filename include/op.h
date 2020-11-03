@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/03/10 11:35:53 by yelazrak         ###   ########.fr       */
+/*   Updated: 2013/11/06 14:21:46 by zaz              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
 */
+#ifndef OP_H
+#define OP_H
 
+
+//TEST
+#define MAX_CYCLE     3666
 
 
 
@@ -23,7 +28,7 @@
 #define DIR_SIZE				REG_SIZE
 
 
-# define REG_CODE				1     
+# define REG_CODE				1
 # define DIR_CODE				2
 # define IND_CODE				3
 
@@ -50,7 +55,6 @@
 #define CYCLE_DELTA				50
 #define NBR_LIVE				21
 #define MAX_CHECKS				10
-#define char_t          unsigned char
 
 /*
 **
@@ -67,33 +71,39 @@ typedef char	t_arg_type;
 **
 */
 
-// #define REG					0b01000000
-// #define DIR					
-// #define IND					4
-// #define LAB					8
-
-
-
-
-
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
+/*
+** my define
+*/
 
+#define char_t          unsigned char
 
 
 
 typedef struct		s_header
 {
   unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 4];
+  char				prog_name[PROG_NAME_LENGTH + 5];
   unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 4];
+  char				comment[COMMENT_LENGTH + 5];
   unsigned char champ[CHAMP_MAX_SIZE + 1];
 
 }					t_header;
 
+/*
+**typedef struct		s_header
+**{
+** unsigned int		magic;
+**char				prog_name[PROG_NAME_LENGTH + 4];
+**unsigned int		prog_size;
+**char				comment[COMMENT_LENGTH + 4];
+**unsigned char champ[CHAMP_MAX_SIZE + 1];
+**}					t_header;
+**
+*/
 
 typedef struct    s_op
 {
@@ -103,6 +113,11 @@ typedef struct    s_op
   int   id;
   int   nbr_cycler;
   char  *name_actoin;
-  int   size1_dir;
-  int   size2_dir;
+  int   beyt_arg;
+  int   size_dir;
 }               t_op;
+
+#endif
+
+
+ 

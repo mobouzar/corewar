@@ -16,12 +16,16 @@
 int ft_zjmp(t_process *p)
 {
     t_corewar *war;
-    unsigned int     dir;
+    unsigned int     byt;
     
     if (!p->carry)
-        return (3);
-	dir  = 0;
+    {
+        p->pc += 3;
+        return 0;
+    }
+	byt  = 0;
     war = get_struct(0);
-    ft_memcpy((void *)&dir, (void*)&war->arena[p->pc + 1],2);
-    return (ft_sign(dir,2) % IDX_MOD);
+    ft_memcpy(&byt, &war->arena[p->pc + 1],2);
+    p->pc += (ft_sign(byt,2) % IDX_MOD) % SIZE_MAX;
+    return 0;
 }

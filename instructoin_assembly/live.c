@@ -18,37 +18,39 @@
  * *
  **/
 
-int         set_live(size_t dir)
-{
-    int i;
-    const char *id[4] = {"ffffffff",  "fffffffe","fffffffd","fffffffc"};
-    char            *value;
+// int         set_live(unsigned int byt)
+// {
+//     int i;
+//     unsigned int id[4] = {0xffffffff,  0xfffffffe,0xfffffffd, 0xfffffffc};
+//     unsigned int value;
 
-    i = 0;
-    value = addr_to_hex(&dir ,4);
-    while (i < 4)
-    {
-        if (!ft_strcmp(value,id[i]))
-            return (i);
-        i++;
-    }
-    return (-1);
-}
+//     i = 0;
+//     value = ft_sign(byt, 4); // addr_to_hex(&dir ,4);
+//     while (i < 4)
+//     {
+//         if (id[i] == value)
+//             return (i);
+//         i++;
+//     }
+//     return (-1);
+// }
 
 int ft_live(t_process *p)
 {
     t_corewar *war;
-    size_t    dir;
+    unsigned int data;
     int id;
 
     war = get_struct(0);
-	// printf("ss= %s\n",addr_to_hex(&p->regster[0] ,4));
-    p->nbr_cycler_live = war->cycle;
-    ft_memcpy((void *)&dir, (void*)&war->arena[p->pc + 1], sizeof(size_t));
-    if ((id = set_live(dir)) >= 0)
-	{
-		// printf("dd = %d\n", id);
-        (war->players[id].live)++;
-	}	
-	return (4);
+    ft_memcpy((void *)&data, (void*)&war->arena[p->pc + 1], 4);//// curculir
+    p->is_live_more = 1;
+    war->nbr_live++;
+    id = -1 * ft_sign(data , 4);
+    if (id > 0  && id < 5)
+	{ 
+        war->players[id  -1].last_cycle_to_live = war->cycle;
+        (war->players[id - 1].count_live)++;
+	}
+    p->pc += 5;
+	return (0);
 }
