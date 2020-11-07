@@ -1,5 +1,0 @@
-.name       "Batman"
-.comment    "This city needs me"
-
-  live %-1
-  fork %800

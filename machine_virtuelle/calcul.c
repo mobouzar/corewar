@@ -55,16 +55,17 @@ char *addr_to_hex(void *addr, size_t size)
 	// printf("%s ",s);
 	return (s);
 }
-static short rev_4(unsigned char *s)
+static unsigned int  rev_4(unsigned char *s)
 {
-	unsigned short a;
+	unsigned int  a;
 
 	a = 0;
-	//  printf("sss => %d\n", *(int*)s);
+	//   printf("sss => %d\n", *(int*)s);
 	a |= ((s[0]) & (0xff)) << 24;
 	a |= ((s[1]) & (0xff)) << 16;
 	a |= ((s[2]) & (0xff)) << 8;
 	a |= ((s[3]) & (0xff));
+	// printf("  rec aaa =  =dataa   = %d\n\n\n", a);
 	a = (a - 1);
 	a = ~a;
 	return (a * -1);
@@ -85,9 +86,10 @@ static short rev_2(unsigned char *s)
 
 int ft_sign(unsigned int s, int size)
 {
-	char *str = addr_to_hex(&s, size);
-	// printf("s => %s\n", str);
-	printf("\n\n\n  sstr   => %s\n\n\n", str);
+	 char *str = addr_to_hex(&s, size);
+	//char *str = ft_strdup("90000000");
+	// printf("sting datata => %s\n\n\n", str);
+	// printf("\n\n\n  sstr   => %s\n\n\n", str);
 	if (str[0] >= '0' && str[0] <= '7')
 		return (hex(str));
 	else
@@ -109,9 +111,10 @@ unsigned int binary_rev(unsigned int s)
 	return (a);
 }
 
-// int main(int argc, char **argv)
+// int main()
 // {
-// 	printf("resit  = %d\n\n", hex(argv[1]));
+// 	unsigned int i =0x00000090;
+// 	printf("resit  = %d\n\n", ft_sign(i,4));
 
 // }
 // int _hex_to_int_(int value)

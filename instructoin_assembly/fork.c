@@ -26,6 +26,7 @@ int ft_fork(t_process *p)
     ft_memset((void *)new, 0, sizeof(t_process));
     ft_memcpy((void *)new, (void *)p, sizeof(t_process));
     war->nbr_process++;
+    // new->name = 
     ////dahikin
     // printf("ffforkkk  = %d\n\n", war->nbr_process);
 

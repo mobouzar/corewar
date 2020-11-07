@@ -17,7 +17,7 @@ int ft_sti(t_process *p)
 	t_corewar *war;
 	unsigned char byt_arg;
 	unsigned int byt;
-	int data;
+	long data;
 	int size_flg;
 	int reg;
 	int cursor0 ;
@@ -36,24 +36,23 @@ int ft_sti(t_process *p)
 	// // ft_putendl("444");
 	//  printf("sizeof argument22222 = %s\n\n", addr_to_hex(&p->regster[1] , 2));
 	//  printf("sizeof argument44444 = %s\n\n", addr_to_hex(&p->regster[1] , 4));
+	// printf("sizeof argument11   hexxx  = %s\n\n", addr_to_hex(&byt, 4));
 
-	if ((((byt_arg >> 4) & 0x03) & DIR_CODE	) == DIR_CODE	)
+	if ((((byt_arg >> 4) & 0x03)) == DIR_CODE)
 		data = ft_sign(byt,2);// hex(addr_to_hex(&byt, 2));
 	else
-		data = ft_sign(byt,4);
-	
-	//  printf("sizeof argument11 = %d\n\n", data);
+		data = ft_sign(byt,4); 
+	// printf("sizeof argument11  int  = %d\n\n", ft_sign(byt, 4));
 	byt = return_data_of_arg(p,((byt_arg >> 2) & 0x03), 11, cursor0);
-	//  printf("sizeof argument22222_--_ = %s\n\n", addr_to_hex(&byt, 4));
+	// printf("sizeof argument22   hexxx  = %s\n\n", addr_to_hex(&byt, 2));
 
-	if ((((byt_arg >> 2) & 0x03) & DIR_CODE	) == DIR_CODE	)
+	//   printf("sizeof argument22222_--_ int = %d\n\n", ft_sign(byt, 2));
+
+	if ((((byt_arg >> 2) & 0x03)) == DIR_CODE)
 		data +=ft_sign(byt,2);
 	else
 		data += ft_sign(byt,4);
-	p->pc++;
- 	// printf("sizeof len1 = %d\n\n", data);
-	// printf("nbr lregesetr = %d\n\n", reg);
-	
+ 	//  printf("sizeof len1 data    int = %ld\n\n", data);
 	cpy_reg_to_arena(p, cursor0, data, reg);
 	// // ft_memcpy(&p->regster[reg - 1], &data, size_flg - 1);
 	//  printf("sizeof lregesetrdata = %s\n\n", addr_to_hex(&p->regster[1],4));

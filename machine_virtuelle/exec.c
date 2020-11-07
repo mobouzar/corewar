@@ -156,7 +156,7 @@ void ft_loop(void)
 
 	war->players[0].process->regster[3] = 5445545;
 
-	while (++war->cycle < 3000 && war->nbr_process)
+	while (++war->cycle && war->nbr_process)
 	{
 		i = -1;
 		while (++i < war->nbr_fighters)

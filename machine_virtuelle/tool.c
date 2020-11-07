@@ -91,9 +91,9 @@ void cpy_reg_to_arena(t_process *p, int cursor0, int size, int reg)
 	t_corewar *war;
 
 	war = get_struct(NULL);
-	// printf("\nmodoll = %d\n\n\n", overrided_pos( size));//
+	printf("\nasly  = modoll = %d   cursor = %d \n\n\n",  size, cursor0);//
 	size = overrided_pos(size , cursor0);
-	// printf("over= %d   \n\n", size);
+	 printf("overcop[y]= %d   \n\n", size);
 	// size = cursor0 + (size % IDX_MOD);
 	// size = size % MEM_SIZE;
 	// printf("size  = =  %d     reg = %d   \n\n\n", size, reg);
@@ -182,7 +182,7 @@ unsigned int return_data_of_arg(t_process *proc, unsigned char flg, int opcode, 
 		// printf("\n\nsing = %d\n\n", ft_sign(st, 2));
 
 		st = cpy_arena_to_var(proc, (ft_sign(st, 2)), cursor0, opcode);
-		printf("hex = %s\n\n", addr_to_hex(&st, 4));
+		printf("hex = %s   int = %d\n\n", addr_to_hex(&st, 4), ft_sign(st, 4) );
 
 		proc->pc += 2;
 		return (st);
