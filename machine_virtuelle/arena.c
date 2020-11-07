@@ -14,7 +14,7 @@
 
 static void print_byte(const void *addr)
 {
-    const char *str = "0123456789abcdef";
+    const char *str = "0123456789ABCDEF";
     char_t *p;
 
     p = (char_t *)addr;

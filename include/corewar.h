@@ -33,6 +33,8 @@ typedef struct s_process
 	int pc;
 	int carry;
 	int id;
+	int erorr;
+	int put_value_pos;
 	int wait;
 	unsigned int regster[16];
 	int is_live_more;

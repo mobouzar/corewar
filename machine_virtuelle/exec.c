@@ -159,12 +159,14 @@ void ft_loop(void)
 	while (++war->cycle && war->nbr_process)
 	{
 		i = -1;
+		// printf("cycle === %d\n\n", war->cycle);
 		while (++i < war->nbr_fighters)
 		{
 			p = war->players[i].process;
 			while (p)
 			{
-				// printf("  CYCLE =  %d       position curso11 = %d     cycle_must_be_WAIT  = %d \n\n",war->cycle,  p->pc, p->cycle_count);		
+				//  printf("  CYCLE =  %d       position curso11 = %d     cycle_must_be_WAIT  = %d   ID = %d  instarauctoin = %s \n\n",\
+				//  war->cycle,  p->pc, p->cycle_count , p->id,   addr_to_hex(&war->arena[p->pc],1));		
 
 				ft_exec(p, war);
 				// printf("  CYCLE =  %d       position cursor22 = %d\n\n",war->cycle,  p->pc);

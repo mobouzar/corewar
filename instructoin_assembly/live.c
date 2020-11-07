@@ -54,5 +54,6 @@ int ft_live(t_process *p)
         (war->players[id - 1].count_live)++;
 	}
     p->pc += 5;
+	// ft_putendl("ft_live_end\n");
 	return (0);
 }
