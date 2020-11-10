@@ -1,6 +1,6 @@
 .name	"Leeloo"
 .comment "Multipass"
-.extend
+
 	
 begin:	ld %0,r6
 jump:	zjmp %:deb

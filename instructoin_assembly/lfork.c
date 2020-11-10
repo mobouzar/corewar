@@ -28,16 +28,17 @@ int   ft_lfork(t_process *p)
     ft_memcpy((void *)new, (void *)p, sizeof(t_process));
     war->nbr_process++;
     ////dahikin
-    // printf("ffforkkk  = %d\n\n", war->nbr_process);
+    // printf("llllfforkkk data = %d\n\n", ft_sign(byt,2));
     new->pc += ft_sign(byt,2);
     if (new->pc < 0)
     {
-        new->pc = SIZE_MAX - new->pc;
+        int i = 4096 - ((-1 * new->pc) % 4096);
+        new->pc = i;
     }
     new->pc %= SIZE_MAX;
+   // printf("\n\nnew_position = %dd  \n\n", new->pc);
     new->cycle_count = 0;
     new->wait = 0;
-    new->next = p->next;
     p->next = new;
     // new->next = war->players[p->id - 1].process;
     // war->players[p->id - 1].process = new;

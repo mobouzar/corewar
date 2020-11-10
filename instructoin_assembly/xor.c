@@ -24,14 +24,17 @@ int ft_xor(t_process *p)
 	war = get_struct(0);
 	cursor0 = p->pc;
 	ft_memcpy(&byt_arg, &war->arena[++p->pc], 1);
-	size_flg = get_size_beyt_flag(byt_arg, 6);
-	p->pc++;
-	byt = (return_data_of_arg(p, ((byt_arg >> 6) & 0x03), 6, cursor0) ^
-		   return_data_of_arg(p, ((byt_arg >> 4) & 0x03), 6, cursor0));
-	if ((reg = read_regster(p)) != -1)
+	//size_flg = get_size_beyt_flag(byt_arg, 8); //
+	if ((size_flg = get_size_beyt_flag(byt_arg, 8)) > 0)
 	{
-		ft_memcpy(&p->regster[reg - 1], &byt, 4);
-		p->carry = (!p->regster[reg - 1]) ? 1 : 0;
+		p->pc++;
+		byt = (return_data_of_arg(p, ((byt_arg >> 6) & 0x03), 8, cursor0) ^
+			   return_data_of_arg(p, ((byt_arg >> 4) & 0x03), 8, cursor0));
+		if ((reg = read_regster(p)) != -1)
+		{
+			ft_memcpy(&p->regster[reg - 1], &byt, 4);
+			p->carry = (!p->regster[reg - 1]) ? 1 : 0;
+		}
 	}
 	p->pc++;
 

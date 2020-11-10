@@ -10,6 +10,118 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
+
+
+
+// .name		"Sliders"
+// .comment	"And the winner is ..."
+
+// 		sti     r1,%:leon_live,%1
+// 		sti	r1,%:fork1,%1
+// 		sti	r1,%:fork2,%1
+// 		sti	r1,%:roger_live,%1
+// 		sti	r1,%:torp,%1
+// 		sti	r1,%:torp_,%1
+// 		sti	r1,%:fork3,%1
+// 		sti	r1,%:fork_live,%1
+// 		sti	r1,%:live,%1
+// 		sti	r1,%:live,%6
+// 		sti	r1,%:live,%11
+// 		sti	r1,%:live,%16
+// 		sti	r1,%:live,%21
+// 		sti	r1,%:live,%26
+// 		sti	r1,%:live,%31
+// 		sti	r1,%:live,%36
+// 		sti	r1,%:live,%41
+// 		sti	r1,%:live,%46
+// 		sti	r1,%:live,%51
+// 		sti	r1,%:live,%56
+// 		sti	r1,%:live,%61
+// 		sti	r1,%:live,%66
+// 		sti	r1,%:live,%71
+// 		sti	r1,%:live,%76
+// 		sti	r1,%:live,%81
+// 		sti	r1,%:live,%86
+// 		sti	r1,%:live,%91
+// 		sti	r1,%:live,%96
+// 		sti	r1,%:live,%101	
+// 		sti	r1,%:live,%106
+// 		add r4, r4, r6
+// 		sti	r1,%:live,%111
+// 		sti	r1,%:live,%116
+// 		ld	%48,r14	
+// 		ld      %4,r4
+// 		ld      %48,r6
+// 		ld	%48,r13
+// 		ld	%:leon_ecrit,r8
+// 		ld	%330,r9
+// 		ld	%:roger,r12
+// 		sub	r12,r8,r12
+// fork1:		live	%42
+// fork2:		live	%42
+// fork3:		live	%42
+// 		ld	%0,r15
+// 		ld %0 ,r8
+// 		ld %0 ,r9
+// 		add	r8,r9,r8	
+// 		zjmp	%:torp
+// leon:		ld      %0,r2
+// leon_live:	live    %42
+// 		ldi     %:leon,r2,r3
+// 		sti     r3,r8,r2
+// 		add     r2,r4,r2
+// 		xor     r13,r2,r7
+// 		ld %0 ,r8
+// 		ld %0 ,r9
+// 		add	r8,r9,r8
+// 		zjmp    %415
+// 		ld      %0,r15
+// leon_ecrit:	zjmp    %:leon_live
+// roger:		ld	%0,r10
+// roger_live:	live	%42
+// 		ldi	%:roger,r10,r11
+// 		sti	r11,r12,r10
+// 		add	r10,r4,r10
+// 		xor	r6,r10,r7
+// 		zjmp	%-361
+// 		ld	%0,r15
+// roger_ecrit:	zjmp	%:roger_live
+// torp:		live	%42	
+// torp_:		live	%42
+// 		ld	%0,r15
+// 		zjmp	%:torp
+// live:		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42
+// 		live	%42	
+// 		zjmp	%:live
+// fork_live:	live	%42
+// 		ld	%0,r15
+// 		ld %0 ,r8
+// 		ld %0 ,r9
+// 		add	r8,r9,r8
+// 		zjmp	%55
 #include "../include/corewar.h"
 // #include "../include/op_tab.h"
 
@@ -44,10 +156,10 @@ void ft_exec(t_process *p, t_corewar *war)
 	i = hex(addr_to_hex(&war->arena[p->pc], 1));
 	if (i >= 1 && i <= 16)
 	{
-		
+
 		//  p->wait = 1;
 		if (p->cycle_count == op_tab[i - 1].nbr_cycler)
-		{ 
+		{
 			// printf("instructoin =  = %u\n\n", i);
 			func[i - 1](p); //
 			// printf("rogester4 = %s\n\n", addr_to_hex(&p->regster[3], 4));
@@ -62,35 +174,86 @@ void ft_exec(t_process *p, t_corewar *war)
 		p->pc++;
 }
 
+void ft_test(t_process *p)
+{
+	t_corewar *war;
+
+	war = get_struct(0);
+	if (!p)
+	{
+		printf("\n\nprocess_is NULL\n\n");
+		return;
+	}
+	while (p)
+	{
+		if (p->is_live_more != -1)
+			printf("\n\nTESTTTTT = = = is_live  =  %d  pos_cursor = %d id_plyer   = %d         CYCLE = %d       	nbr_process = %d \n\n",p->is_live_more, p->pc, p->id, war->cycle, war->nbr_process);
+
+		p = p->next;
+	}
+}
+
 static t_process *Die_Cursor(t_corewar *war, t_process *list_process)
 {
-	t_process *tmp;
-	t_process *first;
 
-	tmp = list_process;
-	first = tmp;
-	while (list_process)
+	t_process *head;
+
+	
+	head = list_process;
+
+	// while (list_process != NULL)
+	// {
+	// 	printf("is_live  =  %d  pos_cursor = %d id_plyer   = %d     nbr_process = %d    cycle = %d \n\n", list_process->is_live_more, list_process->pc, list_process->id, war->nbr_process, war->cycle);
+	// 	if (!list_process->is_live_more)
+	// 	{
+
+	// 		war->nbr_process--;
+	// 		if (!tmp)
+	// 		{
+	// 			head = list_process->next;
+	// 			tmp = list_process;
+	// 			list_process = list_process->next;
+	// 			free(tmp);
+	// 			// ft_memdel((void **)&tmp);
+	// 			tmp = NULL;
+	// 		}
+	// 		else
+	// 		{
+	// 			tmp->next = list_process->next;
+	// 			// ft_memdel((void **)&list_process);
+	// 			free(list_process);
+	// 			list_process = NULL;
+	// 			list_process = tmp->next;
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		list_process->is_live_more = 0;
+	// 		list_process = list_process->next;
+	// 		tmp = list_process;
+	// 	}
+	// }
+	while (list_process != NULL)
 	{
-		 printf("is_live  =  %d  pos_cursor = %d id_plyer   = %d  \n\n", list_process->is_live_more, list_process->pc, list_process->id);
-		if (!list_process->is_live_more)
+		//printf("is_live  =  %d  pos_cursor = %d id_plyer   = %d     nbr_process = %d    cycle = %d \n\n", list_process->is_live_more, list_process->pc, list_process->id, war->nbr_process, war->cycle);
+		if (list_process->is_live_more == 0)
 		{
 
 			war->nbr_process--;
-			 first = list_process;
-			tmp->next = list_process->next;
-			//  free(first);
-			// list_process = NULL;
-			// ft_memdel((void **)&list_process);
-			list_process = tmp;
+			list_process->is_live_more = -1;
+		
 		}
-		tmp = list_process;
-		if (list_process)
+		else if (list_process->is_live_more == 1)
 		{
-			list_process->is_live_more = 0;
-			list_process = list_process->next;
+			list_process->is_live_more = 0;	
+		
 		}
+		list_process = list_process->next;
 	}
-	return tmp;
+	// ft_putendl("\n\n\n\ncursosr\n\n");
+	// ft_test(head);
+	// 	ft_putendl("\n\n\n\ncursosr\n\n");
+	return head;
 }
 
 static void ft_Controlle(t_corewar *war)
@@ -102,9 +265,12 @@ static void ft_Controlle(t_corewar *war)
 	{
 		war->players[i].count_live = 0;
 		war->players[i].process = Die_Cursor(war, war->players[i].process);
-		
+		// ft_putendl("\n\ntest_\n\n");
+		// ft_test(war->players[0].process );
+		// ft_putendl("\n\nend_test_\n\n");
+
 	}
-	if (war->nbr_live >= NBR_LIVE || war->nbr_checks >= 10)
+	if (war->nbr_live >= NBR_LIVE || war->nbr_checks == 9)
 	{
 		war->cycle_to_die -= 50;
 		war->nbr_checks = 0;
@@ -154,32 +320,59 @@ void ft_loop(void)
 	// war->arena[2300] = 1;
 	// war->arena[2400] = 1;
 
-	war->players[0].process->regster[3] = 5445545;
+	//war->players[0].process->regster[3] = 5445545;
 
-	while (++war->cycle && war->nbr_process)
+	while (++war->cycle  && war->nbr_process)
 	{
 		i = -1;
-		// printf("cycle === %d\n\n", war->cycle);
+		// ft_putendl("hehe\n\n");
+		//  printf("cycle === %d    NBR_PROCESS   =  %d    instarcution   = %s   \n\n", war->cycle, war->nbr_process, addr_to_hex(&war->arena[war->players[0].process->pc], 1));//
+		// ft_putendl("hehe22\n\n");
+
+	
 		while (++i < war->nbr_fighters)
 		{
+			// ft_putendl("playerdebuttt\n\n");
 			p = war->players[i].process;
-			while (p)
+			while (p != NULL)
 			{
-				//  printf("  CYCLE =  %d       position curso11 = %d     cycle_must_be_WAIT  = %d   ID = %d  instarauctoin = %s \n\n",\
-				//  war->cycle,  p->pc, p->cycle_count , p->id,   addr_to_hex(&war->arena[p->pc],1));		
+				// ft_putendl("player_RUN\n\n");
+				// printf("n\n\n  plyer_run_ID  = %d     nbr_process = %d    cycler = %d \n\n", p->id,  war->nbr_process, war->cycle);
+				// printf(" \n\n CYCLE =  %d       position curso11 = %d     cycle_must_be_WAIT  = %d   ID = %d  instarauctoin = %s \n\n",
+				// 	   war->cycle, p->pc, p->cycle_count, p->id, addr_to_hex(&war->arena[p->pc], 1));
+				if(p->is_live_more != -1)
+				{
+					ft_exec(p, war);
 
-				ft_exec(p, war);
+				}
+				//ft_putendl("player_RUN_enad_EXECCCC\n\n");
 				// printf("  CYCLE =  %d       position cursor22 = %d\n\n",war->cycle,  p->pc);
 				// printf("value regster = %s\n\n", addr_to_hex(&p->regster[3], 4));
 				p = p->next;
 			}
+			//ft_putendl("playerend\n\n");
 		}
-		if (war->cycle == (war->cycle_last_check + war->cycle_to_die ) ||  war->cycle_to_die < 1)
+
+		if (war->cycle == (war->cycle_last_check + war->cycle_to_die) || war->cycle_to_die < 1)
 		{
 			war->cycle_last_check = war->cycle;
-			printf("\n\ncycle  = %d       9ABLEnbrprocess = %d \n\n", war->cycle, war->nbr_process);
-			ft_Controlle(war);
-			printf("\n\ncycle  = %d       nbrprocess = %d \n\n", war->cycle, war->nbr_process);
+
+
+	// 			printf("\n\n9ABELLLE    nbr_cycle out = %d					cycle_die == %d   \
+	//  nbr_cursor == %d	    cycle_last_check == %d     nbr_check ==  %d     nbr_process    = %d   nbr_live_totall  = %d \n\n",
+	// 	   war->cycle, war->cycle_to_die, 0, war->cycle_last_check, war->nbr_checks, war->nbr_process, war->nbr_live);
+	// 		printf("\n\ncycle  = %d     LEnbrprocessDAKHELO = %d \n\n", war->cycle, war->nbr_process);
+
+
+			ft_Controlle(war);/////
+
+
+	// 		printf("\n\ncycle  = %d       LYBA9INE = nbrprocess = %d \n\n", war->cycle, war->nbr_process);
+
+	// 		printf("\n\n   BA3EDEDDDE   nbr_cycle out = %d					cycle_die == %d   \
+	//  nbr_cursor == %d	    cycle_last_check == %d     nbr_check ==  %d     nbr_process    = %d   nbr_live_totall  = %d \n\n",
+	// 	   war->cycle, war->cycle_to_die, 0, war->cycle_last_check, war->nbr_checks, war->nbr_process, war->nbr_live);
+	
 		}
 		// if (war->cycle == 2002)
 		// 	printf("\n\n  222222            nbr_cycle out = %d					cycle_die == %d   \
@@ -187,8 +380,9 @@ void ft_loop(void)
 		//    war->cycle, war->cycle_to_die, war->players[0].process->pc, war->cycle_last_check, war->nbr_checks, war->nbr_process);
 	}
 
+
 	printf("\n\nnbr_cycle out = %d					cycle_die == %d   \
 	 nbr_cursor == %d	    cycle_last_check == %d     nbr_check ==  %d     nbr_process    = %d  \n\n",
-		   war->cycle, war->cycle_to_die, war->players[0].process->pc, war->cycle_last_check, war->nbr_checks, war->nbr_process);
+		   war->cycle, war->cycle_to_die, war->players[0].process->pc , war->cycle_last_check, war->nbr_checks, war->nbr_process);
 	ft_print_arena();
 }

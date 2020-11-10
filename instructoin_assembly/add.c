@@ -20,19 +20,22 @@ int ft_add(t_process *p)
 	int size_flg;
 	int reg;
 	int cursor0;
-//    printf("ft_add\n\n");
+	//    printf("ft_add\n\n");
 	war = get_struct(0);
 	cursor0 = p->pc;
 	ft_memcpy(&byt_arg, &war->arena[++p->pc], 1);
-	size_flg = get_size_beyt_flag(byt_arg, 4);
-	p->pc++;
-	byt = (return_data_of_arg(p, ((byt_arg >> 6) & 0x03), 4, cursor0) +
-		   return_data_of_arg(p, ((byt_arg >> 4) & 0x03), 4, cursor0));
-	// ft_putendl("end_addd\n\n");
-	if ((reg = read_regster(p)) != -1)
+	// size_flg = get_size_beyt_flag(byt_arg, 4);
+	if ((size_flg = get_size_beyt_flag(byt_arg, 4)) > 0)
 	{
-		ft_memcpy(&p->regster[reg - 1], &byt, 4);
-		p->carry = (!p->regster[reg - 1]) ? 1 : 0;
+		p->pc++;
+		byt = (return_data_of_arg(p, ((byt_arg >> 6) & 0x03), 4, cursor0) +
+			   return_data_of_arg(p, ((byt_arg >> 4) & 0x03), 4, cursor0));
+		// ft_putendl("end_addd\n\n");
+		if ((reg = read_regster(p)) != -1)
+		{
+			ft_memcpy(&p->regster[reg - 1], &byt, 4);
+			p->carry = (!p->regster[reg - 1]) ? 1 : 0;
+		}
 	}
 	p->pc++;
 	return (0);

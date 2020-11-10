@@ -29,14 +29,14 @@ int get_size_arg(unsigned char flg, int nb_arg, int opcode)
 	if ((flg & IND_CODE) == IND_CODE)
 	{
 		// printf("indff= %d\n\n",flg);
-		if ((op_tab2[opcode - 1].args[nb_arg] ^ IND_CODE) != IND_CODE)
+		if ((op_tab2[opcode - 1].args[nb_arg] & T_IND) != T_IND)
 			return -1;
 		return 2;
 	}
 	else if ((flg & REG_CODE) == REG_CODE)
 	{
 		// printf("regff= %d\n\n",flg);
-		if ((op_tab2[opcode - 1].args[nb_arg] ^ REG_CODE) != REG_CODE)
+		if ((op_tab2[opcode - 1].args[nb_arg] & T_REG) != T_REG)
 			return -1;
 		
 		return 1;
@@ -44,7 +44,7 @@ int get_size_arg(unsigned char flg, int nb_arg, int opcode)
 
 	else if ((flg & DIR_CODE) == DIR_CODE)
 	{
-		if ((op_tab2[opcode - 1].args[nb_arg] ^ DIR_CODE) != DIR_CODE)
+		if ((op_tab2[opcode - 1].args[nb_arg] &  T_DIR) != T_DIR)
 			return -1;
 
 		if (!op_tab2[opcode - 1].size_dir)
@@ -59,7 +59,7 @@ int get_size_beyt_flag(unsigned char flg, int opcode)
 	int i;
 	int nbr_args = op_tab2[opcode - 1].nbr_args;
 	int count;
-	int size_arg;
+	int size_arg = 0;;
 	unsigned char oper_args;
 
 	i = -1;
