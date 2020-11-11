@@ -62,6 +62,7 @@ typedef struct s_corewar
 	int combat;
 	int cycle_to_die;
 	int nbr_live;
+	int dg;
 	int nbr_checks;
 	int nbr_process;
 	int nbr_fighters;

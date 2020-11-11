@@ -18,7 +18,12 @@ int ft_fork(t_process *p)
     t_corewar *war;
     t_process *new;
 
+
     war = get_struct(0);
+
+    if(war->cycle > 13324)
+        war->dg++;
+   
     // printf("fork _test debut  ID = %d  cycle = %d    nbr_process = %d \n\n\n ", p->id , war->cycle , war->nbr_process  );
     ft_memcpy((void *)&byt, (void *)&war->arena[p->pc + 1], 2);
     if (!(new = (t_process *)malloc(sizeof(t_process))))
@@ -35,8 +40,11 @@ int ft_fork(t_process *p)
     new->id = war->cycle; 
     /////pour test  
     //new->is_live_more = p->is_live_more;
+// printf("postnewparrat  =%d\n\n", new->pc);
 
-    new->pc += overrided_pos(ft_sign(byt, 2), 0);
+// printf("val000000over = %d  \n\n",overrided_pos(ft_sign(byt, 2), 0));
+    new->pc = overrided_pos(ft_sign(byt, 2), p->pc);
+// printf("postnew  =%d\n\n", new->pc);
 
 
     // printf("\n\nvalue new->pc = %d            p->pc = %d\n\n", new->pc, p->pc);
