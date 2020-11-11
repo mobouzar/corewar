@@ -292,40 +292,7 @@ void ft_loop(void)
 	t_process *p;
 
 	war = get_struct(0);
-	//< MAX_CYCLE
-	//  war->arena[800] = 1;
-	//  war->arena[800] = 1;
-	// war->arena[2000] = 1;
-	//  war->arena[2600] = 1;
-	//  war->arena[2800] = 1;
-	//  war->arena[3000] = 1;
-	// war->arena[4000] = 1;
-	// war->arena[3300] = 1;
-	// war->arena[4088] = 1;
-	// war->arena[36] = 1;
-	// war->arena[360] = 1;
-	// war->arena[3000] = 1;
-	// war->arena[3800] = 1;
-	// war->arena[4040] = 1;
-	//  war->arena[3400] = 1;
-	// war->arena[300] = 1;
-	// war->arena[2700] = 1;
-	// war->arena[2100] = 1;
-	// war->arena[2600] = 1;
-	// war->arena[2200] = 1;
-	// war->arena[4000] = 1;
-	// war->arena[900] = 1;
-	// war->arena[1200] = 1;
-	// war->arena[1400] = 1;
-	// war->arena[1600] = 1;
-	// war->arena[1800] = 1;
-	// war->arena[2000] = 1;
-	// war->arena[2200] = 1;
-	// war->arena[2100] = 1;
-	// war->arena[2300] = 1;
-	// war->arena[2400] = 1;
-
-	//war->players[0].process->regster[3] = 5445545;
+	
 
 	while (++war->cycle < 17457 && war->nbr_process)
 	{

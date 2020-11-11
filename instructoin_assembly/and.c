@@ -24,7 +24,6 @@ int ft_and(t_process *p)
 	war = get_struct(0);
 	cursor0 = p->pc;
 	ft_memcpy(&byt_arg, &war->arena[++p->pc], 1);
-	// size_flg = get_size_beyt_flag(byt_arg, 6);
 	if ((size_flg = get_size_beyt_flag(byt_arg, 6)) > 0)
 	{
 		p->pc++;

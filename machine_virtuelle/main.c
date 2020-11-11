@@ -49,6 +49,27 @@ static void manage(t_corewar *war, int argc, char **argv)
 	}
 }
 
+void Free_Process(t_process *p)
+{
+	if (p->next)
+		Free_Process(p->next);
+	ft_memdel((void **)&p);
+}
+
+void Free_Corewar(t_corewar *war)
+{
+	int i;
+
+	i = -1;
+	ft_memdel((void **)&war->arena);
+	while (++i < war->nbr_fighters)
+	{
+		ft_memdel((void **)&war->players[i].data_file);
+		Free_Process(war->players[i].process);
+	}
+	ft_memdel((void **)&war);
+}
+
 int main(int argc, char **argv)
 {
 
@@ -61,16 +82,10 @@ int main(int argc, char **argv)
 	if (!(war = (t_corewar *)malloc(sizeof(t_corewar))))
 		return (1);
 	ft_memset((void *)war, 0, sizeof(t_corewar));
-	// war->nbr_fighters = argc - 1;
-	// ft_init_process(war);
-	// lst =  ft_cin_file(argv[1]);
-	// war->arena = ft_get_arena();
 	manage(war, argc, argv);
 	get_struct(war);
-	// printf("\n\nsize == %d\n", hex(addr_to_hex(&lst->prog_size,4)));
-	// ft_memcpy(&war->arena[0], lst->champ, hex(addr_to_hex(&lst->prog_size,4)));
 	ft_loop();
-	// ft_print_arena();
+	// Free_Corewar(war);
 
 	return (0);
 }

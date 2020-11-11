@@ -1,24 +1,37 @@
-.name	"Booster !"
+.name	"test!"
 .comment "Alors la, si ca marche, trop content !  :)"
 
-live %454
-fork %-45
-live %454
-fork %-45
-live %454
-live %454
-fork %-45
-live %454
-fork %-45
-live %454
-live %454
-fork %-45
-live %454
-fork %-45
-live %454
-live %454
-fork %-45
-live %454
-fork %-45
-live %454
+ld %122, r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+aff r4
+
+
 
