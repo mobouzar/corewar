@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:06:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/13 18:26:19 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/12 12:38:07 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,18 @@ void Free_Corewar(t_corewar *war)
 
 int main(int argc, char **argv)
 {
+	t_corewar	*war;
+	t_visu		*visu;
 
-	(void)argc;
-	(void)argv;
-
-	// t_header *lst;
-	t_corewar *war;
-
+	if (!(visu = (t_visu *)ft_memalloc(sizeof(t_visu))))
+		return (1);
+	border_maker(visu);
 	if (!(war = (t_corewar *)malloc(sizeof(t_corewar))))
 		return (1);
 	ft_memset((void *)war, 0, sizeof(t_corewar));
 	manage(war, argc, argv);
 	get_struct(war);
-	ft_loop();
+	ft_loop(visu);
 	// Free_Corewar(war);
 
 	return (0);

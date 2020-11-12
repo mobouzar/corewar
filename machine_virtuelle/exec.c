@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   battlefield.c                                      :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 22:04:41 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/13 21:50:39 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/12 12:27:00 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,10 +270,6 @@ static void ft_Controlle(t_corewar *war)
 	{
 		war->players[i].count_live = 0;
 		war->players[i].process = Die_Cursor(war, war->players[i].process);
-		// ft_putendl("\n\ntest_\n\n");
-		// ft_test(war->players[0].process );
-		// ft_putendl("\n\nend_test_\n\n");
-
 	}
 	if (war->nbr_live >= NBR_LIVE || war->nbr_checks == 9)
 	{
@@ -285,76 +281,35 @@ static void ft_Controlle(t_corewar *war)
 	war->nbr_live = 0;
 }
 
-void ft_loop(void)
+void ft_loop(t_visu *visu)
 {
 	int i;
 	t_corewar *war;
 	t_process *p;
 
 	war = get_struct(0);
-	
-
-	while (++war->cycle < 17457 && war->nbr_process)
+	while (++war->cycle && war->nbr_process)
 	{
 		i = -1;
-		// ft_putendl("hehe\n\n");
-		//  printf("cycle === %d    NBR_PROCESS   =  %d    instarcution   = %s   \n\n", war->cycle, war->nbr_process, addr_to_hex(&war->arena[war->players[0].process->pc], 1));//
-		// ft_putendl("hehe22\n\n");
-
-	
 		while (++i < war->nbr_fighters)
 		{
-			// ft_putendl("playerdebuttt\n\n");
 			p = war->players[i].process;
 			while (p != NULL)
 			{
-				// ft_putendl("player_RUN\n\n");
-				// printf("n\n\n  plyer_run_ID  = %d     nbr_process = %d    cycler = %d \n\n", p->id,  war->nbr_process, war->cycle);
-				// printf(" \n\n CYCLE =  %d       position curso11 = %d     cycle_must_be_WAIT  = %d   ID = %d  instarauctoin = %s \n\n",
-				// 	   war->cycle, p->pc, p->cycle_count, p->id, addr_to_hex(&war->arena[p->pc], 1));
 				if(p->is_live_more != -1)
 				{
+					board(war, visu);
 					ft_exec(p, war);
-
+					visu->cursor = p->pc;
 				}
-				//ft_putendl("player_RUN_enad_EXECCCC\n\n");
-				// printf("  CYCLE =  %d       position cursor22 = %d\n\n",war->cycle,  p->pc);
-				// printf("value regster = %s\n\n", addr_to_hex(&p->regster[3], 4));
 				p = p->next;
 			}
-			//ft_putendl("playerend\n\n");
 		}
-
 		if (war->cycle + 1 == (war->cycle_last_check + war->cycle_to_die) || war->cycle_to_die < 1)
 		{
 			war->cycle_last_check = war->cycle;
-
-					printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-				printf("\n\n+++++++++++++++++++++++++++++++++++9ABELLLE    nbr_cycle out = %d					cycle_die == %d   \
-	 nbr_cursor == %d	    cycle_last_check == %d     nbr_check ==  %d     nbr_process    = %d   nbr_live_totall  = %d \n\n",
-		   war->cycle, war->cycle_to_die, 0, war->cycle_last_check, war->nbr_checks, war->nbr_process, war->nbr_live);
-			printf("\n\ncycle  = %d     LEnbrprocessDAKHELO = %d \n\n", war->cycle, war->nbr_process);
-
-
-			ft_Controlle(war);/////
-
-
-			printf("\n\ncycle  = %d       LYBA9INE = nbrprocess = %d \n\n", war->cycle, war->nbr_process);
-
-			printf("\n\n   BA3EDEDDDE   nbr_cycle out = %d					cycle_die == %d   \
-	 nbr_cursor == %d	    cycle_last_check == %d     nbr_check ==  %d     nbr_process    = %d   nbr_live_totall  = %d          nbr_fork_ ====  %d\n\n",
-		   war->cycle, war->cycle_to_die, 0, war->cycle_last_check, war->nbr_checks, war->nbr_process, war->nbr_live , war->dg);
-	
+			ft_Controlle(war);	
 		}
-		// if (war->cycle == 2002)
-		// 	printf("\n\n  222222            nbr_cycle out = %d					cycle_die == %d   \
-	 	// 		nbr_cursor == %d	    cycle_last_check == %d     nbr_check ==  %d     nbr_process    = %d  \n\n",
-		//    war->cycle, war->cycle_to_die, war->players[0].process->pc, war->cycle_last_check, war->nbr_checks, war->nbr_process);
 	}
-
-
-	printf("\n\nnbr_cycle out = %d					cycle_die == %d   \
-	 nbr_cursor == %d	    cycle_last_check == %d     nbr_check ==  %d     nbr_process    = %d  \n\n",
-		   war->cycle, war->cycle_to_die, war->players[0].process->pc , war->cycle_last_check, war->nbr_checks, war->nbr_process);
-	ft_print_arena();
+	// ft_print_arena();
 }
