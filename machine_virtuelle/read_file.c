@@ -64,26 +64,34 @@ void ft_cout(t_header *data)
 **
 **
 */
+t_header *ft_free_head(t_header **new)
+{
+	ft_memdel((void **)new);
+	return (NULL);
+}
 
 t_header *ft_cin_file(char *file)
 {
-	int fd;
 	t_header *new;
+	int fd;
+	int s;
 
-	if ((fd = open(file, O_RDONLY)) < 0)
-		return (NULL);
 	if (!(new = (t_header *)malloc(sizeof(t_header))))
 		return (NULL);
 	ft_memset((void *)new, 0, sizeof(t_header));
-	if ((read(fd, (void *)&new->magic, sizeof(unsigned int))) < 0)
-		return (NULL);
-	if ((read(fd, (void *)new->prog_name, sizeof(char) * (PROG_NAME_LENGTH + 4))) < 0)
-		return (NULL);
-	if ((read(fd, (void *)&new->prog_size, sizeof(unsigned int))) < 0)
-		return (NULL);
-	if ((read(fd, (void *)new->comment, sizeof(char) * (COMMENT_LENGTH + 4))) < 0)
-		return (NULL);
-	if ((read(fd, (void *)new->champ, sizeof(char_t) * (CHAMP_MAX_SIZE))) < 0)
-		return (NULL);
+	if ((fd = open(file, O_RDONLY)) < 0)
+		return (ft_free_head(&new));
+	if ((s = read(fd, (void *)&new->magic, 4)) < 0 || s != 4)
+		return (ft_free_head(&new));
+	if ((s = read(fd, (void *)new->prog_name, (PROG_NAME_LENGTH + 4))) < 0 ||
+	 s > (PROG_NAME_LENGTH + 4))
+		return (ft_free_head(&new));
+	if ((s = read(fd, (void *)&new->prog_size, 4)) < 0 || s != 4)
+		return (ft_free_head(&new));
+	if ((s = read(fd, (void *)new->comment, (COMMENT_LENGTH + 4))) < 0 ||
+	 s > (COMMENT_LENGTH + 4))
+		return (ft_free_head(&new));
+	if ((s = read(fd, (void *)new->champ, CHAMP_MAX_SIZE)) < 0 || s > CHAMP_MAX_SIZE)
+		return (ft_free_head(&new));
 	return (new);
 }

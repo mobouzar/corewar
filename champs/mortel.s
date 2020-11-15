@@ -8,13 +8,13 @@ boost:	ld %12,r2
 
 	sti r1,%:live1,%1
 live1:	live %66
-	sti r1,%:fork0,%1
-	sti r1,%:fork1,%1
-	sti r1,%:fork2,%1
-	sti r1,%:wait,%1
-	sti r1,%:master,%1
-	sti r1,%:numero1,%1
-	sti r1,%:numero2,%1
+	st r1 ,5655
+	st r1 ,5655545
+	st r1 ,55
+	live %545
+	fork %454
+	st r1 ,5454565
+
 
 	sti r1,%:live,%-4
 	ldi %:live,%-2,r6
@@ -24,6 +24,10 @@ fork1:	live %66
 	fork %:numero2
 fork2:	live %66
 #	fork %:fork0
+live %545
+	fork %454
+	ld 54554, r7
+	st r7, 454564
 
 master:	live %66
 	ld %0,r3
@@ -31,6 +35,7 @@ master:	live %66
 #	ldi %:master,%0,r6
 	ld %0,r5
 	zjmp %:ready
+	
 
 numero1: live %66
 	ld %3,r3

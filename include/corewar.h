@@ -48,6 +48,7 @@ typedef struct s_player
 	char *name;
 	char *comment;
 	size_t size_prog;
+	int    Starting_point;
 	int count_live;
 	int id;
 	int last_cycle_to_live;
@@ -62,7 +63,7 @@ typedef struct s_corewar
 	int combat;
 	int cycle_to_die;
 	int nbr_live;
-	int dg;
+	int dump;
 	int nbr_checks;
 	int nbr_process;
 	int nbr_fighters;

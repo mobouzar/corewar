@@ -12,29 +12,6 @@
 
 #include "../include/corewar.h"
 
-/**
- * *
- * *
- * *
- **/
-
-// int         set_live(unsigned int byt)
-// {
-//     int i;
-//     unsigned int id[4] = {0xffffffff,  0xfffffffe,0xfffffffd, 0xfffffffc};
-//     unsigned int value;
-
-//     i = 0;
-//     value = ft_sign(byt, 4); // addr_to_hex(&dir ,4);
-//     while (i < 4)
-//     {
-//         if (id[i] == value)
-//             return (i);
-//         i++;
-//     }
-//     return (-1);
-// }
-
 int ft_live(t_process *p)
 {
     t_corewar *war;
@@ -43,17 +20,15 @@ int ft_live(t_process *p)
 
     
     war = get_struct(0);
-    ft_memcpy((void *)&data, (void*)&war->arena[p->pc + 1], 4);//// curculir
+    ft_memcpy((void *)&data, (void*)&war->arena[p->pc + 1], 4);
     p->is_live_more = 1;
     war->nbr_live++;
     id = -1 * ft_sign(data , 4);
-    if (id > 0  && id < 5)
-	{ 
-       
-        war->players[id  -1].last_cycle_to_live = war->cycle;
+    if (id > 0  && id < 5 && ft_sign(data , 4) == (int)p->regster[0])
+	{     
+        war->players[id  - 1].last_cycle_to_live = war->cycle;
         (war->players[id - 1].count_live)++;
 	}
     p->pc += 5;
-	// ft_putendl("ft_live_end\n");
 	return (0);
 }

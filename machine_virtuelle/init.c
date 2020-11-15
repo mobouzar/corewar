@@ -15,6 +15,7 @@ void	ft_init_process(t_corewar *war)
 		ft_memset((void*)war->players[i].process, 0, sizeof(t_process));
 		war->players[i].process->id = i + 1;
 		war->players[i].process->regster[0] = index[i];
+		war->players[i].process->pc = war->players[i].Starting_point;
 	}
 }
 

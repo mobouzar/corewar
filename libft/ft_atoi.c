@@ -24,15 +24,3 @@ int		ft_atoi(const char *str)
 		a = a * 10 + (str[i++] - '0');
 	return ((int)(s * a));
 }
-
-
-int main() 
-{ 
-    char buf[50]; 
-
-	printf("entr nbr\n");
-    fgets(buf, 50, stdin); 
-    printf("valeur = %d\n", ft_atoi(buf));
-  
-    return 0; 
-}

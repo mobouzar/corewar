@@ -18,51 +18,18 @@ int ft_fork(t_process *p)
     t_corewar *war;
     t_process *new;
 
-
     war = get_struct(0);
-
-    if(war->cycle > 13324)
-        war->dg++;
-   
-    // printf("fork _test debut  ID = %d  cycle = %d    nbr_process = %d \n\n\n ", p->id , war->cycle , war->nbr_process  );
     ft_memcpy((void *)&byt, (void *)&war->arena[p->pc + 1], 2);
     if (!(new = (t_process *)malloc(sizeof(t_process))))
         return (0);
     ft_memset((void *)new, 0, sizeof(t_process));
     ft_memcpy((void *)new, (void *)p, sizeof(t_process));
     war->nbr_process++;
-    // new->name = 
-    ////dahikin
-    // printf("ffforkkk  = %d\n\n", war->nbr_process);
- 
-    // printf("\n\nvalue dir fork = %d\n\n", overrided_pos(ft_sign(byt, 2), 0));
-    // new->pc += ft_sign(byt,2) % IDX_MOD;
-    new->id = war->cycle; 
-    /////pour test  
-    //new->is_live_more = p->is_live_more;
-// printf("postnewparrat  =%d\n\n", new->pc);
-
-// printf("val000000over = %d  \n\n",overrided_pos(ft_sign(byt, 2), 0));
+    new->id = war->cycle;
     new->pc = overrided_pos(ft_sign(byt, 2), p->pc);
-// printf("postnew  =%d\n\n", new->pc);
-
-
-    // printf("\n\nvalue new->pc = %d            p->pc = %d\n\n", new->pc, p->pc);
-
-    // new->pc %= SIZE_MAX;
     new->cycle_count = 0;
     new->wait = 0;
-    // new->next = p->next;
     p->next = new;
-    // // new->next = war->players[p->id - 1].process;
-    // // war->players[p->id - 1].process = new;
-    // // ft_exec(new, war);
-    // // printf("parnt = fork _test END        ID = %d  cycle = %d    nbr_process = %d    is_live= %d    cursor = %d  \n\n\n ", \
-    // p->id , war->cycle , war->nbr_process , p->is_live_more, p->pc );
-
-    //   // printf("\n\n\n child fork _test END        ID = %d  cycle = %d    nbr_process = %d    is_live= %d    cursor = %d  \n\n\n ", \
-    // new->id , war->cycle , war->nbr_process , new->is_live_more, new->pc );
-    // // ft_putendl("end_fork\n");
     p->pc += 3;
     return (0);
 }

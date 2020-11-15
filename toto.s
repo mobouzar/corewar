@@ -11,28 +11,28 @@ label:		zjmp %:avantdebt
 		zjmp %0				# pour eviter ecrasement
 						# de l'instruction suivante
 code:		live %42			# 5
-		sti  r15,%0,r14			# 6
+		st  r15,r14			# 6
 		zjmp %-200			# 3
 		live %42			# 5
-		sti  r15,%0,r14			# 6
+		st  r15,r14			# 6
 		zjmp %-200			# 3
 		live %42			# 5
-		sti  r15,%0,r14			# 6
+		st  r15,r14			# 6
 		zjmp %-200			# 3
 		live %42			# 5
-		sti  r15,%0,r14			# 6
+		st  r15,r14			# 6
 		zjmp %-200			# 3
-		sti  r15,%0,r14			# 6
+		st  r15,r14			# 6
 		zjmp %-200			# 3
-		sti  r15,%0,r14			# 6
+		st  r15,r14			# 6
 		zjmp %-200
 	
-avantdebt:	sti   r1,%:code,%1  # 		# mets a jour le live
-		sti   r1,%:code,%15 # 		# mets a jour le live
-		sti   r1,%:code,%29 # 		# mets a jour le live
-		sti   r1,%:code,%43 # 		# mets a jour le live
-		sti   r1,%:code,%57 # 		# mets a jour le live
-		sti   r1,%:code,%71 # 		# mets a jour le live
+avantdebt:	#sti   r1,%:code,%1  # 		# mets a jour le live
+		st   r1,565 # 		# mets a jour le live
+		st   r1,5564 # 		# mets a jour le live
+		st   r1,5645 # 		# mets a jour le live
+		st   r1,45645 # 		# mets a jour le live
+		st   r1,989 # 		# mets a jour le live
 init:		ld   %393216,r4		 	#7	
 		ld   %917504,r12		#7	
 		ld   %1,r11			#7

@@ -18,15 +18,13 @@ int ft_lld(t_process *p)
 	t_corewar *war;
 	unsigned char byt_arg;
 	unsigned int byt;
-	int size_flg;
 	int reg;
 	int cursor0;
 
 	war = get_struct(0);
 	cursor0 = p->pc;
 	ft_memcpy(&byt_arg, &war->arena[++p->pc], 1);
-	// size_flg =  get_size_beyt_flag(byt_arg, 13);
-	if ((size_flg = get_size_beyt_flag(byt_arg, 13)) > 0)
+	if ((get_size_beyt_flag(byt_arg, 13)) > 0)
 	{
 		p->pc++;
 		byt = return_data_of_arg(p, ((byt_arg >> 6) & 0x03), 13, cursor0);

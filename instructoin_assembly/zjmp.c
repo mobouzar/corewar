@@ -27,6 +27,5 @@ int ft_zjmp(t_process *p)
     war = get_struct(0);
     ft_memcpy(&byt, &war->arena[p->pc + 1],2);
     p->pc = overrided_pos(ft_sign(byt,2), p->pc);
-    // p->pc += (ft_sign(byt,2) % IDX_MOD) % SIZE_MAX;
     return 0;
 }
