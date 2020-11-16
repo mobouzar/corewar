@@ -27,9 +27,11 @@ int ft_fork(t_process *p)
     war->nbr_process++;
     new->id = war->cycle;
     new->pc = overrided_pos(ft_sign(byt, 2), p->pc);
+  //  printf("newpc = %d\n\n\n", new->pc);
     new->cycle_count = 0;
     new->wait = 0;
-    p->next = new;
+    new->next = war->players[0].process;/////  moa56a7a  errr
+    war->players[0].process = new;
     p->pc += 3;
     return (0);
 }

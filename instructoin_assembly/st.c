@@ -23,7 +23,7 @@ int ft_st(t_process *p)
 	war = get_struct(0);
 	cursor0 = p->pc;
 	ft_memcpy(&byt_arg, &war->arena[++p->pc], 1);
-	if ((get_size_beyt_flag(byt_arg, 3)) > 0)
+	if ((get_size_beyt_flag(p, byt_arg, 3)) > 0)
 	{
 		ft_memcpy(&reg, &war->arena[++p->pc], 1); 
 		if ((((byt_arg >> 4) & 0x03) & IND_CODE) == IND_CODE)
@@ -36,8 +36,10 @@ int ft_st(t_process *p)
 		{
 			ft_memcpy(&data, &war->arena[++p->pc], 1);
 			p->regster[hex(addr_to_hex(&data, 1)) - 1] = p->regster[hex(addr_to_hex(&reg, 1)) - 1];
-		}
+		}	p->pc++;
 	}
-	p->pc++;
+	else
+		p->pc = p->size_of_flg + 	cursor0;
+
 	return (0);
 }

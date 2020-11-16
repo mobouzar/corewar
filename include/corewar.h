@@ -34,6 +34,7 @@ typedef struct s_process
 	int carry;
 	int id;
 	int erorr;
+	int size_of_flg;
 	int put_value_pos;
 	int wait;
 	unsigned int regster[16];
@@ -133,8 +134,8 @@ int ft_lldi(t_process *p);
 **
 */
 
-int get_size_arg(unsigned char flg, int nb_arg, int opcode);
-int get_size_beyt_flag(unsigned char flg, int opcode);
+int get_size_arg(unsigned char flg, int nb_arg, int opcode, int *err);
+int get_size_beyt_flag(t_process *p, unsigned char flg, int opcode);
 int overrided_pos(int pos, int cur0);
 void cpy_reg_to_arena(t_process *p, int cursor0, int size, int reg);
 int read_regster(t_process *proc);

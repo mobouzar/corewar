@@ -23,7 +23,8 @@ int ft_ld(t_process *p)
 	war = get_struct(0);
 	cursor0 = p->pc;
 	ft_memcpy(&byt_arg, &war->arena[++p->pc], 1);
-	if ((get_size_beyt_flag(byt_arg, 2)) > 0)
+	//printf("arg_ld    = %d\n\n",byt_arg);
+	if ((get_size_beyt_flag(p ,byt_arg, 2)) > 0)
 	{
 		p->pc++;
 		byt = return_data_of_arg(p, ((byt_arg >> 6) & 0x03), 2, cursor0);
@@ -31,9 +32,10 @@ int ft_ld(t_process *p)
 		{
 			ft_memcpy(&p->regster[reg - 1], &byt, 4);
 			p->carry = (!p->regster[reg - 1]) ? 1 : 0;
-		}
+		}	
+		p->pc++;
 	}
-
-	p->pc++;
+	else
+		p->pc = p->size_of_flg + 	cursor0;
 	return (0);
 }

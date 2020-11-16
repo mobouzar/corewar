@@ -24,55 +24,62 @@ t_op op_tab2[17] =
 /*
 ** new func for get size of beyt flag :
 */
-int get_size_arg(unsigned char flg, int nb_arg, int opcode)
+int get_size_arg(unsigned char flg, int nb_arg, int opcode, int *err)
 {
+	// printf("ld_flg = %d   opcode = %d  nb_aegument = %d\n\n", flg, opcode , nb_arg);
 	if ((flg & IND_CODE) == IND_CODE)
 	{
 		// printf("indff= %d\n\n",flg);
 		if ((op_tab2[opcode - 1].args[nb_arg] & T_IND) != T_IND)
-			return -1;
+			*err = -1;
 		return 2;
 	}
 	else if ((flg & REG_CODE) == REG_CODE)
 	{
 		// printf("regff= %d\n\n",flg);
 		if ((op_tab2[opcode - 1].args[nb_arg] & T_REG) != T_REG)
-			return -1;
+				*err = -1;
 		
 		return 1;
 	}
 
 	else if ((flg & DIR_CODE) == DIR_CODE)
 	{
+		// printf("11DIR   DIR      opcode = %d   err = %d\n\n\n", opcode, *err);
 		if ((op_tab2[opcode - 1].args[nb_arg] &  T_DIR) != T_DIR)
-			return -1;
+				*err = -1;
+		// printf("22DIR   DIR      opcode = %d   err = %d\n\n\n", opcode, *err);
 
 		if (!op_tab2[opcode - 1].size_dir)
 			return 4;
 		return 2;
 	}
-	return -1;
+	*err = -1;
+	// printf("ld  error = %d\n\n", flg);
+	return 0;
 }
 
-int get_size_beyt_flag(unsigned char flg, int opcode)
+int get_size_beyt_flag(t_process *p, unsigned char flg, int opcode)
 {
 	int i;
 	int nbr_args = op_tab2[opcode - 1].nbr_args;
 	int count;
 	int size_arg = 0;;
 	unsigned char oper_args;
+	int err = 0;
 
 	i = -1;
 	count = 0;
-	// printf("un = %u\n\n", flg);
 	while (++i < nbr_args)
 	{
-		oper_args = (flg >> (6 - (i * 2))) & 0x3;		
-		size_arg =  get_size_arg( oper_args, i, opcode);
-		if (size_arg < 0)
-			return -1;
+		oper_args = (flg >> (6 - (i * 2))) & 0x3;
+		size_arg =  get_size_arg( oper_args, i, opcode, &err);
 		count += size_arg;
 	}
+	p->size_of_flg = count + 2;
+	// printf("ERRO OF FLG = %d\n\n", err);
+	if (err == -1)
+			return -1;
 	return count;
 }
 
@@ -89,9 +96,11 @@ int overrided_pos(int size, int cursor0)
 	}
 	else
 	{
+	//	printf("\n\nsize  = %d  cur00=%d    mob=%d \n\n", size, cursor0,(cursor0 + (((-1 * size) % IDX_MOD) * -1)) );
 		size = MEM_SIZE + (cursor0 + (((-1 * size) % IDX_MOD) * -1));
+		//printf("pver _size == %d\n\n", size);
 	}
-	// printf("pver _size == %d\n\n", size);
+	
 	return ((size % MEM_SIZE));
 }
 

@@ -24,7 +24,7 @@ int ft_sti(t_process *p)
 	war = get_struct(0);
 	cursor0 = p->pc;
 	ft_memcpy(&byt_arg, &war->arena[++p->pc], 1);
-	if (( get_size_beyt_flag(byt_arg, 11)) > 0)
+	if (( get_size_beyt_flag(p, byt_arg, 11)) > 0)
 	{
 		p->pc++;
 		if ((reg = read_regster(p)) == -1)
@@ -41,8 +41,9 @@ int ft_sti(t_process *p)
 		else
 			data += ft_sign(byt, 4);
 		cpy_reg_to_arena(p, cursor0, data, reg);
-	}
+	}	
 	else
-		p->pc++;
+	p->pc = p->size_of_flg + 	cursor0;
+	
 	return (0);
 }
