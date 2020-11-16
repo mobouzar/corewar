@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+         #
+#    By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/26 18:43:13 by yelazrak          #+#    #+#              #
-#    Updated: 2020/03/10 11:30:14 by yelazrak         ###   ########.fr        #
+#    Updated: 2020/11/16 17:11:55 by mobouzar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,10 @@ c_srcs = machine_virtuelle/main.o \
 		instructoin_assembly/sub.o \
 		instructoin_assembly/xor.o \
 		instructoin_assembly/zjmp.o\
-	
+
+VISU =  visualizer/arena_viewer.o \
+		visualizer/menu_viewer.o \
+
 INCLUDES = ./include
 CFLAGS = -Wall -Wextra -Werror -g
 CC=gcc
@@ -44,14 +47,15 @@ all: libft_ $(NAME)
 libft_:
 	@make -C libft
 
-$(NAME): $(c_srcs)  libft/libft.a
-	gcc -o $(NAME) $(FLAGS) $(c_srcs) -L ./libft -lft -I $(INCLUDES)
+$(NAME): $(c_srcs) $(VISU) libft/libft.a
+	$(CC) -o $(NAME) $(FLAGS) $(c_srcs) -lncurses $(VISU) -L ./libft -lft -I $(INCLUDES)
+
 clean:
-#@make clean -C libft
+	@make clean -C libft
 	@rm -rf $(c_srcs)
 
 fclean: clean
-#@make fclean -C libft
+	@make fclean -C libft
 	@rm -rf $(NAME)
 
 re: fclean all

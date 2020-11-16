@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:06:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/13 18:26:19 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/16 17:07:38 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,20 +264,20 @@ void Free_Corewar(t_corewar *war)
 
 int main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
 	t_corewar *war;
+	t_visu		*visu;
 
+	if (!(visu = (t_visu *)ft_memalloc(sizeof(t_visu))))
+		return (1);
+	border_maker(visu);	
 	if (!(war = (t_corewar *)malloc(sizeof(t_corewar))))
 		return (1);
 	ft_memset((void *)war, 0, sizeof(t_corewar));
 	war->arena = ft_get_arena();
-	get_id(argv); ///
+	get_id(argv);
 	Parsing(war, argc, argv);
 	ft_init_process(war);
 	get_struct(war);
-	 ft_loop();
-	//ft_print_arena();
-	// Free_Corewar(war);
+	ft_loop(visu);
 	return (0);
 }
