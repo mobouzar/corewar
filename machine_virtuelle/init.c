@@ -22,6 +22,7 @@ static void task_init(t_corewar *war, int i, const unsigned int *index)
 	new->id = i + 1;
 	new->regster[0] = index[i];
 	new->pc = war->players[i].Starting_point;
+	inedx_color(new->id , new->pc, new->pc + ft_sign(war->players[i].data_file->prog_size, 4), 0);//
 	if (!war->last_process && !war->all_process)
 	{
 		war->all_process = new;

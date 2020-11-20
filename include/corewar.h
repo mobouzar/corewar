@@ -157,6 +157,8 @@ int get_id_player(int id, int flg);
 int is_int(t_corewar *war, char *arg);
 int get_id(char **argv);
 
+void  inedx_color(int id , int start, int end, int alpha);
+
 /*
 **	VISUALIZER FUNCTIONS
 */

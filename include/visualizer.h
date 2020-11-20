@@ -15,6 +15,8 @@
 
 typedef struct	s_point
 {
+	int			alpha;
+	int			id;
 	int			y;
 	int			x;
 	int			color;
