@@ -24,62 +24,53 @@ t_op op_tab2[17] =
 /*
 ** new func for get size of beyt flag :
 */
+
+
 int get_size_arg(unsigned char flg, int nb_arg, int opcode, int *err)
 {
-	// printf("ld_flg = %d   opcode = %d  nb_aegument = %d\n\n", flg, opcode , nb_arg);
 	if ((flg & IND_CODE) == IND_CODE)
 	{
-		// printf("indff= %d\n\n",flg);
 		if ((op_tab2[opcode - 1].args[nb_arg] & T_IND) != T_IND)
 			*err = -1;
 		return 2;
 	}
 	else if ((flg & REG_CODE) == REG_CODE)
 	{
-		// printf("regff= %d\n\n",flg);
 		if ((op_tab2[opcode - 1].args[nb_arg] & T_REG) != T_REG)
-				*err = -1;
-		
+			*err = -1;
 		return 1;
 	}
-
 	else if ((flg & DIR_CODE) == DIR_CODE)
 	{
-		// printf("11DIR   DIR      opcode = %d   err = %d\n\n\n", opcode, *err);
-		if ((op_tab2[opcode - 1].args[nb_arg] &  T_DIR) != T_DIR)
-				*err = -1;
-		// printf("22DIR   DIR      opcode = %d   err = %d\n\n\n", opcode, *err);
-
+		if ((op_tab2[opcode - 1].args[nb_arg] & T_DIR) != T_DIR)
+			*err = -1;
 		if (!op_tab2[opcode - 1].size_dir)
 			return 4;
 		return 2;
 	}
 	*err = -1;
-	// printf("ld  error = %d\n\n", flg);
 	return 0;
 }
 
 int get_size_beyt_flag(t_process *p, unsigned char flg, int opcode)
 {
 	int i;
-	int nbr_args = op_tab2[opcode - 1].nbr_args;
 	int count;
-	int size_arg = 0;;
+	int size_arg = 0;
 	unsigned char oper_args;
 	int err = 0;
 
 	i = -1;
 	count = 0;
-	while (++i < nbr_args)
+	while (++i < op_tab2[opcode - 1].nbr_args)
 	{
 		oper_args = (flg >> (6 - (i * 2))) & 0x3;
-		size_arg =  get_size_arg( oper_args, i, opcode, &err);
+		size_arg = get_size_arg(oper_args, i, opcode, &err);
 		count += size_arg;
 	}
 	p->size_of_flg = count + 2;
-	// printf("ERRO OF FLG = %d\n\n", err);
 	if (err == -1)
-			return -1;
+		return -1;
 	return count;
 }
 
@@ -92,37 +83,33 @@ int overrided_pos(int size, int cursor0)
 	if (size >= 0)
 	{
 		size = cursor0 + (size % IDX_MOD);
-		// size = size % MEM_SIZE;
 	}
 	else
 	{
-	//	printf("\n\nsize  = %d  cur00=%d    mob=%d \n\n", size, cursor0,(cursor0 + (((-1 * size) % IDX_MOD) * -1)) );
 		size = MEM_SIZE + (cursor0 + (((-1 * size) % IDX_MOD) * -1));
-		//printf("pver _size == %d\n\n", size);
 	}
-	
 	return ((size % MEM_SIZE));
 }
+
 
 void cpy_reg_to_arena(t_process *p, int cursor0, int size, int reg)
 {
 	t_corewar *war;
 
 	war = get_struct(NULL);
-	// printf("\nasly  = modoll = %d   cursor = %d \n\n\n",  size, cursor0);//
-	size = overrided_pos(size , cursor0);
-	//  printf("overcop[y]= %d   \n\n", size);
-	// size = cursor0 + (size % IDX_MOD);
-	// size = size % MEM_SIZE;
-	// printf("size  = =  %d     reg = %d   \n\n\n", size, reg);
+	size = overrided_pos(size, cursor0);
 	if (size + 4 > MEM_SIZE)
 	{
-		ft_memcpy((void *)&war->arena[size], (void *)&p->regster[reg - 1], (MEM_SIZE - size));
-		ft_memcpy((void *)&war->arena[0], (void *)&p->regster[reg - 1], 4 - (MEM_SIZE - size));
+		ft_memcpy((void *)&war->arena[size], (void *)&p->regster[reg - 1],\
+		 (MEM_SIZE - size));
+		ft_memcpy((void *)&war->arena[0], (void *)&p->regster[reg - 1],\
+		 4 - (MEM_SIZE - size));
 	}
 	else
-		ft_memcpy((void *)&war->arena[size], (void *)&p->regster[reg - 1], 4);
+		ft_memcpy((void *)&war->arena[size],\
+		 (void *)&p->regster[reg - 1], 4);
 }
+
 
 int read_regster(t_process *proc)
 {
@@ -144,21 +131,18 @@ void cpy_arena_to_reg(t_process *p, int cursor0, int size, int reg)
 
 	t_corewar *war;
 	war = get_struct(NULL);
-	// size = overrided_pos(cursor0 + size);
-	// size = cursor0 + (size % IDX_MOD);
-	// size = size % MEM_SIZE;
-	size = overrided_pos(size , cursor0);
-// ft_putendl("cpy_ar_to_re\n");
-	// printf("\n sssss= %d \n\n", size);
-	// printf("\n\nhelo  size = %d  \n\n", size);
+	size = overrided_pos(size, cursor0);
 	if (size + 4 > MEM_SIZE)
 	{
-		ft_memcpy((void *)&p->regster[reg - 1], (void *)&war->arena[size], (MEM_SIZE - size));
-		ft_memcpy((void *)&p->regster[reg - 1] + (MEM_SIZE - size), (void *)&war->arena[0], 4 - (MEM_SIZE - size));
+		ft_memcpy((void *)&p->regster[reg - 1],\
+		 (void *)&war->arena[size], (MEM_SIZE - size));
+		ft_memcpy((void *)&p->regster[reg - 1] + \
+		(MEM_SIZE - size), (void *)&war->arena[0], 4 - (MEM_SIZE - size));
 	}
 	else
 	{
-		ft_memcpy((void *)&p->regster[reg - 1], (void *)&war->arena[size], 4);
+		ft_memcpy((void *)&p->regster[reg - 1],\
+		 (void *)&war->arena[size], 4);
 	}
 }
 
@@ -173,61 +157,64 @@ unsigned int cpy_arena_to_var(t_process *p, int size, int cursor0, int opcode)
 	(void)p;
 	(void)opcode;
 	war = get_struct(0);
-	if (opcode == 13)/////postv negative
+	if (opcode == 13) /////postv negative
 		size = cursor0 + size;
 	else
-		size = overrided_pos(size , cursor0);
-		// size = cursor0 + (size % IDX_MOD);
+		size = overrided_pos(size, cursor0);
 	size = size % MEM_SIZE;
 	if ((size + 4) >= MEM_SIZE)
 	{
-		ft_memcpy((void *)&stock, (void *)&war->arena[size], (MEM_SIZE - size));
-		ft_memcpy((void *)&stock + (MEM_SIZE - size), (void *)&war->arena[0], 4 - (MEM_SIZE - size));
+		ft_memcpy((void *)&stock, (void *)&war->arena[size],\
+		 (MEM_SIZE - size));
+		ft_memcpy((void *)&stock + (MEM_SIZE - size),\
+		 (void *)&war->arena[0], 4 - (MEM_SIZE - size));
 	}
 	else
 		ft_memcpy((void *)&stock, (void *)&war->arena[size], 4);
 	return (stock);
 }
 
+
+static unsigned int task_return_data(t_process *proc,  int opcode, t_corewar *war)
+{
+		unsigned int st;
+
+		if (!op_tab2[opcode - 1].size_dir)
+		{
+			ft_memcpy((void *)&st, (void *)&war->arena[proc->pc], 4);
+			proc->pc += 4;
+			return (st);
+		}
+		ft_memcpy((void *)&st, (void *)&war->arena[proc->pc], 2);
+		proc->pc += 2;
+		return (st);
+}
+
+
 unsigned int return_data_of_arg(t_process *proc, unsigned char flg, int opcode, int cursor0)
 {
 	t_corewar *war;
 	unsigned int st;
+
 	war = get_struct(NULL);
-	st = 0;
-	// printf("return_data_arg ID = %d      cursor = %d    cycle  = %d  flg = %d  \n\n", proc->id, proc->pc, war->cycle, flg);
 	if ((flg & IND_CODE) == IND_CODE)
 	{
 		ft_memcpy((void *)&st, (void *)&war->arena[proc->pc], 2);
-		// printf("\n\nsing = %d\n\n", ft_sign(st, 2));
-
 		st = cpy_arena_to_var(proc, (ft_sign(st, 2)), cursor0, opcode);
-		// printf("hex = %s   int = %d\n\n", addr_to_hex(&st, 4), ft_sign(st, 4) );
-
 		proc->pc += 2;
 		return (st);
 	}
 	else if ((flg & REG_CODE) == REG_CODE)
 	{
 		if ((st = read_regster(proc)) == (unsigned int)-1)
+		{
+			proc->erorr = -1;
 			return 0;
-
+		}
 		proc->pc++;
 		return (proc->regster[st - 1]);
 	}
 	else if ((flg & DIR_CODE) == DIR_CODE)
-	{
-		if (!op_tab2[opcode - 1].size_dir)
-		{
-			ft_memcpy((void *)&st, (void *)&war->arena[proc->pc], 4);
-			// printf("dir   = hex = %s   Id = %d \n\n", addr_to_hex(&st, 4), proc->id);
-			proc->pc += 4; 
-			return (st);
-		}
-		ft_memcpy((void *)&st, (void *)&war->arena[proc->pc], 2);
-		proc->pc += 2;
-		return (st);
-	}
-	// printf("test = = = 0000     Id = %d \n\n", proc->id);
+			return task_return_data(proc, opcode, war);
 	return 0;
 }

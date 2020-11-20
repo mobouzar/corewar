@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   battlefield.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 22:04:41 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/19 15:03:03 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/03/13 21:50:39 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_op op_tab[17] =
 		{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25, "store index", 1, 1},
 		{"fork", 1, {T_DIR}, 12, 800, "fork", 0, 1},
 		{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 1, 0},
-		{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50, "long load index", 1, 1}, /**/
+		{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50, "long load index", 1, 1},
 		{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1},
 		{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
 		{0, 0, {0}, 0, 0, 0, 0, 0}};
@@ -41,7 +41,7 @@ void ft_exec(t_process *p, t_corewar *war)
 	i = hex(addr_to_hex(&war->arena[p->pc], 1));
 	if (i >= 1 && i <= 16)
 	{
-		if (( p->cycle_count) == (op_tab[i - 1].nbr_cycler - 1))
+		if ((p->cycle_count) == (op_tab[i - 1].nbr_cycler - 1))
 		{
 			func[i - 1](p);
 			p->cycle_count = 0;
@@ -53,53 +53,64 @@ void ft_exec(t_process *p, t_corewar *war)
 		p->pc++;
 }
 
-void ft_test(t_process *p)
+static void task_Die_Cursor(t_process **list_process, t_process *tmp, t_process **head)
 {
 	t_corewar *war;
 
 	war = get_struct(0);
-	if (!p)
+	if (!tmp)
 	{
-		return;
+		(*head) = (*list_process)->next;
+		tmp = (*list_process);
+		if (!(*list_process)->next)
+			war->last_process = NULL;
+		(*list_process) = (*list_process)->next;
+		ft_memdel((void **)&tmp);
 	}
-	while (p)
+	else
 	{
-		if (p->is_live_more != -1)
-		p = p->next;
+		tmp->next = (*list_process)->next;
+		if (!(*list_process)->next)
+			war->last_process = tmp;
+		ft_memdel((void **)list_process);
+		(*list_process) = tmp->next;
 	}
 }
 
-static t_process *Die_Cursor(t_corewar *war, t_process *list_process)
+t_process *Die_Cursor(t_corewar *war, t_process *list_process)
 {
-
 	t_process *head;
+	t_process *tmp;
+
 	head = list_process;
+	tmp = NULL;
 	while (list_process)
 	{
 		if (list_process->is_live_more == 0)
 		{
 			war->nbr_process--;
-			list_process->is_live_more = -1;
+			task_Die_Cursor(&list_process, tmp, &head);
 		}
-		else if (list_process->is_live_more == 1)
+		else
 		{
-			list_process->is_live_more = 0;	
+			list_process->is_live_more = 0;
+			tmp = list_process;
+			list_process = list_process->next;
 		}
-		list_process = list_process->next;
 	}
 	return head;
 }
+
+
 
 static void ft_Controlle(t_corewar *war)
 {
 	int i;
 
 	i = -1;
+	war->all_process = Die_Cursor(war, war->all_process);
 	while (++i < war->nbr_fighters)
-	{
 		war->players[i].count_live = 0;
-		war->players[i].process = Die_Cursor(war, war->players[i].process);
-	}
 	if (war->nbr_live >= NBR_LIVE || war->nbr_checks == 9)
 	{
 		war->cycle_to_die -= 50;
@@ -110,37 +121,31 @@ static void ft_Controlle(t_corewar *war)
 	war->nbr_live = 0;
 }
 
-void ft_loop(t_visu *visu)
+void ft_loop(void)
 {
-	int i;
 	t_corewar *war;
 	t_process *p;
 
 	war = get_struct(0);
-	while (war->nbr_process > 0)
+	while (war->cycle_to_die > 0 && war->nbr_process > 0)
 	{
-		i = -1;
-		while (++i < war->nbr_fighters)
+		p = war->all_process;
+		while (p != NULL)
 		{
-			p = war->players[i].process;
-			while (p != NULL)
-			{
-				if(p->is_live_more != -1)
-				{
-					board(war, visu);
-					ft_exec(p, war);
-					visu->cursor = p->pc;
-				}
-				p = p->next;
-			}
+			if (!p->cycle_create || p->cycle_create < war->cycle)
+				ft_exec(p, war);
+			p = p->next;
 		}
-
-		if ((war->cycle  == (war->cycle_last_check + war->cycle_to_die)) || war->cycle_to_die < 1)
+		if ((war->cycle == (war->cycle_last_check + war->cycle_to_die)) || war->cycle_to_die < 1)
 		{
 			war->cycle_last_check = war->cycle;
 			ft_Controlle(war);
 		}
 		war->cycle++;
 	}
-	// ft_print_arena();
+
+	printf("\n\nnbr_cycle out = %d					cycle_die == %d   \
+	 nbr_cursor == %d	    cycle_last_check == %d     nbr_check ==  %d     nbr_process    = %d  \n\n",
+		   war->cycle, war->cycle_to_die, 0, war->cycle_last_check, war->nbr_checks, war->nbr_process);
+	ft_print_arena();
 }

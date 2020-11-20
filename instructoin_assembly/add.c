@@ -12,37 +12,36 @@
 
 #include "../include/corewar.h"
 
+static void task_add(t_process *p, unsigned char byt_arg, int cursor0)
+{
+	int byt;
+	int reg;
+
+	byt = ft_sign(return_data_of_arg(p, ((byt_arg >> 6) & 0x03), 5, cursor0), 4) +
+		  ft_sign(return_data_of_arg(p, ((byt_arg >> 4) & 0x03), 5, cursor0), 4);
+	byt = ft_sign(byt, 4);
+	if ((reg = read_regster(p)) != -1 && p->erorr != -1)
+	{
+		ft_memcpy(&p->regster[reg - 1], &byt, 4);
+		p->carry = (!p->regster[reg - 1]) ? 1 : 0;
+	}
+}
+
 int ft_add(t_process *p)
 {
 	t_corewar *war;
 	unsigned char byt_arg;
-	unsigned int byt;
-	int reg;
 	int cursor0;
-	 //  printf("ft_add\n\n");
+
 	war = get_struct(0);
 	cursor0 = p->pc;
 	ft_memcpy(&byt_arg, &war->arena[++p->pc], 1);
-	// size_flg = get_size_beyt_flag(byt_arg, 4);
 	if ((get_size_beyt_flag(p, byt_arg, 4)) > 0)
 	{
 		p->pc++;
-		byt = (return_data_of_arg(p, ((byt_arg >> 6) & 0x03), 4, cursor0) +
-			   return_data_of_arg(p, ((byt_arg >> 4) & 0x03), 4, cursor0));
-		// ft_putendl("end_addd\n\n");
-		if ((reg = read_regster(p)) != -1)
-		{
-			ft_memcpy(&p->regster[reg - 1], &byt, 4);
-			p->carry = (!p->regster[reg - 1]) ? 1 : 0;
-		}	
-		p->pc++;
+		task_add(p, byt_arg, cursor0);
+		p->erorr = 0;
 	}
-	else
-	{
-			p->pc = p->size_of_flg + 	cursor0;
-		//printf("  size of flg  = %d    p->pc  = %d  cursor00 = %d \n\n", p->size_of_flg, p->pc, cursor0);
-	}
-	
-
+	p->pc = p->size_of_flg + cursor0;
 	return (0);
 }

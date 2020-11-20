@@ -18,7 +18,7 @@ int ft_zjmp(t_process *p)
     t_corewar *war;
     unsigned int     byt;
     
-    if (!p->carry)
+    if (p->carry == 0)
     {
         p->pc += 3;
         return 0;

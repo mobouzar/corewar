@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:06:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/16 17:07:52 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/03/13 18:26:19 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@
 // #include "op.c"
 #include <unistd.h>
 #include "../libft/libft.h"
-# include "../include/visualizer.h"
 #include <fcntl.h>
 
-// typedef enum
-// {
-// 	false,
-// 	true
-// } bool;
+typedef enum
+{
+	false,
+	true
+} bool;
 /*
 ** global var
 */
@@ -34,10 +33,10 @@ typedef struct s_process
 	int pc;
 	int carry;
 	int id;
+	int cycle_create;
 	int erorr;
 	int size_of_flg;
 	int put_value_pos;
-	int wait;
 	unsigned int regster[16];
 	int is_live_more;
 	int cycle_count;
@@ -50,7 +49,7 @@ typedef struct s_player
 	char *name;
 	char *comment;
 	size_t size_prog;
-	int    Starting_point;
+	int Starting_point;
 	int count_live;
 	int id;
 	int last_cycle_to_live;
@@ -66,10 +65,13 @@ typedef struct s_corewar
 	int cycle_to_die;
 	int nbr_live;
 	int dump;
+	int v;
 	int nbr_checks;
 	int nbr_process;
 	int nbr_fighters;
 	int cycle_last_check;
+	t_process *last_process;
+	t_process *all_process;
 	t_player players[4];
 } t_corewar;
 
@@ -106,8 +108,8 @@ void ft_print_arena();
 /*
 ** func exec 
 */
-
-void ft_loop(t_visu *visu);
+int hextodecimal(char val);
+void ft_loop(void);
 void ft_exec(t_process *p, t_corewar *war);
 /*
 ** funcs instructoin_assembly 
@@ -144,18 +146,14 @@ void cpy_arena_to_reg(t_process *p, int cursor0, int size, int reg); //(t_corewa
 unsigned int cpy_arena_to_var(t_process *p, int size, int cursor0, int opcode);
 unsigned int return_data_of_arg(t_process *proc, unsigned char flg, int opcode, int cursor0);
 
-/*
-**	VISUALIZER FUNCTIONS
-*/
+/**
+ * *
+ * *
+ * **/
 
-int		board(t_corewar *war, t_visu *visu);
-void	menu_handler(t_corewar *war, t_visu *visu);
-void	event_handler(t_visu *visu);
-void	border_maker(t_visu *visu);
-void	init_struct(t_visu *visu);
-int		event_listenner(void);
-void	pause_handler(t_visu *visu);
-
-void		init_colors(t_visu *visu);
+int Parsing(t_corewar *war, int argc, char **argv);
+int get_id_player(int id, int flg);
+int is_int(t_corewar *war, char *arg);
+int get_id(char **argv);
 
 #endif

@@ -58,3 +58,23 @@ void ft_print_arena()
     ft_putchar('\n');
     ft_putchar('\n');
 }
+
+
+/**
+ * ** ila makach flg -v
+ */
+
+void print_game()
+{
+    t_corewar *war;
+    int i;
+
+    war = get_struct(0);
+    i = -1;
+    ft_putendl("Introducting contestants ...");
+    while (++i < war->nbr_fighters)
+    {
+        ft_printf("* Player %d, weighing 615 bytes, \"%s\" (\"%s\") !\n", i + 1,
+                  war->players[i].data_file->prog_name, war->players[i].data_file->comment);
+    }
+}

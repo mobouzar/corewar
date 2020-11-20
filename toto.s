@@ -16,12 +16,16 @@ code:		live %42			# 5
 		live %42			# 5
 		st  r15,r14			# 6
 		zjmp %-200			# 3
-		live %42			# 5
+		live %42
+		live %4555
+		fork %-8			# 5
 		st  r15,r14			# 6
 		zjmp %-200			# 3
 		live %42			# 5
 		st  r15,r14			# 6
-		zjmp %-200			# 3
+		zjmp %-200	
+		live %4555
+		fork %-8		# 3
 		st  r15,r14			# 6
 		zjmp %-200			# 3
 		st  r15,r14			# 6
@@ -30,7 +34,9 @@ code:		live %42			# 5
 avantdebt:	#sti   r1,%:code,%1  # 		# mets a jour le live
 		st   r1,565 # 		# mets a jour le live
 		st   r1,5564 # 		# mets a jour le live
-		st   r1,5645 # 		# mets a jour le live
+		st   r1,5645 # 
+		live %4555
+		fork %-8		# mets a jour le live
 		st   r1,45645 # 		# mets a jour le live
 		st   r1,989 # 		# mets a jour le live
 init:		ld   %393216,r4		 	#7	
@@ -52,6 +58,8 @@ level110:	live %42
 		ldi  %8,%:code,r15		#set des octets 9-12
 		ld   %-186,r14			#=$A-6-8
 		ld   %0,r2
+		live %4555
+		fork %-8
 		zjmp  %:label
 			
 level10:	live %42
@@ -66,12 +74,16 @@ level111:	live %42
 		ldi  %12,%:code,r15		#set des octets 13-16
 		ld   %-182,r14			# $A -6 -12
 		ld   %0,r2
+		live %4555
+		fork %-8
 		zjmp %:label
 		
 level100:	live %42
 		ldi  %0,%:code,r15		#set des octets 1-4
 		ld   %-194,r14			# $A -6 -0
-		ld   %0,r2			#
+		ld   %0,r2	
+		live %4555
+		fork %-8		#
 		zjmp %:label			#
 
 

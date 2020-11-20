@@ -1,12 +1,9 @@
 .name	"LDE LDE LDE"
-	ld %0,r6
+.comment "jggf"
+	ld %0, r6
 	sti r1,%:suitb,%1
 	sti r1,%:suitb,%6
 	sti r1,%:suitb,%11
-	sti r1,%:suitb,%16
-	sti r1,%:suitb,%21
-	sti r1,%:suitb,%26
-	sti r1,%:suitb,%31
 	sti r1,%:suitb,%36
 	sti r1,%:suitb,%41
 	sti r1,%:suitb,%46
@@ -38,11 +35,6 @@ decal2: live %1
 	ld %4262136318,r11
 	ld %33554432,r12
 
-	ld %57674238,r15
-	ld %369324042,r4
-	ld %4262790000,r7
-	ld %201200643,r8
-	ld %1879899667,r13
 	ld %167641600,r14
 	
 	fork %:separ2
@@ -79,28 +71,13 @@ suite:	live %1
 	live %1
 	fork %:middle
 suitb:	live %1
-	live %1
-	live %1
-	live %1
-	live %1
-	live %1
-	live %1
-	live %1
-	live %1
-	live %1
+
 	live %1
 	ld %0,r6
 	live %1
 	zjmp %:suitb
 middle:	live %1
-	live %1
-	live %1
-	live %1
-	live %1
-	live %1
-	live %1
-	live %1
-	live %1
+
 	ld %0,r6
 	live %1
 	zjmp %:middle
@@ -113,14 +90,10 @@ decal:	live %1
 	ld %67334147,r6
 
 	ld %57672961,r9
-	ld %4228083718,r10
-	ld %33229057,r11
 	ld %4060086272,r12
 
 	ld %57673985,r15
 	ld %4228083722,r4
-	ld %33227632,r7
-	ld %184678915,r8
 	ld %1879835129,r13
 	ld %151119872,r14
 	
@@ -134,36 +107,16 @@ sepa:	live %3
 	xor r2,r2,r2
 	zjmp %:tot
 
-	live %4
-	live %4
-	live %4
-	live %4
-	live %4
-	live %4
-	live %4
-	live %4
-	live %4
-	live %4
-	live %4
-	live %4
-	live %4
-	live %4
-	live %4
-	
+	live %45
 tot:	st r15,488
 	st r4,487
 	st r7,486
 	st r8,485
-	st r13,484
-	st r14,483
 	zjmp %458
 	
 	
 fuite:	live %1
 	fork %:separe
-	live %4
-	ld %134443011,r3
-	ld %0,r2
 	zjmp %:debut
 separe:	live %3
 	ld %263024,r3

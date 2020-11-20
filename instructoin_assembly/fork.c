@@ -25,13 +25,12 @@ int ft_fork(t_process *p)
     ft_memset((void *)new, 0, sizeof(t_process));
     ft_memcpy((void *)new, (void *)p, sizeof(t_process));
     war->nbr_process++;
-    new->id = war->cycle;
     new->pc = overrided_pos(ft_sign(byt, 2), p->pc);
-  //  printf("newpc = %d\n\n\n", new->pc);
+    new->cycle_create = war->cycle;
     new->cycle_count = 0;
-    new->wait = 0;
-    new->next = war->players[0].process;/////  moa56a7a  errr
-    war->players[0].process = new;
+    new->next = NULL;
+    war->last_process->next = new;
+    war->last_process = war->last_process->next;
     p->pc += 3;
     return (0);
 }

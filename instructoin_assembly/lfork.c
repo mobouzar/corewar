@@ -12,10 +12,29 @@
 
 #include "../include/corewar.h"
 
+
+static void task_fork(t_process *p, t_process *new, t_corewar *war)
+{
+    int i ;
+
+    i = 0;
+     if (new->pc < 0)
+    {
+        i = 4096 - ((-1 * new->pc) % 4096);
+        new->pc = i;
+    }
+    new->pc += p->pc;
+    new->pc %= SIZE_MAX;
+    new->cycle_count = 0;
+    war->last_process->next = new;
+    war->last_process = war->last_process->next;
+    // new->next = war->players[p->id -1].process;
+    // war->players[p->id -1].process = new;
+
+}
 int   ft_lfork(t_process *p)
 {
       unsigned int byt;
-      int i;
     t_corewar *war;
     t_process *new;
     
@@ -26,16 +45,21 @@ int   ft_lfork(t_process *p)
     ft_memset((void *)new, 0, sizeof(t_process));
     ft_memcpy((void *)new, (void *)p, sizeof(t_process));
     war->nbr_process++;
-    new->pc += ft_sign(byt,2);
-    if (new->pc < 0)
-    {
-        i = 4096 - ((-1 * new->pc) % 4096);
-        new->pc = i;
-    }
-    new->pc %= SIZE_MAX;
-    new->cycle_count = 0;
-    new->wait = 0;
-    p->next = new;
+    new->pc = ft_sign(byt,2);
+    new->next = NULL;
+    new->cycle_create = war->cycle;
+    task_fork(p, new, war);
+    // if (new->pc < 0)
+    // {
+    //     i = 4096 - ((-1 * new->pc) % 4096);
+    //     new->pc = i;
+    // }
+    // new->pc += p->pc;
+    // new->pc %= SIZE_MAX;
+    // new->cycle_count = 0;
+    // new->wait = 0;
+    // new->next = war->players[p->id -1].process;
+    // war->players[p->id -1].process = new;
     p->pc += 3;
 	return (0);
 }

@@ -3,23 +3,22 @@
 
 	
 begin:	ld %0,r6
-jump:	zjmp %:deb
 
-pare:	st r0,:begin -52
-	st r0,:begin -44
-	st r0,:begin -52
-	st r0,:begin -44
-	st r0,:begin -52
-	st r0,:begin -44
-	st r0,:begin -52
-	live %1
-	st r0,:begin -44
-	st r0,:begin -52
-	st r0,:begin -44
-	st r0,:begin -52
-	st r0,:begin -44
-	st r0,:begin -52
-	st r0,:begin -44
+
+pare:	st r0,:begin
+	st r0,:begin 
+	st r0,:begin
+	st r0,:begin 
+	st r0,:begin 
+	st r0,:begin 
+	st r0,:begin 
+	st r0,:begin
+	st r0,:begin 
+	st r0,:begin 
+	st r0,:begin 
+	st r0,:begin 
+	st r0,:begin
+	st r0,:begin 
 	zjmp %:pare
 toto:	st r15,-480
 	st r4,-481
@@ -32,10 +31,10 @@ toto:	st r15,-480
 	
 
 hop:	live %1
-	fork %:decal2
+	fork %-54
 	live %1
 	ld %0,r2
-	zjmp %:decal
+	zjmp %-8
 
 	
 debut:	st r3,4
