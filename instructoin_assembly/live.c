@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   live.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/10 16:02:46 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/20 16:46:09 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int ft_live(t_process *p)
     int id;
 
     
-    war = get_struct(0);
+    war = get_corewar(0);
     ft_memcpy((void *)&data, (void*)&war->arena[p->pc + 1], 4);
     p->is_live_more = 1;
     war->nbr_live++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/11 22:32:08 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/20 16:46:09 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int ft_add(t_process *p)
 	unsigned char byt_arg;
 	int cursor0;
 
-	war = get_struct(0);
+	war = get_corewar(0);
 	cursor0 = p->pc;
 	ft_memcpy(&byt_arg, &war->arena[++p->pc], 1);
 	if ((get_size_beyt_flag(p, byt_arg, 4)) > 0)

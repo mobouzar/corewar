@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lfork.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/12 22:06:55 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/20 16:46:09 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int   ft_lfork(t_process *p)
     t_corewar *war;
     t_process *new;
     
-    war = get_struct(0);
+    war = get_corewar(0);
     ft_memcpy((void *)&byt, (void *)&war->arena[p->pc + 1], 2);
     if (!(new = (t_process *)malloc(sizeof(t_process))))
         return (0);

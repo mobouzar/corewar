@@ -96,7 +96,7 @@ void cpy_reg_to_arena(t_process *p, int cursor0, int size, int reg)
 {
 	t_corewar *war;
 
-	war = get_struct(NULL);
+	war = get_corewar(NULL);
 	size = overrided_pos(size, cursor0);
 	if (size + 4 > MEM_SIZE)
 	{
@@ -117,7 +117,7 @@ int read_regster(t_process *proc)
 	unsigned char i;
 
 	i = 0;
-	war = get_struct(NULL);
+	war = get_corewar(NULL);
 	ft_memcpy((void *)&i, (void *)&war->arena[proc->pc], 1);
 	i = hex(addr_to_hex(&i, 1));
 	if (i >= 1 && i <= 16)
@@ -130,7 +130,7 @@ void cpy_arena_to_reg(t_process *p, int cursor0, int size, int reg)
 {
 
 	t_corewar *war;
-	war = get_struct(NULL);
+	war = get_corewar(NULL);
 	size = overrided_pos(size, cursor0);
 	if (size + 4 > MEM_SIZE)
 	{
@@ -156,7 +156,7 @@ unsigned int cpy_arena_to_var(t_process *p, int size, int cursor0, int opcode)
 
 	(void)p;
 	(void)opcode;
-	war = get_struct(0);
+	war = get_corewar(0);
 	if (opcode == 13) /////postv negative
 		size = cursor0 + size;
 	else
@@ -196,7 +196,7 @@ unsigned int return_data_of_arg(t_process *proc, unsigned char flg, int opcode, 
 	t_corewar *war;
 	unsigned int st;
 
-	war = get_struct(NULL);
+	war = get_corewar(NULL);
 	if ((flg & IND_CODE) == IND_CODE)
 	{
 		ft_memcpy((void *)&st, (void *)&war->arena[proc->pc], 2);

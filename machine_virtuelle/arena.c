@@ -1,35 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arena.c                                         :+:      :+:    :+:   */
+/*   arena.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 20:24:48 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/10 12:04:35 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/20 16:47:19 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-static void print_byte(const void *addr)
-{
-    const char *str = "0123456789ABCDEF";
-    char_t *p;
+// static void print_byte(const void *addr)
+// {
+//     const char *str = "0123456789ABCDEF";
+//     char_t *p;
 
-    p = (char_t *)addr;
-    ft_putchar(str[(p[0] / 16) % 16]);
-    ft_putchar(str[p[0] % 16]);
-    ft_putstr(" ");
-}
+//     p = (char_t *)addr;
+//     ft_putchar(str[(p[0] / 16) % 16]);
+//     ft_putchar(str[p[0] % 16]);
+//     ft_putstr(" ");
+// }
 
-t_corewar *get_struct(t_corewar *lst)
+t_corewar *get_corewar(t_corewar *lst)
 {
     static t_corewar *p;
 
     if (lst)
         p = lst;
     return (p);
+}
+
+t_visu  *get_visu(t_visu *visu)
+{
+	static t_visu	*v;
+
+	if (visu)
+		v = visu;
+	return (v);
 }
 
 char_t *ft_get_arena(void)
@@ -42,22 +51,22 @@ char_t *ft_get_arena(void)
     return (str);
 }
 
-void ft_print_arena()
-{
-    t_corewar *war;
-    int i;
+// void ft_print_arena()
+// {
+//     t_corewar *war;
+//     int i;
 
-    war = get_struct(0);
-    i = -1;
-    while (++i < 4096)
-    {
-        if (i != 0 && !(i % 64))
-            ft_putchar('\n');
-        print_byte(&war->arena[i]);
-    }
-    ft_putchar('\n');
-    ft_putchar('\n');
-}
+//     war = get_corewar(0);
+//     i = -1;
+//     while (++i < 4096)
+//     {
+//         if (i != 0 && !(i % 64))
+//             ft_putchar('\n');
+//         print_byte(&war->arena[i]);
+//     }
+//     ft_putchar('\n');
+//     ft_putchar('\n');
+// }
 
 
 /**
@@ -69,7 +78,7 @@ void print_game()
     t_corewar *war;
     int i;
 
-    war = get_struct(0);
+    war = get_corewar(0);
     i = -1;
     ft_putendl("Introducting contestants ...");
     while (++i < war->nbr_fighters)

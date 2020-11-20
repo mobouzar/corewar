@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   zjmp.c                                             :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/20 16:46:09 by mobouzar         ###   ########.fr       */
+/*   Created: 2020/11/20 10:06:05 by mobouzar          #+#    #+#             */
+/*   Updated: 2020/11/20 16:51:18 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-
-int ft_zjmp(t_process *p)
+void    print_reg_in_arena(int cursor0, int size)
 {
-    t_corewar *war;
-    unsigned int     byt;
-    
-    if (p->carry == 0)
-    {
-        p->pc += 3;
-        return 0;
-    }
-	byt  = 0;
+	int			i;
+    t_corewar   *war;
+    t_visu      *visu;
+
+	i = 0;
     war = get_corewar(0);
-    ft_memcpy(&byt, &war->arena[p->pc + 1],2);
-    p->pc = overrided_pos(ft_sign(byt,2), p->pc);
-    return 0;
+    visu = get_visu(0);
+    size = overrided_pos(size, cursor0);
+    wattron(visu->arena, visu->color);
+	while (i < 4)
+	{
+    	print_byte(&war->arena[size], visu, visu->coords[size].y, visu->coords[size].x);
+		size++;
+		i++;
+	}
+    wattroff(visu->arena, visu->color);
+    wrefresh(visu->arena);
 }

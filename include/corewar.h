@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:06:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/13 18:26:19 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/20 16:46:09 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 // #include "op.c"
 #include <unistd.h>
 #include "../libft/libft.h"
+# include "../include/visualizer.h"
 #include <fcntl.h>
 
-typedef enum
-{
-	false,
-	true
-} bool;
+// typedef enum
+// {
+// 	false,
+// 	true
+// } bool;
 /*
 ** global var
 */
@@ -97,7 +98,7 @@ unsigned int binary_rev(unsigned int s);
 **
 */
 char_t *ft_get_arena(void);
-t_corewar *get_struct(t_corewar *lst);
+t_corewar *get_corewar(t_corewar *lst);
 void ft_print_arena();
 
 /*
@@ -109,7 +110,7 @@ void ft_print_arena();
 ** func exec 
 */
 int hextodecimal(char val);
-void ft_loop(void);
+void ft_loop(t_visu *visu);
 void ft_exec(t_process *p, t_corewar *war);
 /*
 ** funcs instructoin_assembly 
@@ -155,5 +156,23 @@ int Parsing(t_corewar *war, int argc, char **argv);
 int get_id_player(int id, int flg);
 int is_int(t_corewar *war, char *arg);
 int get_id(char **argv);
+
+/*
+**	VISUALIZER FUNCTIONS
+*/
+
+int		board(t_corewar *war, t_visu *visu);
+void	menu_handler(t_corewar *war, t_visu *visu);
+void	event_handler(t_visu *visu);
+void	border_maker(t_visu *visu);
+void	init_struct(t_visu *visu);
+int		event_listenner(void);
+void	pause_handler(t_visu *visu);
+t_visu  *get_visu(t_visu *visu);
+
+void	print_byte(const void *addr, t_visu *visu, int i, int j);
+void    print_reg_in_arena(int cursor0, int size);
+void	print_arena(t_corewar *war, t_visu *visu, int i, int j);
+void	init_colors(t_visu *visu);
 
 #endif

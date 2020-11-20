@@ -27,7 +27,7 @@ int ft_ldi(t_process *p)
 	unsigned char byt_arg;
 	int cursor0;
 
-	war = get_struct(0);
+	war = get_corewar(0);
 	cursor0 = p->pc;
 	ft_memcpy(&byt_arg, &war->arena[++p->pc], 1);
 	if ((get_size_beyt_flag( p ,byt_arg, 10)) > 0)

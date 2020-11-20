@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:06:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/13 18:26:19 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/20 17:54:25 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,24 @@ void			free_corewar(t_corewar *war)
 int				main(int argc, char **argv)
 {
 	t_corewar	*war;
+	t_visu		*visu;
 
-	if (argc < 2 || !(war = (t_corewar *)malloc(sizeof(t_corewar))))
+	if (argc < 2 || !(war = (t_corewar *)ft_memalloc(sizeof(t_corewar))))
 		return (1);
-	ft_memset((void *)war, 0, sizeof(t_corewar));
+	if (!(visu = (t_visu *)ft_memalloc(sizeof(t_visu))))
+		return (1);
+	if (!(visu->coords = (t_point *)ft_memalloc(sizeof(t_point) * 4096)))
+		return (1);
+	init_struct(visu);
+	border_maker(visu);
 	war->arena = ft_get_arena();
 	get_id(argv);
 	Parsing(war, argc, argv);
 	ft_init_process(war);
-	get_struct(war);
-	ft_loop();
+	get_corewar(war);
+	get_visu(visu);
+	ft_loop(visu);
 	free_corewar(war);
+	endwin();
 	return (0);
 }
