@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:23:19 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/16 17:05:49 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/19 15:03:26 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,5 @@ int		board(t_corewar *war, t_visu *visu)
 	menu_handler(war, visu);
 	pause_handler(visu);
 	event_handler(visu);
-	refresh();
-	endwin();
 	return (0);
 }

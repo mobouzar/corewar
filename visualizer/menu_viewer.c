@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:22:18 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/16 17:03:40 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/20 09:54:00 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,6 @@ void		event_handler(t_visu *visu)
 	// usleep(10);
 }
 
-void	players_handler(t_visu *visu, char *name, int *p)
-{
-	mvwprintw(visu->menu, 20, 4, "Playser -%d : ", p[0]);
-	mvwprintw(visu->menu, 20, 17, "%s", name);
-	mvwprintw(visu->menu, 21, 6, "Last live");
-	mvwprintw(visu->menu, 21, 30, ": %d", p[1]);
-	mvwprintw(visu->menu, 22, 6, "Lives in current period : %d", p[2]);
-}
-
 void	player1_handler(t_visu *visu, t_corewar *war)
 {
 	mvwprintw(visu->menu, 20, 4, "Playser -1 : ");
@@ -81,6 +72,33 @@ void	player1_handler(t_visu *visu, t_corewar *war)
 	mvwprintw(visu->menu, 21, 6, "Last live");
 	mvwprintw(visu->menu, 21, 30, ": %d", 1);
 	mvwprintw(visu->menu, 22, 6, "Lives in current period : %d", 1);
+}
+
+void	player2_handler(t_visu *visu, t_corewar *war)
+{
+	mvwprintw(visu->menu, 24, 4, "Playser -2 : ");
+	mvwprintw(visu->menu, 24, 17, "%s", war->players[1].name);
+	mvwprintw(visu->menu, 25, 6, "Last live");
+	mvwprintw(visu->menu, 25, 30, ": %d", 1);
+	mvwprintw(visu->menu, 26, 6, "Lives in current period : %d", 1);
+}
+
+void	player3_handler(t_visu *visu, t_corewar *war)
+{
+	mvwprintw(visu->menu, 28, 4, "Playser -3 : ");
+	mvwprintw(visu->menu, 28, 17, "%s", war->players[2].name);
+	mvwprintw(visu->menu, 29, 6, "Last live");
+	mvwprintw(visu->menu, 29, 30, ": %d", 1);
+	mvwprintw(visu->menu, 30, 6, "Lives in current period : %d", 1);
+}
+
+void	player4_handler(t_visu *visu, t_corewar *war)
+{
+	mvwprintw(visu->menu, 32, 4, "Playser -4 : ");
+	mvwprintw(visu->menu, 32, 17, "%s", war->players[3].name);
+	mvwprintw(visu->menu, 33, 6, "Last live");
+	mvwprintw(visu->menu, 33, 30, ": %d", 1);
+	mvwprintw(visu->menu, 34, 6, "Lives in current period : %d", 1);
 }
 
 void	menu_handler(t_corewar *war, t_visu *visu)
@@ -94,16 +112,10 @@ void	menu_handler(t_corewar *war, t_visu *visu)
 	mvwprintw(visu->menu, 13, 4, "CYCLE_DELTA : %d", CYCLE_DELTA);
 	mvwprintw(visu->menu, 15, 4, "NBR_LIVE : %d", NBR_LIVE);
 	mvwprintw(visu->menu, 17, 4, "MAX_CHECKS : %d", MAX_CHECKS);
-	war->players[0].name = ft_strdup("simo");
-	war->players[1].name = ft_strdup("simo1");
-	war->players[2].name = ft_strdup("simo2");
-	int i = 0;
-	while (i < 4)
-	{
-		if (war->players[i].name)
-			players_handler(visu, war->players[i].name, (int []){i, war->players[i].last_cycle_to_live, war->players[i].count_live});
-		i++;
-	}
+	player1_handler(visu, war);
+	player2_handler(visu, war);
+	player3_handler(visu, war);
+	player4_handler(visu, war);
 	wattroff(visu->menu, A_BOLD);
 	wrefresh(visu->menu);
 }

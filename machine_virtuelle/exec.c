@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 22:04:41 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/16 17:12:47 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/19 15:03:03 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,5 +142,5 @@ void ft_loop(t_visu *visu)
 		}
 		war->cycle++;
 	}
-	ft_print_arena();
+	// ft_print_arena();
 }
