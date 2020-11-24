@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/24 12:20:22 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/24 12:49:17 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int ft_live(t_process *p)
     p->is_live_more = 1;
     war->nbr_live++;
     id = -1 * ft_sign(data , 4);
-    if (id > 0  && id < 5 && ft_sign(data , 4) == (int)p->regster[0])
+    if (id > 0 && id < 5)
 	{     
-        war->players[id  - 1].last_cycle_to_live = war->cycle;
+        war->players[id  - 1].last_cycle_to_live = war->cycle + 1;
         (war->players[id - 1].count_live)++;
 	}
     p->pc += 5;
