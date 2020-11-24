@@ -6,29 +6,30 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 10:06:05 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/20 16:51:18 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/24 12:09:45 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-void    print_reg_in_arena(int cursor0, int size)
+void	get_winner(t_corewar *war, t_visu *visu)
 {
-	int			i;
-    t_corewar   *war;
-    t_visu      *visu;
+	int	last_live;
+	int	i;
 
 	i = 0;
-    war = get_corewar(0);
-    visu = get_visu(0);
-    size = overrided_pos(size, cursor0);
-    wattron(visu->arena, visu->color);
+	last_live = 0;
+	visu->last_live_color = BORDER_COLOR;
 	while (i < 4)
 	{
-    	print_byte(&war->arena[size], visu, visu->coords[size].y, visu->coords[size].x);
-		size++;
+		if (last_live < war->players[i].last_cycle_to_live)
+		{
+			last_live = war->players[i].last_cycle_to_live;
+			visu->last_live_color = i + 5;
+		}
+		// dprintf(2, "id => |%d|, last_live => |%d|\n", i, war->players[i].last_cycle_to_live);
 		i++;
 	}
-    wattroff(visu->arena, visu->color);
-    wrefresh(visu->arena);
+	border_maker(visu);
+	wrefresh(visu->arena);
 }

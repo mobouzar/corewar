@@ -4,14 +4,19 @@
 # include <ncurses.h>
 
 /*
-** Define colors
+** Define colors 8509
 */
 
-# define WHITE 1
-# define GRAY 8509
-# define GREEN 3
 
-# define PROCE_COLOR 0
+# define PLAYER1 1
+# define PLAYER2 2
+# define PLAYER3 3
+# define PLAYER4 4
+
+# define OUT_PROCE 11
+
+# define BOARD_COLOR 9
+# define BORDER_COLOR 10
 
 typedef struct	s_point
 {
@@ -19,24 +24,22 @@ typedef struct	s_point
 	int			id;
 	int			y;
 	int			x;
-	int			color;
 }				t_point;
+
+t_point			g_coords[4096];
 
 typedef struct  s_visu
 {
     WINDOW      *menu;
     WINDOW      *arena;
-	t_point		*coords;
     int			pause;
-	int			cycle;
 	int			cycle_speed;
+	int			last_live_color;
     int         key;
-	int			cursor;
 	int			sleep;
 	int			close;
 	int			color;
-	int			color_a;
-	int			color_b;
+
 }				t_visu;
 
 

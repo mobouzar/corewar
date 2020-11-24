@@ -6,7 +6,7 @@
 #    By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/26 18:43:13 by yelazrak          #+#    #+#              #
-#    Updated: 2020/11/20 13:05:17 by mobouzar         ###   ########.fr        #
+#    Updated: 2020/11/20 18:32:25 by mobouzar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ $(NAME): $(c_srcs) $(VISU) libft/libft.a
 
 clean:
 	@make clean -C libft
-	@rm -rf $(c_srcs)
+	@rm -rf $(c_srcs) $(VISU)
 
 fclean: clean
 	@make fclean -C libft

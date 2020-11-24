@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+         #
+#    By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/01 11:31:32 by yelazrak          #+#    #+#              #
-#    Updated: 2019/09/20 16:48:03 by yelazrak         ###   ########.fr        #
+#    Updated: 2020/11/24 11:30:21 by mobouzar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,9 +97,6 @@ SRCS = 	ft_atoi.c\
 		ft_char_nbr.c\
 		ft_abs.c\
 
-
-
-
 OBJS = $(SRCS:.c=.o)
 
 INCLUDES = .
@@ -113,7 +110,7 @@ $(NAME): $(OBJS)   $(INCLUDE)
 	@ranlib $(NAME)
 
 $(OBJS): %.o : %.c $(INCLUDES)/libft.h
-	gcc -c $< -o $@ $(FLAGS) -I $(INCLUDES)
+	gcc -c $(FLAGS) $< -o $@ -I $(INCLUDES)
 
 clean:
 	@rm -f $(OBJS)

@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/07 20:24:48 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/20 16:47:19 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/20 19:49:21 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,17 @@ t_corewar *get_corewar(t_corewar *lst)
     static t_corewar *p;
 
     if (lst)
-        p = lst;
+		p = lst;
     return (p);
+}
+
+t_point *get_coords(t_point *lst)
+{
+    static t_point **p;
+
+    if (lst)
+		*p = lst;
+    return (*p);
 }
 
 t_visu  *get_visu(t_visu *visu)

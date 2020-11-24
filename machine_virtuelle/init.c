@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lfork.c                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/12 22:06:55 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/23 17:37:55 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void task_init(t_corewar *war, int i, const unsigned int *index)
 	new->id = i + 1;
 	new->regster[0] = index[i];
 	new->pc = war->players[i].Starting_point;
-	inedx_color(new->id , new->pc, new->pc + ft_sign(war->players[i].data_file->prog_size, 4), 0);//
+	inedx_color(new->id , new->pc, new->pc + ft_sign(war->players[i].data_file->prog_size, 4), 0);
 	if (!war->last_process && !war->all_process)
 	{
 		war->all_process = new;

@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:06:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/20 17:54:25 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/23 19:43:12 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int				main(int argc, char **argv)
 		return (1);
 	if (!(visu = (t_visu *)ft_memalloc(sizeof(t_visu))))
 		return (1);
-	if (!(visu->coords = (t_point *)ft_memalloc(sizeof(t_point) * 4096)))
-		return (1);
+	ft_memset(g_coords, 0, sizeof(g_coords));
 	init_struct(visu);
+	wattron(stdscr, A_STANDOUT);
 	border_maker(visu);
 	war->arena = ft_get_arena();
 	get_id(argv);
@@ -52,7 +52,8 @@ int				main(int argc, char **argv)
 	ft_init_process(war);
 	get_corewar(war);
 	get_visu(visu);
-	ft_loop(visu);
+	ft_loop();
+	wattroff(stdscr, A_STANDOUT);
 	free_corewar(war);
 	endwin();
 	return (0);

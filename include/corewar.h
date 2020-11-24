@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:06:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/20 16:46:09 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/24 11:46:18 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_player
 	int last_cycle_to_live;
 	t_process *process;
 	t_header *data_file;
-} t_player;
+}				t_player;
 
 typedef struct s_corewar
 {
@@ -110,7 +110,7 @@ void ft_print_arena();
 ** func exec 
 */
 int hextodecimal(char val);
-void ft_loop(t_visu *visu);
+void ft_loop(void);
 void ft_exec(t_process *p, t_corewar *war);
 /*
 ** funcs instructoin_assembly 
@@ -172,6 +172,7 @@ int		event_listenner(void);
 void	pause_handler(t_visu *visu);
 t_visu  *get_visu(t_visu *visu);
 
+void	get_winner(t_corewar *war, t_visu *visu);
 void	print_byte(const void *addr, t_visu *visu, int i, int j);
 void    print_reg_in_arena(int cursor0, int size);
 void	print_arena(t_corewar *war, t_visu *visu, int i, int j);

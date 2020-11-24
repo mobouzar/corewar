@@ -81,30 +81,24 @@ int get_size_beyt_flag(t_process *p, unsigned char flg, int opcode)
 int overrided_pos(int size, int cursor0)
 {
 	if (size >= 0)
-	{
 		size = cursor0 + (size % IDX_MOD);
-	}
 	else
-	{
 		size = MEM_SIZE + (cursor0 + (((-1 * size) % IDX_MOD) * -1));
-	}
 	return ((size % MEM_SIZE));
 }
 
 void  inedx_color(int id , int start, int end, int alpha)
 {
-	t_visu *visu;
-	int i;
-	
+	int		i;
+
 	i = start;
-	visu = get_visu(0);
-	visu->coords[i].alpha = alpha;
 	while(i < end)
 	{
-		visu->coords[i].id = id;
+		g_coords[i].alpha = alpha;
+		g_coords[i].id = id;
 		i++;
 	}
-} 
+}
 
 void cpy_reg_to_arena(t_process *p, int cursor0, int size, int reg)
 {
@@ -116,10 +110,10 @@ void cpy_reg_to_arena(t_process *p, int cursor0, int size, int reg)
 	{
 		ft_memcpy((void *)&war->arena[size], (void *)&p->regster[reg - 1],\
 		 (MEM_SIZE - size));
-		 inedx_color(p->id , size, MEM_SIZE, 1);///
+		inedx_color(p->id , size, MEM_SIZE, 1);
 		ft_memcpy((void *)&war->arena[0], (void *)&p->regster[reg - 1],\
 		 4 - (MEM_SIZE - size));
-		inedx_color(p->id , 0, 4 - (MEM_SIZE - size) , 1);//
+		inedx_color(p->id , 0, 4 - (MEM_SIZE - size) , 1);
 	}
 	else
 	{

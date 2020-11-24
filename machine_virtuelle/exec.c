@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 22:04:41 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/20 16:58:09 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/24 11:33:00 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,25 +123,22 @@ static void ft_Controlle(t_corewar *war)
 	war->nbr_live = 0;
 }
 
-void ft_loop(t_visu *visu)
+void ft_loop(void)
 {
-	t_corewar *war;
-	t_process *p;
+	t_visu		*visu;
+	t_corewar	*war;
+	t_process	*p;
 
 	war = get_corewar(0);
+	visu = get_visu(0);
 	while (war->cycle_to_die > 0 && war->nbr_process > 0)
 	{
 		p = war->all_process;
+		board(war, visu);
 		while (p != NULL)
 		{
 			if (!p->cycle_create || p->cycle_create < war->cycle)
-			{
-				visu->cursor = p->pc;
-				print_arena(war, visu, 2, 3);
-				board(war, visu);
 				ft_exec(p, war);
-				usleep(10000);
-			}
 			p = p->next;
 		}
 		if ((war->cycle == (war->cycle_last_check + war->cycle_to_die)) || war->cycle_to_die < 1)
@@ -151,5 +148,4 @@ void ft_loop(t_visu *visu)
 		}
 		war->cycle++;
 	}
-	// ft_print_arena();
 }
