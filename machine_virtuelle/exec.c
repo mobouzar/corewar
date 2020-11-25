@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 22:04:41 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/24 11:33:00 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/25 11:23:10 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ void ft_loop(void)
 	{
 		p = war->all_process;
 		board(war, visu);
+		if (visu->close)
+			break ;
 		while (p != NULL)
 		{
 			if (!p->cycle_create || p->cycle_create < war->cycle)
@@ -148,4 +150,5 @@ void ft_loop(void)
 		}
 		war->cycle++;
 	}
+	print_winner(war, visu);
 }

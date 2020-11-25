@@ -6,51 +6,29 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:23:19 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/24 12:37:10 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/25 14:13:18 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 #include <stdio.h>
 
-void		init_struct(t_visu *visu)
+void	init_struct(t_visu *visu)
 {
-	visu->close = 1;
+	initscr();
+	cbreak();
+	nodelay(stdscr, TRUE);
+	curs_set(FALSE);
+	noecho();
+	init_colors();
+	visu->arena = subwin(stdscr, 68, 197, 0, 0);
+	visu->menu = subwin(stdscr, 68, 55, 0, 196);
+	visu->winner = subwin(stdscr, 10, 55, 36, 196);
 	visu->pause = 1;
 	visu->key = 32;
 	visu->last_live_color = BORDER_COLOR;
-}
-
-void		init_colors(t_visu *visu)
-{
-	(void)*visu;
-	start_color();
-	init_pair(PLAYER1, COLOR_RED, 0);
-	init_pair(5, 0, COLOR_RED);
-
-	init_pair(PLAYER2, COLOR_GREEN, 0);
-	init_pair(6, 0, COLOR_GREEN);
-
-	init_pair(PLAYER3, COLOR_BLUE, 0);
-	init_pair(7, 0, COLOR_BLUE);
-
-	init_pair(PLAYER4, COLOR_MAGENTA, 0);
-	init_pair(8, 0, COLOR_MAGENTA);
-
-	init_pair(BOARD_COLOR, 8, 0);
-	init_pair(OUT_PROCE, 8, 8);
-
-	init_pair(10, COLOR_WHITE, COLOR_WHITE);
-}
-
-void print_byte(const void *addr, t_visu *visu, int i, int j)
-{
-    const char	*str = "0123456789abcdef";
-    char_t		*p;
-
-    p = (char_t *)addr;
-	mvwprintw(visu->arena, i, j, "%c", str[(p[0] / 16) % 16]);
-	mvwprintw(visu->arena, i, j + 1, "%c", str[p[0] % 16]);
+	visu->win = BORDER_COLOR;
+	visu->cycle_speed = 100;
 }
 
 void	move_process(t_visu *visu, unsigned char *arena, t_process *p)
@@ -60,7 +38,6 @@ void	move_process(t_visu *visu, unsigned char *arena, t_process *p)
 	color = 0;
 	while (p)
 	{
-		// dprintf(2, "id => |%d|\n", g_coords[p->pc].id);
 		if (g_coords[p->pc].id)
 			color = g_coords[p->pc].id + 4;
 		else
@@ -86,7 +63,7 @@ void	print_arena(t_corewar *war, t_visu *visu, int i, int j)
 		g_coords[index].y = i;
 		g_coords[index].x = j;
 		bold = 0;
-		visu->color = BOARD_COLOR;
+		visu->color = 9;
 		if (g_coords[index].id)
 			visu->color = g_coords[index].id;
 		if (g_coords[index].alpha)
@@ -99,38 +76,31 @@ void	print_arena(t_corewar *war, t_visu *visu, int i, int j)
 		j += 3;
 	}
 	move_process(visu, war->arena, war->all_process);
-	wrefresh(visu->arena);
 }
 
 void	border_maker(t_visu *visu)
 {
-	initscr();
-	nodelay(stdscr, TRUE);
-	curs_set(FALSE);
-	noecho();
-	init_colors(visu);
-	visu->arena = subwin(stdscr, 68, 197 , 0, 0);
-	visu->menu = subwin(stdscr, 68, 55, 0, 196);
-
-	wattron(visu->arena, COLOR_PAIR(visu->last_live_color));
+	wattron(visu->arena, COLOR_PAIR(visu->win));
 	box(visu->arena, ACS_VLINE, ACS_HLINE);
 	wborder(visu->arena, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	wattroff(visu->arena, COLOR_PAIR(visu->last_live_color));
-
-	wattron(visu->menu, COLOR_PAIR(visu->last_live_color));
+	wattroff(visu->arena, COLOR_PAIR(visu->win));
+	wattron(visu->menu, COLOR_PAIR(visu->win));
 	box(visu->menu, ACS_VLINE, ACS_HLINE);
 	wborder(visu->menu, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	wattroff(visu->menu, COLOR_PAIR(visu->last_live_color));
-
+	wattroff(visu->menu, COLOR_PAIR(visu->win));
+	wattron(visu->winner, COLOR_PAIR(visu->win));
+	box(visu->winner, ACS_VLINE, ACS_HLINE);
+	wborder(visu->winner, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
+	wattroff(visu->winner, COLOR_PAIR(visu->win));
 }
 
-int		board(t_corewar *war, t_visu *visu)
+void	board(t_corewar *war, t_visu *visu)
 {
-	get_winner(war, visu);
+	get_winner_color(war, visu);
 	print_arena(war, visu, 2, 3);
+	wrefresh(visu->arena);
 	menu_handler(war, visu);
 	pause_handler(visu);
 	event_handler(visu);
-	usleep(10000);
-	return (0);
+	usleep(visu->cycle_speed);
 }

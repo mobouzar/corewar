@@ -6,33 +6,31 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:22:18 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/24 11:35:43 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/25 14:07:51 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-int		event_listenner(void)
-{
-	int	key;
-
-	if ((key = getch()) == -1)
-		return (0);
-	return (key);
-}
-
-void		pause_handler(t_visu *visu)
+void	pause_handler(t_visu *visu)
 {
 	wattron(visu->menu, A_BOLD);
-	if (!(visu->pause % 2 == 0))
+	if (visu->pause == 1)
 	{
 		mvwprintw(visu->menu, 2, 4, "*** PAUSED ***");
 		wrefresh(visu->menu);
 		while (1)
 		{
-			if (event_listenner() == 32)
+			visu->key = event_listenner();
+			if (visu->key == 27)
+				visu->close = 1;
+			if (visu->key == 32 || visu->close == 1 || visu->key == 's')
 			{
-				visu->pause++;
+				if (visu->key == 's')
+					nodelay(stdscr, FALSE);
+				else if (visu->key == 32)
+					nodelay(stdscr, TRUE);
+				visu->pause = 0;
 				break ;
 			}
 		}
@@ -41,77 +39,28 @@ void		pause_handler(t_visu *visu)
 	wattroff(visu->menu, A_BOLD);
 }
 
-void		event_handler(t_visu *visu)
+void	event_handler(t_visu *visu)
 {
 	visu->key = event_listenner();
 	if (visu->key > 0)
 	{
-		if (visu->key == 32 && (visu->pause++))
+		if (visu->key == 32)
+		{
+			nodelay(stdscr, TRUE);
 			pause_handler(visu);
-		// else if (visu->key == 43)
-		// 	visu->sleep += 300;
-		// else if (visu->key == 45 && visu->sleep > 0)
-		// 	visu->sleep -= 10;
-		// else if (visu->key == 27)
-		// 	visu->close = 0;
-		init_colors(visu);
-	}
-}
-
-void	player1_handler(t_visu *visu, t_corewar *war)
-{
-	if (war->nbr_fighters >= 1)
-	{
-		mvwprintw(visu->menu, 20, 4, "Playser -1 : ");
-		wattron(visu->menu, COLOR_PAIR(PLAYER1));
-		mvwprintw(visu->menu, 20, 17, "%s", war->players[0].data_file->prog_name);
-		wattroff(visu->menu, COLOR_PAIR(PLAYER1));
-		mvwprintw(visu->menu, 21, 6, "Last live");
-		mvwprintw(visu->menu, 21, 30, ": %d", war->players[0].last_cycle_to_live);
-		mvwprintw(visu->menu, 22, 6, "Lives in current period : %d", war->players[0].count_live);
-	}
-}
-
-void	player2_handler(t_visu *visu, t_corewar *war)
-{
-	if (war->nbr_fighters >= 2)
-	{
-		mvwprintw(visu->menu, 24, 4, "Playser -2 : ");
-		wattron(visu->menu, COLOR_PAIR(PLAYER2));
-		mvwprintw(visu->menu, 24, 17, "%s", war->players[1].data_file->prog_name);
-		wattroff(visu->menu, COLOR_PAIR(PLAYER2));
-		mvwprintw(visu->menu, 25, 6, "Last live");
-		mvwprintw(visu->menu, 25, 30, ": %d", war->players[1].last_cycle_to_live);
-		mvwprintw(visu->menu, 26, 6, "Lives in current period : %d", war->players[1].count_live);
-	}
-}
-
-void	player3_handler(t_visu *visu, t_corewar *war)
-{
-	if (war->nbr_fighters >= 3)
-	{
-		mvwprintw(visu->menu, 28, 4, "Playser -3 : ");
-		wattron(visu->menu, COLOR_PAIR(PLAYER3));
-		mvwprintw(visu->menu, 28, 17, "%s", war->players[2].data_file->prog_name);
-		wattroff(visu->menu, COLOR_PAIR(PLAYER3));
-		mvwprintw(visu->menu, 29, 6, "Last live");
-		mvwprintw(visu->menu, 29, 30, ": %d", war->players[2].last_cycle_to_live);
-		mvwprintw(visu->menu, 30, 6, "Lives in current period : %d", war->players[2].count_live);
-	}
-}
-
-void	player4_handler(t_visu *visu, t_corewar *war)
-{
-	if (war->nbr_fighters == 4)
-	{
-		mvwprintw(visu->menu, 32, 4, "Playser -4 : ");
-		wattron(visu->menu, COLOR_PAIR(PLAYER4));
-		mvwprintw(visu->menu, 32, 17, "%s", war->players[3].data_file->prog_name);
-		wattroff(visu->menu, COLOR_PAIR(PLAYER4));
-		mvwprintw(visu->menu, 33, 6, "Last live");
-		mvwprintw(visu->menu, 33, 30, ": %d", war->players[3].last_cycle_to_live);
-		mvwprintw(visu->menu, 34, 6, "Lives in current period : %d", war->players[3].count_live);
-		wrefresh(visu->menu);
+			visu->pause = 1;
+		}
+		else if (visu->key == 27)
+			visu->close = 1;
+		else if (visu->key == 43)
+			visu->cycle_speed += 100;
+		else if (visu->key == 45)
+			visu->cycle_speed -= 100;
+		else if (visu->key == 's')
+		{
+			nodelay(stdscr, FALSE);
+			visu->step = 1;
+		}
 	}
 }
 
@@ -130,6 +79,8 @@ void	menu_handler(t_corewar *war, t_visu *visu)
 	player2_handler(visu, war);
 	player3_handler(visu, war);
 	player4_handler(visu, war);
-	wattroff(visu->menu, A_BOLD);
+	mvwprintw(visu->menu, 37, 18, "THE WINNER'S BOX");
+	mvwprintw(visu->menu, 40, 4, "The winner is: ");
 	wrefresh(visu->menu);
+	wattroff(visu->menu, A_BOLD);
 }

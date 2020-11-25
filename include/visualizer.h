@@ -32,6 +32,7 @@ typedef struct  s_visu
 {
     WINDOW      *menu;
     WINDOW      *arena;
+	WINDOW		*winner;
     int			pause;
 	int			cycle_speed;
 	int			last_live_color;
@@ -39,6 +40,8 @@ typedef struct  s_visu
 	int			sleep;
 	int			close;
 	int			color;
+	int			step;
+	int			win;
 
 }				t_visu;
 

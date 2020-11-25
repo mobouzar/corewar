@@ -6,7 +6,7 @@
 #    By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/26 18:43:13 by yelazrak          #+#    #+#              #
-#    Updated: 2020/11/20 18:32:25 by mobouzar         ###   ########.fr        #
+#    Updated: 2020/11/25 14:03:29 by mobouzar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ c_srcs = machine_virtuelle/main.o \
 VISU =  visualizer/arena_viewer.o \
 		visualizer/menu_viewer.o \
 		visualizer/tools.o \
+		visualizer/players_handler.o \
 	
 INCLUDES = ./include
 CFLAGS = -Wall -Wextra -Werror -g

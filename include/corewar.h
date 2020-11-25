@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:06:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/24 11:46:18 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/25 14:04:58 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ void  inedx_color(int id , int start, int end, int alpha);
 **	VISUALIZER FUNCTIONS
 */
 
-int		board(t_corewar *war, t_visu *visu);
+void	board(t_corewar *war, t_visu *visu);
 void	menu_handler(t_corewar *war, t_visu *visu);
 void	event_handler(t_visu *visu);
 void	border_maker(t_visu *visu);
@@ -172,10 +172,21 @@ int		event_listenner(void);
 void	pause_handler(t_visu *visu);
 t_visu  *get_visu(t_visu *visu);
 
-void	get_winner(t_corewar *war, t_visu *visu);
+int		get_winner(t_corewar *war);
+void	print_winner(t_corewar *war, t_visu *visu);
+void	get_winner_color(t_corewar *war, t_visu *visu);
 void	print_byte(const void *addr, t_visu *visu, int i, int j);
 void    print_reg_in_arena(int cursor0, int size);
 void	print_arena(t_corewar *war, t_visu *visu, int i, int j);
-void	init_colors(t_visu *visu);
+void	init_colors();
+
+/*
+** PLAYERS FUNCTIONS
+*/
+
+void	player1_handler(t_visu *visu, t_corewar *war);
+void	player2_handler(t_visu *visu, t_corewar *war);
+void	player3_handler(t_visu *visu, t_corewar *war);
+void	player4_handler(t_visu *visu, t_corewar *war);
 
 #endif
