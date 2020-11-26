@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:23:19 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/25 14:13:18 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/26 10:53:32 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	init_struct(t_visu *visu)
 {
 	initscr();
-	cbreak();
+	raw();
 	nodelay(stdscr, TRUE);
 	curs_set(FALSE);
 	noecho();

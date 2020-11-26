@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:22:18 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/25 14:07:51 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/26 11:02:23 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,18 @@ void	event_handler(t_visu *visu)
 	}
 }
 
+void	print_menu(t_visu *visu)
+{
+	wattron(visu->menu, A_BOLD);
+	mvwprintw(visu->menu, 46, 19, "EVENT's MENU");
+	mvwprintw(visu->menu, 48, 4, "PLAY/PAUSE   : SPACE");
+	mvwprintw(visu->menu, 50, 4, "SPEED        : +/-");
+	mvwprintw(visu->menu, 52, 4, "STEP BY STEP : s");
+	mvwprintw(visu->menu, 54, 4, "QUIT         : esc");
+	mvwprintw(visu->menu, 58, 1, "------------------------ aff ------------------------");
+	wattroff(visu->menu, A_BOLD);
+}
+
 void	menu_handler(t_corewar *war, t_visu *visu)
 {
 	wattron(visu->menu, A_BOLD);
@@ -79,8 +91,9 @@ void	menu_handler(t_corewar *war, t_visu *visu)
 	player2_handler(visu, war);
 	player3_handler(visu, war);
 	player4_handler(visu, war);
-	mvwprintw(visu->menu, 37, 18, "THE WINNER'S BOX");
+	mvwprintw(visu->menu, 37, 18, "THE WINNER's BOX");
 	mvwprintw(visu->menu, 40, 4, "The winner is: ");
+	print_menu(visu);
 	wrefresh(visu->menu);
 	wattroff(visu->menu, A_BOLD);
 }
