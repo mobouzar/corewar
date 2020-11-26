@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:22:18 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/26 11:02:23 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/26 14:55:21 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,16 @@ void	event_handler(t_visu *visu)
 		}
 		else if (visu->key == 27)
 			visu->close = 1;
-		else if (visu->key == 43)
-			visu->cycle_speed += 100;
-		else if (visu->key == 45)
-			visu->cycle_speed -= 100;
+		else if (visu->key == 43 && visu->cycle_speed > 0 && visu->speed < 100)
+		{
+			visu->cycle_speed -= 20000;
+			visu->speed += 10;
+		}
+		else if (visu->key == 45 && visu->cycle_speed < 5000000 && visu->speed > 0)
+		{
+			visu->cycle_speed += 20000;
+			visu->speed -= 10;
+		}
 		else if (visu->key == 's')
 		{
 			nodelay(stdscr, FALSE);
@@ -80,7 +86,8 @@ void	menu_handler(t_corewar *war, t_visu *visu)
 {
 	wattron(visu->menu, A_BOLD);
 	mvwprintw(visu->menu, 4, 4, "Cycles/second limit : ");
-	mvwprintw(visu->menu, 4, 26, "%d", visu->cycle_speed);
+	wclrtoeol(visu->menu);
+	mvwprintw(visu->menu, 4, 26, "%d", visu->speed);
 	mvwprintw(visu->menu, 7, 4, "Cycle : %d", war->cycle);
 	mvwprintw(visu->menu, 9, 4, "Processes : %d", war->nbr_process);
 	mvwprintw(visu->menu, 11, 4, "CYCLE_TO_DIE : %d", war->cycle_to_die);
@@ -94,6 +101,6 @@ void	menu_handler(t_corewar *war, t_visu *visu)
 	mvwprintw(visu->menu, 37, 18, "THE WINNER's BOX");
 	mvwprintw(visu->menu, 40, 4, "The winner is: ");
 	print_menu(visu);
-	wrefresh(visu->menu);
 	wattroff(visu->menu, A_BOLD);
+	wrefresh(visu->menu);
 }

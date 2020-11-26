@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:23:19 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/26 10:53:32 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/26 14:50:01 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 void	init_struct(t_visu *visu)
 {
 	initscr();
-	raw();
+	// raw();
+	cbreak();
 	nodelay(stdscr, TRUE);
 	curs_set(FALSE);
 	noecho();
@@ -28,7 +29,8 @@ void	init_struct(t_visu *visu)
 	visu->key = 32;
 	visu->last_live_color = BORDER_COLOR;
 	visu->win = BORDER_COLOR;
-	visu->cycle_speed = 100;
+	visu->cycle_speed = 100000;
+	visu->speed = 50;
 }
 
 void	move_process(t_visu *visu, unsigned char *arena, t_process *p)

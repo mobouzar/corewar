@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 10:06:05 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/25 14:11:26 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/26 12:45:59 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	print_winner(t_corewar *war, t_visu *visu)
 {
 	if (visu->win - 5 >= 0 && visu->win - 5 < 4)
 	{
-		dprintf(2, "win |%d|\n", visu->win);
 		wattron(visu->menu, A_BOLD);
 		wattron(visu->menu, COLOR_PAIR(visu->win - 4));
 		mvwprintw(visu->menu, 40, 20, "%s",\
