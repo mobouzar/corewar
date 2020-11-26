@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   st.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/20 16:46:09 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/03/12 22:07:03 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-static void task_st(t_process *p, unsigned char byt_arg, int cursor0, int reg)
+static	void			task_st(t_process *p,
+unsigned char byt_arg, int cursor0, int reg)
 {
-	t_corewar *war;
-	unsigned int data;
+	t_corewar			*war;
+	unsigned	int		data;
 
 	data = 0;
 	war = get_corewar(0);
 	if ((((byt_arg >> 4) & 0x03) & IND_CODE) == IND_CODE)
 	{
 		ft_memcpy(&data, &war->arena[++p->pc], 2);
-		cpy_reg_to_arena(p, cursor0, ft_sign(data, 2), hex(addr_to_hex(&reg, 1)));
+		cpy_reg_to_arena(p, cursor0,
+ft_sign(data, 2), hex(addr_to_hex(&reg, 1)));
 		p->pc++;
 	}
 	else if ((((byt_arg >> 4) & 0x03) & REG_CODE) == REG_CODE)
@@ -33,13 +35,12 @@ static void task_st(t_process *p, unsigned char byt_arg, int cursor0, int reg)
 	}
 }
 
-int ft_st(t_process *p)
+int						ft_st(t_process *p)
 {
-	t_corewar *war;
-	unsigned char byt_arg;
-
-	int reg;
-	int cursor0;
+	t_corewar			*war;
+	unsigned	char	byt_arg;
+	int					reg;
+	int					cursor0;
 
 	war = get_corewar(0);
 	cursor0 = p->pc;

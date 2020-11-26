@@ -20,6 +20,7 @@ c_srcs = machine_virtuelle/main.o \
 		machine_virtuelle/exec.o \
 		machine_virtuelle/tool.o \
 		machine_virtuelle/tool_flg.o \
+		machine_virtuelle/op.o \
 		machine_virtuelle/flags.o \
 		instructoin_assembly/ld.o \
 		instructoin_assembly/st.o \
@@ -37,6 +38,7 @@ c_srcs = machine_virtuelle/main.o \
 		instructoin_assembly/sub.o \
 		instructoin_assembly/xor.o \
 		instructoin_assembly/zjmp.o\
+		machine_virtuelle/tool_arena.o \
 
 VISU =  visualizer/arena_viewer.o \
 		visualizer/menu_viewer.o \

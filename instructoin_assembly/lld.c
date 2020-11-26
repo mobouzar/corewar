@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   lld.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/20 16:46:09 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/03/13 18:58:37 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-int ft_lld(t_process *p)
+int						ft_lld(t_process *p)
 {
-
-	t_corewar *war;
-	unsigned char byt_arg;
-	unsigned int byt;
-	int reg;
-	int cursor0;
+	t_corewar			*war;
+	unsigned	char	byt_arg;
+	unsigned	int		byt;
+	int					reg;
+	int					cursor0;
 
 	war = get_corewar(0);
 	cursor0 = p->pc;
@@ -33,6 +32,5 @@ int ft_lld(t_process *p)
 		p->erorr = 0;
 	}
 	p->pc = p->size_of_flg + cursor0;
-
 	return (0);
 }

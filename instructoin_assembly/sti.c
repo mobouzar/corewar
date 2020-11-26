@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   sti.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/20 18:33:31 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/03/12 22:08:39 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-static void task_sti(t_process *p, unsigned char byt_arg, int cursor0, int reg)
+static	void			task_sti(t_process *p,
+unsigned char byt_arg, int cursor0, int reg)
 {
-	unsigned int byt;
-	long data;
+	unsigned	int		byt;
+	long				data;
 
 	byt = return_data_of_arg(p, ((byt_arg >> 4) & 0x03), 11, cursor0);
 	if ((((byt_arg >> 4) & 0x03)) == DIR_CODE)
@@ -31,12 +32,12 @@ static void task_sti(t_process *p, unsigned char byt_arg, int cursor0, int reg)
 		cpy_reg_to_arena(p, cursor0, data, reg);
 }
 
-int ft_sti(t_process *p)
+int						ft_sti(t_process *p)
 {
-	t_corewar *war;
-	unsigned char byt_arg;
-	int reg;
-	int cursor0;
+	t_corewar			*war;
+	unsigned	char	byt_arg;
+	int					reg;
+	int					cursor0;
 
 	war = get_corewar(0);
 	cursor0 = p->pc;
@@ -44,7 +45,6 @@ int ft_sti(t_process *p)
 	if ((get_size_beyt_flag(p, byt_arg, 11)) > 0)
 	{
 		p->pc++;
-
 		if ((reg = read_regster(p)) != -1)
 		{
 			p->pc++;

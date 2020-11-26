@@ -40,9 +40,9 @@ void	init_colors(void)
 void	print_byte(const void *addr, t_visu *visu, int i, int j)
 {
 	const char	*str = "0123456789abcdef";
-	char_t		*p;
+	uint8_t		*p;
 
-	p = (char_t *)addr;
+	p = (uint8_t *)addr;
 	mvwprintw(visu->arena, i, j, "%c", str[(p[0] / 16) % 16]);
 	mvwprintw(visu->arena, i, j + 1, "%c", str[p[0] % 16]);
 }

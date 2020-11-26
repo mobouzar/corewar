@@ -14,7 +14,7 @@
 
 void			free_process(t_process *p)
 {
-	if (p->next)
+	if (p && p->next)
 		free_process(p->next);
 	ft_memdel((void **)&p);
 }
@@ -24,14 +24,15 @@ void			free_corewar(t_corewar *war)
 	int			i;
 
 	i = -1;
-	ft_memdel((void **)&war->arena);
+	ft_memdel((void *)&war->arena);
 	while (++i < war->nbr_fighters)
 	{
-		ft_memdel((void **)&war->players[i].data_file);
+		ft_memdel((void *)&war->players[i].data_file);
 	}
 	free_process(war->all_process);
 	ft_memdel((void **)&war);
 }
+
 
 int				main(int argc, char **argv)
 {
@@ -47,7 +48,7 @@ int				main(int argc, char **argv)
 	border_maker(visu);
 	war->arena = ft_get_arena();
 	get_id(argv);
-	Parsing(war, argc, argv);
+	parsing(war, argc, argv);/// if err
 	ft_init_process(war);
 	get_corewar(war);
 	get_visu(visu);
