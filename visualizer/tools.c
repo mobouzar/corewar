@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 10:06:05 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/26 12:45:59 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/27 11:34:04 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,14 @@ void	print_winner(t_corewar *war, t_visu *visu)
 			war->players[visu->win - 5].data_file->prog_name);
 		wattroff(visu->menu, COLOR_PAIR(visu->win - 4));
 		mvwprintw(visu->menu, 42, 4,\
-			"********* Press any key to finish. *********");
+			"********* Press asc to finish. *********");
 		wattroff(visu->menu, A_BOLD);
 	}
 	wrefresh(visu->menu);
 	if (!visu->close)
 	{
 		while (1)
-			if (event_listenner())
+			if (event_listenner() == 27)
 				break ;
 	}
 }
