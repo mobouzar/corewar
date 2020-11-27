@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:22:18 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/27 10:59:04 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/27 14:54:02 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	pause_handler(t_visu *visu)
 		while (1)
 		{
 			visu->key = event_listenner();
-			if (visu->key == 27)
-				visu->close = 1;
+			if (visu->key == 's')
+				break ;
+			if (visu->key == 'q' && (visu->close = 1))
+				break ;
 			if (visu->key == 32 || visu->close == 1 || visu->key == 's')
 			{
 				if (visu->key == 's')
 					nodelay(stdscr, FALSE);
-				else if (visu->key == 32)
-					nodelay(stdscr, TRUE);
 				visu->pause = 0;
 				break ;
 			}
@@ -37,6 +37,23 @@ void	pause_handler(t_visu *visu)
 		mvwprintw(visu->menu, 2, 4, "*** RUNNING ***");
 	}
 	wattroff(visu->menu, A_BOLD);
+}
+
+void	speed_handler(t_visu *visu)
+{
+	if (visu->speed == 100 || visu->speed == 0)
+		system("afplay visualizer/assets/bip.mp3 &");
+	if (visu->key == 43 && visu->cycle_speed > 0 && visu->speed < 100)
+	{
+		visu->cycle_speed -= 20000;
+		visu->speed += 10;
+	}
+	else if (visu->key == 45 &&\
+		visu->cycle_speed < 5000000 && visu->speed > 0)
+	{
+		visu->cycle_speed += 20000;
+		visu->speed -= 10;
+	}
 }
 
 void	event_handler(t_visu *visu)
@@ -48,21 +65,12 @@ void	event_handler(t_visu *visu)
 			nodelay(stdscr, TRUE);
 			pause_handler(visu);
 		}
-		else if (visu->key == 27)
+		else if (visu->key == 'q')
 			visu->close = 1;
-		else if (visu->key == 43 && visu->cycle_speed > 0 && visu->speed < 100)
-		{
-			visu->cycle_speed -= 20000;
-			visu->speed += 10;
-		}
-		else if (visu->key == 45 &&\
-			visu->cycle_speed < 5000000 && visu->speed > 0)
-		{
-			visu->cycle_speed += 20000;
-			visu->speed -= 10;
-		}
+		else if (visu->key == 43 || visu->key == 45)
+			speed_handler(visu);
 		else if (visu->key == 's' && (visu->step = 1))
-			nodelay(stdscr, FALSE);
+			visu->pause = 1;
 	}
 }
 
@@ -73,7 +81,7 @@ void	print_menu(t_visu *visu)
 	mvwprintw(visu->menu, 48, 4, "PLAY/PAUSE   : SPACE");
 	mvwprintw(visu->menu, 50, 4, "SPEED        : +/-");
 	mvwprintw(visu->menu, 52, 4, "STEP BY STEP : s");
-	mvwprintw(visu->menu, 54, 4, "QUIT         : esc");
+	mvwprintw(visu->menu, 54, 4, "QUIT         : q");
 	mvwprintw(visu->menu, 58, 1,\
 	"------------------------ aff ------------------------");
 	wattroff(visu->menu, A_BOLD);

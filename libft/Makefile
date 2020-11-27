@@ -6,7 +6,7 @@
 #    By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/01 11:31:32 by yelazrak          #+#    #+#              #
-#    Updated: 2020/11/24 11:30:21 by mobouzar         ###   ########.fr        #
+#    Updated: 2020/11/27 14:57:55 by mobouzar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,7 @@ SRCS = 	ft_atoi.c\
 		ft_itoa_base.c\
 		ft_char_nbr.c\
 		ft_abs.c\
+		ft_nstrjoin.c
 
 OBJS = $(SRCS:.c=.o)
 

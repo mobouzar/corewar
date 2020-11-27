@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/30 21:21:04 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/01/27 18:07:58 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/27 14:58:21 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,6 @@ int					ft_char_nbr(char c);
 int					ft_str_nbr(char *str);
 long long int		ft_abs(long long int n);
 char				*ft_strnew_00(size_t i);
+char				*ft_nstrjoin(size_t n, ...);
 
 #endif

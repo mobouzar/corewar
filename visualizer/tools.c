@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 10:06:05 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/27 11:34:04 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/27 15:02:10 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ void	get_winner_color(t_corewar *war, t_visu *visu)
 
 void	print_winner(t_corewar *war, t_visu *visu)
 {
+	char *msg;
+
+	msg = ft_nstrjoin(3, "say congrats",\
+		war->players[visu->win - 5].data_file->prog_name, "&");
 	if (visu->win - 5 >= 0 && visu->win - 5 < 4)
 	{
 		wattron(visu->menu, A_BOLD);
@@ -77,14 +81,16 @@ void	print_winner(t_corewar *war, t_visu *visu)
 			war->players[visu->win - 5].data_file->prog_name);
 		wattroff(visu->menu, COLOR_PAIR(visu->win - 4));
 		mvwprintw(visu->menu, 42, 4,\
-			"********* Press asc to finish. *********");
+			"********* Press q to finish. *********");
 		wattroff(visu->menu, A_BOLD);
 	}
 	wrefresh(visu->menu);
+	system(msg);
+	ft_strdel(&msg);
 	if (!visu->close)
 	{
 		while (1)
-			if (event_listenner() == 27)
+			if (event_listenner() == 'q')
 				break ;
 	}
 }
