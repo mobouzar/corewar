@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:22:18 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/27 14:54:02 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/28 00:26:14 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ void	pause_handler(t_visu *visu)
 
 void	speed_handler(t_visu *visu)
 {
-	if (visu->speed == 100 || visu->speed == 0)
+	if (visu->key == 43 && visu->speed == 100)
+		system("afplay visualizer/assets/bip.mp3 &");
+	else if (visu->key == 45 && visu->speed == 0)
 		system("afplay visualizer/assets/bip.mp3 &");
 	if (visu->key == 43 && visu->cycle_speed > 0 && visu->speed < 100)
 	{

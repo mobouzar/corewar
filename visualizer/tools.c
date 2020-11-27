@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 10:06:05 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/27 15:02:10 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/28 00:33:12 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ void	print_winner(t_corewar *war, t_visu *visu)
 		wattroff(visu->menu, A_BOLD);
 	}
 	wrefresh(visu->menu);
-	system(msg);
+	if (!visu->close)
+		system(msg);
 	ft_strdel(&msg);
 	if (!visu->close)
 	{
