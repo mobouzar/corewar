@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 18:06:05 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/03/13 18:26:19 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/26 12:20:27 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int exit_error(char *message_error);
 **	VISUALIZER FUNCTIONS
 */
 
-void  inedx_color(int id , int start, int end, int alpha);
+void	inedx_color(int id , int start, int end, int alpha);
 void	board(t_corewar *war, t_visu *visu);
 void	menu_handler(t_corewar *war, t_visu *visu);
 void	event_handler(t_visu *visu);

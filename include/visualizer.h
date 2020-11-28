@@ -35,8 +35,9 @@ typedef struct  s_visu
 	WINDOW		*winner;
     int			pause;
 	int			cycle_speed;
+	int			speed;
 	int			last_live_color;
-    int         key;
+    int			key;
 	int			sleep;
 	int			close;
 	int			color;
