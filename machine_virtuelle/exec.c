@@ -117,8 +117,13 @@ void ft_loop(void)
 	{
 		p = war->all_process;
 		board(war, visu);
-		if (visu && visu->close)
+		if ((visu && visu->close) )
 			break ;
+		if (!war->v && war->dump > 0 && war->dump == war->cycle)
+		{
+			ft_print_arena();
+			exit_error(NULL);
+		}
 		while (p != NULL)
 		{
 			if (!p->cycle_create || p->cycle_create < war->cycle)
@@ -134,29 +139,3 @@ void ft_loop(void)
 	}
 	print_winner(war, visu);
 }
-
-// void									ft_loop(void)
-// {
-// 	t_corewar							*war;
-// 	t_process							*p;
-
-// 	war = get_corewar(0);
-// 	while (war->cycle_to_die > 0 && war->nbr_process > 0)
-// 	{
-// 		p = war->all_process;
-// 		while (p != NULL)
-// 		{
-// 			if (!p->cycle_create || p->cycle_create < war->cycle)
-// 				ft_exec(p, war);
-// 			p = p->next;
-// 		}
-// 		if ((war->cycle == (war->cycle_last_check + war->cycle_to_die)) ||
-// 			war->cycle_to_die < 1)
-// 		{
-// 			war->cycle_last_check = war->cycle;
-// 			ft_controlle(war);
-// 		}
-// 		war->cycle++;
-// 	}
-// 	ft_print_arena();
-// }

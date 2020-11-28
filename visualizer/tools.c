@@ -71,8 +71,11 @@ void	print_winner(t_corewar *war, t_visu *visu)
 {
 	char *msg;
 
-	if (!visu || !war)
+	if (!visu)
+	{
+		print_winer();
 		return ;
+	}
 	msg = ft_nstrjoin(3, "say congrats",\
 		war->players[visu->win - 5].data_file->prog_name, "&");
 	if (visu->win - 5 >= 0 && visu->win - 5 < 4)
@@ -91,9 +94,7 @@ void	print_winner(t_corewar *war, t_visu *visu)
 		system(msg);
 	ft_strdel(&msg);
 	if (!visu->close)
-	{
 		while (1)
 			if (event_listenner() == 'q')
 				break ;
-	}
 }

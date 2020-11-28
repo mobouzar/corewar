@@ -80,8 +80,8 @@ void print_winer(void)
 			last_live = war->players[i].last_cycle_to_live;
 		}
 	}
-	ft_printf("Contestant 1, \" %s \", has won !\n",\
-	war->players[id].data_file->prog_name);
+	ft_printf("Contestant %d, \" %s \", has won !\n",\
+	id + 1, war->players[id].data_file->prog_name);
 }
 
 void					ft_print_arena(void)
@@ -93,8 +93,7 @@ void					ft_print_arena(void)
 	war = get_corewar(0);
 	i = -1;
 	while (++i < 4096)
-	{
-		
+	{	
 		if (i != 0 && !(i % 64))
 			ft_putchar('\n');
 		if (i == 0 || !((i) % 64))
@@ -105,11 +104,9 @@ void					ft_print_arena(void)
 			count = (i & 0xff);
 			print_index_hex(&count);		
 			ft_putstr(" : ");
-		}
-			
+		}		
 		print_byt(&war->arena[i]);
 	}
-	ft_putchar('\n');
 	ft_putchar('\n');
 }
 
@@ -123,8 +120,9 @@ void					print_game(void)
 	ft_putendl("Introducting contestants ...");
 	while (++i < war->nbr_fighters)
 	{
-		ft_printf("* Player %d, weighing 615\
-		bytes, \"%s\" (\"%s\") !\n", i + 1,
+		ft_printf("* Player %d, weighing %d \
+bytes, \"%s\" (\"%s\") !\n", i + 1,\
+ft_sign(war->players[i].data_file->prog_size, 4),
 		war->players[i].data_file->prog_name,\
 		war->players[i].data_file->comment);
 	}

@@ -29,7 +29,6 @@ void free_corewar(t_corewar *war)
 	if (war)
 	{
 		ft_memdel((void *)&war->arena);
-		printf("nbr_figt  = %d \n\n", war->nbr_fighters);
 		while (++i < war->nbr_fighters)
 		{
 			ft_memdel((void *)&war->players[i].data_file);
@@ -47,7 +46,7 @@ int exit_error(char *message_error)
 
 	war = get_corewar(0);
 	if (message_error)
-		ft_printf("ERROR is ---> %s \n", message_error);
+		ft_printf("ERROR is\033[0;31m %s \033[0m \n", message_error);
 	free_corewar(war);
 	exit(1);
 	return 1;
@@ -78,11 +77,13 @@ int play_visu(t_corewar *war)
 	{
 		if (!(visu = (t_visu *)ft_memalloc(sizeof(t_visu))))
 			return (exit_error("error memoir"));
-		ft_memset(g_coords, 0, sizeof(g_coords));
-		init_struct(visu);	//
-		border_maker(visu); //
+
+		init_struct(visu);
+		border_maker(visu);
 		get_visu(visu);
-	} //
+	}
+	else
+		print_game();
 	return (0);
 }
 
@@ -93,15 +94,13 @@ int main(int argc, char **argv)
 	war = NULL;
 	if (argc < 2 || !(war = (t_corewar *)ft_memalloc(sizeof(t_corewar))))
 		return (usage(war));
+	ft_memset(g_coords, 0, sizeof(g_coords));
 	war->arena = ft_get_arena();
 	get_id(argv);
 	parsing(war, argc, argv);
 	ft_init_process(war);
 	get_corewar(war);
 	play_visu(war);
-	// init_struct(visu);	//
-	// border_maker(visu); //
-	// get_visu(visu);		//
 	ft_loop();
 	free_corewar(war);
 	return (0);

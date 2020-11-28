@@ -17,7 +17,7 @@ int i)
 {
 	t_process			*new;
 
-	(void)index;
+
 	if (!(new = (t_process *)malloc(sizeof(t_process))))
 		return ;
 	ft_memset((void *)new, 0, sizeof(t_process));
