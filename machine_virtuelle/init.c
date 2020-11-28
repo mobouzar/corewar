@@ -13,17 +13,19 @@
 #include "../include/corewar.h"
 
 static	void			task_init(t_corewar *war,
-int i, const unsigned int *index)
+int i)
 {
 	t_process			*new;
 
+	(void)index;
 	if (!(new = (t_process *)malloc(sizeof(t_process))))
 		return ;
 	ft_memset((void *)new, 0, sizeof(t_process));
 	new->id = i + 1;
-	new->regster[0] = index[i];
+	new->regster[0] = ft_sign(war->players[i].value_reg ,4);
 	new->pc = war->players[i].Starting_point;
-	inedx_color(new->id , new->pc, new->pc + ft_sign(war->players[i].data_file->prog_size, 4), 0);
+	inedx_color(new->id , new->pc, new->pc +\
+	ft_sign(war->players[i].data_file->prog_size, 4), 0);
 	if (!war->last_process && !war->all_process)
 	{
 		war->all_process = new;
@@ -39,15 +41,13 @@ int i, const unsigned int *index)
 void					ft_init_process(t_corewar *war)
 {
 	int					i;
-	const	uint32_t	index[] = {0xffffffff, 0xfeffffff,
-0xfdffffff, 0xfcffffff};
 
 	i = -1;
 	war->nbr_process = war->nbr_fighters;
 	war->cycle_to_die = 1536;
 	while (++i < war->nbr_fighters)
 	{
-		task_init(war, i, index);
+		task_init(war, i);
 	}
 }
 
@@ -65,4 +65,21 @@ int						hextodecimal(char val)
 		}
 	}
 	return (-1);
+}
+
+int			is_id_integer(char *arg)
+{
+	int		i;
+	int		n;
+
+	if (!arg)
+		return (0);
+	n = ft_strlen(arg);
+	i = (arg[0] == '-')  ? 0 : -1;
+	while (++i < n)
+	{
+		if (!ft_isdigit(arg[i]))
+			return (0);
+	}
+	return (1);
 }

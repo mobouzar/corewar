@@ -14,12 +14,12 @@
 
 static	int	task_get_id(int *array, int id)
 {
-	if (array[id - 1] == 2)
+	if (array[id] == 2)
 	{
-		array[id - 1] = 1;
-		return (id);
+		array[id] = 1;
+		return (id + 1);
 	}
-	return (-1);
+	return (exit_error("not valide  id for player"));
 }
 
 int			get_id_player(int id, int flg)
@@ -28,9 +28,9 @@ int			get_id_player(int id, int flg)
 	int			i;
 
 	i = -1;
-	if (flg)
+	if (flg != 0 )
 	{
-		if (id != -1)
+		if (flg != -1)
 			return (task_get_id(array, id));
 		while (++i < 4)
 		{
@@ -43,7 +43,7 @@ int			get_id_player(int id, int flg)
 	}
 	else
 		array[id] = 2;
-	return (-1);
+	return (0);
 }
 
 int			is_intger(char *arg)
@@ -77,17 +77,19 @@ int			get_id(char **argv)
 	int		index;
 
 	i = 0;
-	index = 1;
 	while (argv[i])
 	{
 		if (!ft_strcmp(argv[i], "-n"))
 		{
-			if (!argv[i + 1] || !is_intger(argv[i + 1]))
-				return (0);
+			index = 1;		
+			if (!argv[i + 1] || !is_id_integer(argv[i + 1]))
+				return (exit_error(" flag -n "));
 			index = ft_atoi(argv[i + 1]);
-			if (!(index > 0 && index < 5))
-				return (0);
-			get_id_player(index - 1, 0);
+			if ((index > -5 && index < 0))
+			{
+				get_id_player((index * -1) - 1, 0);
+			}
+				
 		}
 		i++;
 	}

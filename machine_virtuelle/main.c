@@ -12,48 +12,97 @@
 
 #include "../include/corewar.h"
 
-void			free_process(t_process *p)
+void free_process(t_process *p)
 {
 	if (p && p->next)
 		free_process(p->next);
 	ft_memdel((void **)&p);
 }
 
-void			free_corewar(t_corewar *war)
+void free_corewar(t_corewar *war)
 {
-	int			i;
+	int i;
+	t_visu *visu;
 
 	i = -1;
-	ft_memdel((void *)&war->arena);
-	while (++i < war->nbr_fighters)
+	visu = get_visu(0);
+	if (war)
 	{
-		ft_memdel((void *)&war->players[i].data_file);
+		ft_memdel((void *)&war->arena);
+		printf("nbr_figt  = %d \n\n", war->nbr_fighters);
+		while (++i < war->nbr_fighters)
+		{
+			ft_memdel((void *)&war->players[i].data_file);
+		}
+		free_process(war->all_process);
+		ft_memdel((void **)&war);
 	}
-	free_process(war->all_process);
-	ft_memdel((void **)&war);
+	ft_memdel((void **)&visu);
+	endwin();
 }
 
-
-int				main(int argc, char **argv)
+int exit_error(char *message_error)
 {
-	t_corewar	*war;
-	t_visu		*visu;
+	t_corewar *war;
 
+	war = get_corewar(0);
+	if (message_error)
+		ft_printf("ERROR is ---> %s \n", message_error);
+	free_corewar(war);
+	exit(1);
+	return 1;
+}
+int usage(t_corewar *war)
+{
+	ft_printf("\033[0;33m usage:    ./corewar [-v | \
+-dump N]  [-n N] <champion1.cor> <...> \033[0m\n");
+	ft_printf("\033[0;34m           -v\033[0m       : \
+Enables visualization\n");
+	ft_printf("\033[0;34m           -dump N\033[0m  \
+: Dumps memory after N cycles\n");
+	ft_printf("\033[0;34m           -n N\033[0m     \
+: Assigns id N to the player specified right \
+after N \n");
+	ft_printf("\033[0;31m Pay attention!\033[0m [-v] \
+has higher priority when is used with [-dump]\n");
+	free_corewar(war);
+	return (1);
+}
+
+int play_visu(t_corewar *war)
+{
+	t_visu *visu;
+
+	visu = NULL;
+	if (war->v)
+	{
+		if (!(visu = (t_visu *)ft_memalloc(sizeof(t_visu))))
+			return (exit_error("error memoir"));
+		ft_memset(g_coords, 0, sizeof(g_coords));
+		init_struct(visu);	//
+		border_maker(visu); //
+		get_visu(visu);
+	} //
+	return (0);
+}
+
+int main(int argc, char **argv)
+{
+	t_corewar *war;
+
+	war = NULL;
 	if (argc < 2 || !(war = (t_corewar *)ft_memalloc(sizeof(t_corewar))))
-		return (1);
-	if (!(visu = (t_visu *)ft_memalloc(sizeof(t_visu))))
-		return (1);
-	ft_memset(g_coords, 0, sizeof(g_coords));
-	init_struct(visu);
-	border_maker(visu);
+		return (usage(war));
 	war->arena = ft_get_arena();
 	get_id(argv);
-	parsing(war, argc, argv);/// if err
+	parsing(war, argc, argv);
 	ft_init_process(war);
 	get_corewar(war);
-	get_visu(visu);
+	play_visu(war);
+	// init_struct(visu);	//
+	// border_maker(visu); //
+	// get_visu(visu);		//
 	ft_loop();
-	// free_corewar(war);
-	endwin();
+	free_corewar(war);
 	return (0);
 }

@@ -42,7 +42,6 @@ typedef struct  s_visu
 	int			color;
 	int			step;
 	int			win;
-
 }				t_visu;
 
 

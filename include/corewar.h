@@ -43,6 +43,8 @@ typedef struct s_player
 	int Starting_point;
 	int count_live;
 	int id;
+	int	value_reg;
+	int status_reg;
 	int last_cycle_to_live;
 	t_header *data_file;
 } t_player;
@@ -50,6 +52,8 @@ typedef struct s_player
 typedef	struct			s_corewar
 {
 	uint8_t				*arena;
+	int					value_reg;
+	int					status_reg;
 	int					cycle;
 	int					combat;
 	int					cycle_to_die;
@@ -81,6 +85,7 @@ void ft_print_arena();
 int hextodecimal(char val);
 void ft_loop(void);
 void ft_exec(t_process *p, t_corewar *war);
+int			is_id_integer(char *arg);
 
 int ft_live(t_process *p);
 int ft_ld(t_process *p);
@@ -112,8 +117,9 @@ int parsing(t_corewar *war, int argc, char **argv);
 int get_id_player(int id, int flg);
 int is_int(t_corewar *war, char *arg);
 int get_id(char **argv);
-
-
+int			is_intger(char *arg);
+void			free_corewar(t_corewar *war);
+int exit_error(char *message_error);
 /*
 **	VISUALIZER FUNCTIONS
 */

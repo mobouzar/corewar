@@ -117,7 +117,7 @@ void ft_loop(void)
 	{
 		p = war->all_process;
 		board(war, visu);
-		if (visu->close)
+		if (visu && visu->close)
 			break ;
 		while (p != NULL)
 		{
