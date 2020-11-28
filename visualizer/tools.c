@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 10:06:05 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/28 12:49:22 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/28 12:54:00 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	print_winner(t_corewar *war, t_visu *visu)
 {
 	char *msg;
 
+	if (!visu || !war)
+		return ;
 	msg = ft_nstrjoin(3, "say congrats",\
 		war->players[visu->win - 5].data_file->prog_name, "&");
 	if (visu->win - 5 >= 0 && visu->win - 5 < 4)

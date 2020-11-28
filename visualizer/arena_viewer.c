@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:23:19 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/27 14:50:58 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/28 12:53:15 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	border_maker(t_visu *visu)
 
 void	board(t_corewar *war, t_visu *visu)
 {
+	if (!visu || !war)
+		return ;
 	get_winner_color(war, visu);
 	print_arena(war, visu, 2, 3);
 	wrefresh(visu->arena);
