@@ -22,7 +22,7 @@ int i)
 	ft_memset((void *)new, 0, sizeof(t_process));
 	new->id = i + 1;
 	new->regster[0] = ft_sign((war->players[i].value_reg) * -1, 4);
-	new->pc = war->players[i].Starting_point;
+	new->pc = war->players[i].starting_point;
 	inedx_color(new->id, new->pc, new->pc +\
 ft_sign(war->players[i].data_file->prog_size, 4), 0);
 	if (!war->last_process && !war->all_process)

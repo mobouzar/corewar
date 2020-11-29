@@ -126,7 +126,6 @@ void									ft_loop(void)
 {
 	t_visu								*visu;
 	t_corewar							*war;
-	t_process							*p;
 
 	war = get_corewar(0);
 	visu = get_visu(0);

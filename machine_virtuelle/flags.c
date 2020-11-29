@@ -54,7 +54,7 @@ int					ft_copy_player_arena(t_corewar *war)
 		if (lst && war->arena)
 			ft_memcpy(&war->arena[position], lst->champ,
 hex(addr_to_hex(&lst->prog_size, 4)));
-		war->players[i].Starting_point = position;
+		war->players[i].starting_point = position;
 		position += pa;
 	}
 	return (1);
