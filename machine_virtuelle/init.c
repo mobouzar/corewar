@@ -12,20 +12,19 @@
 
 #include "../include/corewar.h"
 
-static	void			task_init(t_corewar *war,
+static	void		task_init(t_corewar *war,
 int i)
 {
-	t_process			*new;
-
+	t_process		*new;
 
 	if (!(new = (t_process *)malloc(sizeof(t_process))))
 		return ;
 	ft_memset((void *)new, 0, sizeof(t_process));
 	new->id = i + 1;
-	new->regster[0] = ft_sign(war->players[i].value_reg ,4);
+	new->regster[0] = ft_sign((war->players[i].value_reg) * -1, 4);
 	new->pc = war->players[i].Starting_point;
-	inedx_color(new->id , new->pc, new->pc +\
-	ft_sign(war->players[i].data_file->prog_size, 4), 0);
+	inedx_color(new->id, new->pc, new->pc +\
+ft_sign(war->players[i].data_file->prog_size, 4), 0);
 	if (!war->last_process && !war->all_process)
 	{
 		war->all_process = new;
@@ -38,9 +37,9 @@ int i)
 	}
 }
 
-void					ft_init_process(t_corewar *war)
+void				ft_init_process(t_corewar *war)
 {
-	int					i;
+	int				i;
 
 	i = -1;
 	war->nbr_process = war->nbr_fighters;
@@ -51,10 +50,10 @@ void					ft_init_process(t_corewar *war)
 	}
 }
 
-int						hextodecimal(char val)
+int					hextodecimal(char val)
 {
-	const	char		tab[16] = "0123456789abcdef";
-	int					i;
+	const	char	tab[16] = "0123456789abcdef";
+	int				i;
 
 	i = -1;
 	while (++i < 16)
@@ -67,15 +66,15 @@ int						hextodecimal(char val)
 	return (-1);
 }
 
-int			is_id_integer(char *arg)
+int					is_id_integer(char *arg)
 {
-	int		i;
-	int		n;
+	int				i;
+	int				n;
 
 	if (!arg)
 		return (0);
 	n = ft_strlen(arg);
-	i = (arg[0] == '-')  ? 0 : -1;
+	i = (arg[0] == '-') ? 0 : -1;
 	while (++i < n)
 	{
 		if (!ft_isdigit(arg[i]))
@@ -83,3 +82,17 @@ int			is_id_integer(char *arg)
 	}
 	return (1);
 }
+
+void				inedx_color(int id, int start, int end, int alpha)
+{
+	int				i;
+
+	i = start;
+	while (i < end)
+	{
+		g_coords[i].alpha = alpha;
+		g_coords[i].id = id;
+		i++;
+	}
+}
+

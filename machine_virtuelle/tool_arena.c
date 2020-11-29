@@ -12,7 +12,7 @@
 
 #include "../include/corewar.h"
 
-int					overrided_pos(int size, int cursor0)
+int				overrided_pos(int size, int cursor0)
 {
 	if (size >= 0)
 	{
@@ -21,70 +21,38 @@ int					overrided_pos(int size, int cursor0)
 	else
 	{
 		size = MEM_SIZE + (cursor0 +
-		(((-1 * size) % IDX_MOD) * -1));
+(((-1 * size) % IDX_MOD) * -1));
 	}
 	return ((size % MEM_SIZE));
 }
 
-// void				cpy_reg_to_arena(t_process *p,
-// int cursor0, int size, int reg)
-// {
-// 	t_corewar		*war;
-
-// 	war = get_corewar(NULL);
-// 	size = overrided_pos(size, cursor0);
-// 	if (size + 4 > MEM_SIZE)
-// 	{
-// 		ft_memcpy((void *)&war->arena[size], (void *)&p->regster[reg - 1],
-// 		(MEM_SIZE - size));
-// 		ft_memcpy((void *)&war->arena[0], (void *)&p->regster[reg - 1],
-// 		4 - (MEM_SIZE - size));
-// 	}
-// 	else
-// 		ft_memcpy((void *)&war->arena[size],
-// 		(void *)&p->regster[reg - 1], 4);
-// }
-void  inedx_color(int id , int start, int end, int alpha)
+void			cpy_reg_to_arena(t_process *p, int cursor0, int size, int reg)
 {
-	int		i;
-
-	i = start;
-	while(i < end)
-	{
-		g_coords[i].alpha = alpha;
-		g_coords[i].id = id;
-		i++;
-	}
-}
-
-void cpy_reg_to_arena(t_process *p, int cursor0, int size, int reg)
-{
-	t_corewar *war;
+	t_corewar	*war;
 
 	war = get_corewar(NULL);
 	size = overrided_pos(size, cursor0);
 	if (size + 4 > MEM_SIZE)
 	{
-		ft_memcpy((void *)&war->arena[size], (void *)&p->regster[reg - 1],\
-		 (MEM_SIZE - size));
-		inedx_color(p->id , size, MEM_SIZE, 1);
-		ft_memcpy((void *)&war->arena[0], (void *)&p->regster[reg - 1],\
-		 4 - (MEM_SIZE - size));
-		inedx_color(p->id , 0, 4 - (MEM_SIZE - size) , 1);
+		ft_memcpy((void *)&war->arena[size], (void *)&p->regster[reg - 1],
+(MEM_SIZE - size));
+		inedx_color(p->id, size, MEM_SIZE, 1);
+		ft_memcpy((void *)&war->arena[0], (void *)&p->regster[reg - 1],
+4 - (MEM_SIZE - size));
+		inedx_color(p->id, 0, 4 - (MEM_SIZE - size), 1);
 	}
 	else
 	{
-		ft_memcpy((void *)&war->arena[size],\
-		 (void *)&p->regster[reg - 1], 4);
-		inedx_color(p->id , size, size + 4, 1);
+		ft_memcpy((void *)&war->arena[size],
+(void *)&p->regster[reg - 1], 4);
+		inedx_color(p->id, size, size + 4, 1);
 	}
-
 }
 
-int					read_regster(t_process *proc)
+int				read_regster(t_process *proc)
 {
-	t_corewar		*war;
-	unsigned char	i;
+	t_corewar	*war;
+	uint8_t		i;
 
 	i = 0;
 	war = get_corewar(NULL);
@@ -96,33 +64,33 @@ int					read_regster(t_process *proc)
 	return (-1);
 }
 
-void				cpy_arena_to_reg(t_process *p,
+void			cpy_arena_to_reg(t_process *p,
 int cursor0, int size, int reg)
 {
-	t_corewar		*war;
+	t_corewar	*war;
 
 	war = get_corewar(NULL);
 	size = overrided_pos(size, cursor0);
 	if (size + 4 > MEM_SIZE)
 	{
 		ft_memcpy((void *)&p->regster[reg - 1],
-		(void *)&war->arena[size], (MEM_SIZE - size));
+(void *)&war->arena[size], (MEM_SIZE - size));
 		ft_memcpy((void *)&p->regster[reg - 1] +
-		(MEM_SIZE - size),
-		(void *)&war->arena[0], 4 - (MEM_SIZE - size));
+(MEM_SIZE - size),
+(void *)&war->arena[0], 4 - (MEM_SIZE - size));
 	}
 	else
 	{
 		ft_memcpy((void *)&p->regster[reg - 1],
-		(void *)&war->arena[size], 4);
+(void *)&war->arena[size], 4);
 	}
 }
 
-unsigned	int		cpy_arena_to_var(t_process *p,
-			int size, int cursor0, int opcode)
+uint32_t		cpy_arena_to_var(t_process *p,
+int size, int cursor0, int opcode)
 {
-	unsigned	int	stock;
-	t_corewar		*war;
+	uint32_t	stock;
+	t_corewar	*war;
 
 	stock = 0;
 	(void)p;
@@ -135,9 +103,9 @@ unsigned	int		cpy_arena_to_var(t_process *p,
 	if ((size + 4) >= MEM_SIZE)
 	{
 		ft_memcpy((void *)&stock, (void *)&war->arena[size],
-		(MEM_SIZE - size));
+(MEM_SIZE - size));
 		ft_memcpy((void *)&stock + (MEM_SIZE - size),
-		(void *)&war->arena[0], 4 - (MEM_SIZE - size));
+(void *)&war->arena[0], 4 - (MEM_SIZE - size));
 	}
 	else
 		ft_memcpy((void *)&stock, (void *)&war->arena[size], 4);

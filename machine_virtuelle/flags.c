@@ -12,47 +12,34 @@
 
 #include "../include/corewar.h"
 
-static	int		manage_file(t_corewar *war, int id, char *file_name)
+static	int			manage_file(t_corewar *war, int id, char *file_name)
 {
-	t_header	*lst;
-	int			n;
-    if (!file_name)
-        return (0);
-    if ( war->status_reg  && id < 0 && id > -5)
-    {
-	   war->value_reg = -1*(get_id_player((-1*id) -1, 1));
-		//    // return (0);
-        // printf("return get_id   id = %d, flg = %s\n\n", id, "reserve");
-        // war->value_reg = -1*id;
+	t_header		*lst;
+	int				n;
 
-    }
-	 else if (!war->status_reg)
-    {
-         war->value_reg = -1*(get_id_player((-1*id) -1, -1));
-		//    // return (0);  
-        // printf("return get_id   id = %d, flg = %s\n\n", id, "not reserve");
-
-        // war->value_reg = -1*id;
-        
-    }
+	if (!file_name)
+		return (0);
+	if (war->status_reg && id > 0 && id < 5)
+		war->value_reg = (get_id_player(id - 1, 1));
+	else if (!war->status_reg)
+		war->value_reg = (get_id_player(id - 1, -1));
 	n = ft_strlen(file_name);
 	if (n < 5 || ft_strcmp(file_name + (n - 4), ".cor"))
 		return (0);
 	if (!(lst = ft_cin_file(file_name)))
 		return (exit_error("file not valide"));
 	war->players[war->nbr_fighters].data_file = lst;
-    war->players[war->nbr_fighters].value_reg = war->value_reg;         
+	war->players[war->nbr_fighters].value_reg = war->value_reg;
 	war->nbr_fighters++;
 	return (1);
 }
 
-
-int				ft_copy_player_arena(t_corewar *war)
+int					ft_copy_player_arena(t_corewar *war)
 {
-	t_header	*lst;
-	int			i;
-	int			position;
-	int			pa;
+	t_header		*lst;
+	int				i;
+	int				position;
+	int				pa;
 
 	i = -1;
 	if (!war->nbr_fighters)
@@ -66,14 +53,14 @@ int				ft_copy_player_arena(t_corewar *war)
 		lst = war->players[i].data_file;
 		if (lst && war->arena)
 			ft_memcpy(&war->arena[position], lst->champ,
-			hex(addr_to_hex(&lst->prog_size, 4)));
+hex(addr_to_hex(&lst->prog_size, 4)));
 		war->players[i].Starting_point = position;
 		position += pa;
 	}
 	return (1);
 }
 
-static	int		task_parsing(t_corewar *war, int i, char **argv)
+static	int			task_parsing(t_corewar *war, int i, char **argv)
 {
 	if (argv[i] && !ft_strcmp(argv[i], "-v"))
 	{
@@ -91,27 +78,28 @@ static	int		task_parsing(t_corewar *war, int i, char **argv)
 	return (i);
 }
 
-int				parsing(t_corewar *war, int argc, char **argv)
+int					parsing(t_corewar *war, int argc, char **argv)
 {
-	int			i;
+	int				i;
 
 	i = 0;
 	while (++i < argc)
 	{
-		if (!ft_strcmp(argv[i], "-v") || !ft_strcmp(argv[i], "-dump"))
+		if (!ft_strcmp(argv[i], "-v") || !ft_strcmp(argv[i], "-dump") ||
+			!ft_strcmp(argv[i], "-a"))
 		{
 			if ((i = task_parsing(war, i, argv)) == 0)
 				return (exit_error(" flag -dump "));
 		}
-        else if (!ft_strcmp(argv[i], "-n"))
+		else if (!ft_strcmp(argv[i], "-n"))
 		{
 			if (!argv[++i] || !is_id_integer(argv[i]))
 				return (exit_error(" flag -n "));
 			war->value_reg = ft_atoi(argv[i]);
-             war->status_reg = 1;
-			if (!manage_file(war,war->value_reg , argv[++i]))
+			war->status_reg = 1;
+			if (!manage_file(war, war->value_reg, argv[++i]))
 				return (exit_error("file not valide"));
-              war->status_reg = 0;
+			war->status_reg = 0;
 		}
 		else if (!manage_file(war, -1, argv[i]))
 			return (exit_error("file not valide"));

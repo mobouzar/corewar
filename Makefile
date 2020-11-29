@@ -21,6 +21,7 @@ c_srcs = machine_virtuelle/main.o \
 		machine_virtuelle/tool.o \
 		machine_virtuelle/tool_flg.o \
 		machine_virtuelle/op.o \
+		machine_virtuelle/info_player.o \
 		machine_virtuelle/flags.o \
 		instructoin_assembly/ld.o \
 		instructoin_assembly/st.o \

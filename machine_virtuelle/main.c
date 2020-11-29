@@ -12,17 +12,17 @@
 
 #include "../include/corewar.h"
 
-void free_process(t_process *p)
+void				free_process(t_process *p)
 {
 	if (p && p->next)
 		free_process(p->next);
 	ft_memdel((void **)&p);
 }
 
-void free_corewar(t_corewar *war)
+void				free_corewar(t_corewar *war)
 {
-	int i;
-	t_visu *visu;
+	int				i;
+	t_visu			*visu;
 
 	i = -1;
 	visu = get_visu(0);
@@ -40,18 +40,7 @@ void free_corewar(t_corewar *war)
 	endwin();
 }
 
-int exit_error(char *message_error)
-{
-	t_corewar *war;
-
-	war = get_corewar(0);
-	if (message_error)
-		ft_printf("ERROR is\033[0;31m %s \033[0m \n", message_error);
-	free_corewar(war);
-	exit(1);
-	return 1;
-}
-int usage(t_corewar *war)
+int					usage(t_corewar *war)
 {
 	ft_printf("\033[0;33m usage:    ./corewar [-v | \
 -dump N]  [-n N] <champion1.cor> <...> \033[0m\n");
@@ -70,16 +59,15 @@ has higher priority when is used with [-dump]\n");
 	return (1);
 }
 
-int play_visu(t_corewar *war)
+int					play_visu(t_corewar *war)
 {
-	t_visu *visu;
+	t_visu			*visu;
 
 	visu = NULL;
 	if (war->v)
 	{
 		if (!(visu = (t_visu *)ft_memalloc(sizeof(t_visu))))
 			return (exit_error("error memoir"));
-
 		init_struct(visu);
 		border_maker(visu);
 		get_visu(visu);
@@ -89,9 +77,9 @@ int play_visu(t_corewar *war)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int					main(int argc, char **argv)
 {
-	t_corewar *war;
+	t_corewar		*war;
 
 	war = NULL;
 	if (argc < 2 || !(war = (t_corewar *)ft_memalloc(sizeof(t_corewar))))

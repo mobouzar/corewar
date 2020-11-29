@@ -12,7 +12,7 @@
 
 #include "../include/corewar.h"
 
-static	int	task_get_id(int *array, int id)
+static	int			task_get_id(int *array, int id)
 {
 	if (array[id] == 2)
 	{
@@ -22,13 +22,13 @@ static	int	task_get_id(int *array, int id)
 	return (exit_error("not valide  id for player"));
 }
 
-int			get_id_player(int id, int flg)
+int					get_id_player(int id, int flg)
 {
-	static	int	array[] = {0, 0, 0, 0};
-	int			i;
+	static	int		array[] = {0, 0, 0, 0};
+	int				i;
 
 	i = -1;
-	if (flg != 0 )
+	if (flg != 0)
 	{
 		if (flg != -1)
 			return (task_get_id(array, id));
@@ -46,10 +46,10 @@ int			get_id_player(int id, int flg)
 	return (0);
 }
 
-int			is_intger(char *arg)
+int					is_intger(char *arg)
 {
-	int		i;
-	int		n;
+	int i;
+	int n;
 
 	if (!arg)
 		return (0);
@@ -63,7 +63,7 @@ int			is_intger(char *arg)
 	return (1);
 }
 
-int			is_int(t_corewar *war, char *arg)
+int					is_int(t_corewar *war, char *arg)
 {
 	if (!is_intger(arg))
 		return (0);
@@ -71,25 +71,24 @@ int			is_int(t_corewar *war, char *arg)
 	return (1);
 }
 
-int			get_id(char **argv)
+int					get_id(char **argv)
 {
-	int		i;
-	int		index;
+	int				i;
+	int				index;
 
 	i = 0;
 	while (argv[i])
 	{
 		if (!ft_strcmp(argv[i], "-n"))
 		{
-			index = 1;		
+			index = 1;
 			if (!argv[i + 1] || !is_id_integer(argv[i + 1]))
 				return (exit_error(" flag -n "));
 			index = ft_atoi(argv[i + 1]);
-			if ((index > -5 && index < 0))
-			{
-				get_id_player((index * -1) - 1, 0);
-			}
-				
+			if ((index < 5 && index > 0))
+				get_id_player(index - 1, 0);
+			else
+				return (exit_error(" flag -n  id not valid "));
 		}
 		i++;
 	}

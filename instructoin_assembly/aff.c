@@ -12,9 +12,9 @@
 
 #include "../include/corewar.h"
 
-void	print_aff(t_visu *visu, char aff)
+void					print_aff(t_visu *visu, char aff)
 {
-	t_corewar *war;
+	t_corewar			*war;
 
 	war = get_corewar(0);
 	if (visu && war->a)
@@ -25,14 +25,13 @@ void	print_aff(t_visu *visu, char aff)
 	}
 }
 
-int		ft_aff(t_process *p)
+int						ft_aff(t_process *p)
 {
-	t_corewar *war;
-	t_visu		*visu;
-	unsigned char byt_arg;
-	int cursor0;
-	int reg;
-	char aff;
+	t_corewar			*war;
+	t_visu				*visu;
+	unsigned	char	byt_arg;
+	int					cursor0;
+	int					reg;
 
 	war = get_corewar(0);
 	visu = get_visu(0);
@@ -44,11 +43,11 @@ int		ft_aff(t_process *p)
 		if ((reg = read_regster(p)) != -1)
 		{
 			p->pc++;
-			aff = (char)(p->regster[reg - 1] % 256);
-			print_aff(visu, aff);
+			reg = (char)(p->regster[reg - 1] % 256);
+			print_aff(visu, (char)reg);
 		}
 		p->erorr = 0;
-	}	
- 	p->pc = p->size_of_flg + cursor0;
-	return 0;
+	}
+	p->pc = p->size_of_flg + cursor0;
+	return (0);
 }

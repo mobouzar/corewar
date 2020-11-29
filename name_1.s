@@ -5,8 +5,11 @@
 .name		"name_11"
 .comment	"Jour J"
 
-live %-1
-live %-4
-ld %97, r7
+ld %1090519040, r7
+aff r7
 
+ld %1677721600, r7
+aff r7
+
+ld %1090519040, r7
 aff r7

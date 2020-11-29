@@ -88,6 +88,8 @@ void ft_loop(void);
 void ft_exec(t_process *p, t_corewar *war);
 int			is_id_integer(char *arg);
 void					print_game(void);
+void					print_byt(const void *addr);
+void			print_index_hex(const void *addr);
 void print_winer(void);
 int ft_live(t_process *p);
 int ft_ld(t_process *p);
