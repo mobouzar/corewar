@@ -59,6 +59,8 @@ int usage(t_corewar *war)
 Enables visualization\n");
 	ft_printf("\033[0;34m           -dump N\033[0m  \
 : Dumps memory after N cycles\n");
+	ft_printf("\033[0;34m           -a  \033[0m     \
+: Prints output from 'aff' (Default is to hide it)\n");
 	ft_printf("\033[0;34m           -n N\033[0m     \
 : Assigns id N to the player specified right \
 after N \n");

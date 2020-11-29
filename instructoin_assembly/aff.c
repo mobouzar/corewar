@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/08 13:07:19 by yelazrak          #+#    #+#             */
-/*   Updated: 2020/11/26 11:00:17 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/28 14:52:36 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 void	print_aff(t_visu *visu, char aff)
 {
-	wattron(visu->menu, A_BOLD);
-	mvwprintw(visu->menu, 62, 6, "%c", aff);
-	wattroff(visu->menu, A_BOLD);
+	t_corewar *war;
+
+	war = get_corewar(0);
+	if (visu && war->a)
+	{
+		wattron(visu->menu, A_BOLD);
+		mvwprintw(visu->menu, 62, 6, "%c", aff);
+		wattroff(visu->menu, A_BOLD);
+	}
 }
 
 int		ft_aff(t_process *p)
@@ -28,7 +34,6 @@ int		ft_aff(t_process *p)
 	int reg;
 	char aff;
 
-	p->pc += 3;
 	war = get_corewar(0);
 	visu = get_visu(0);
 	cursor0 = p->pc;
@@ -39,7 +44,7 @@ int		ft_aff(t_process *p)
 		if ((reg = read_regster(p)) != -1)
 		{
 			p->pc++;
-			aff = (char)((int)p->regster[reg -1] % 256);
+			aff = (char)(p->regster[reg - 1] % 256);
 			print_aff(visu, aff);
 		}
 		p->erorr = 0;

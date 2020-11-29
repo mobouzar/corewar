@@ -79,6 +79,10 @@ static	int		task_parsing(t_corewar *war, int i, char **argv)
 	{
 		war->v = 1;
 	}
+	else if (argv[i] && !ft_strcmp(argv[i], "-a"))
+	{
+		war->a = 1;
+	}
 	else if (!ft_strcmp(argv[i], "-dump"))
 	{
 		if (!is_int(war, argv[++i]))

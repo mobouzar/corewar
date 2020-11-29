@@ -60,6 +60,7 @@ typedef	struct			s_corewar
 	int					nbr_live;
 	int					dump;
 	int					v;
+	int					a;
 	int					nbr_checks;
 	int					nbr_process;
 	int					nbr_fighters;
