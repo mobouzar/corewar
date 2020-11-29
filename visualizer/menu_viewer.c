@@ -28,8 +28,6 @@ void	pause_handler(t_visu *visu)
 				break ;
 			if (visu->key == 32 || visu->close == 1 || visu->key == 's')
 			{
-				if (visu->key == 's')
-					nodelay(stdscr, FALSE);
 				visu->pause = 0;
 				break ;
 			}
@@ -41,6 +39,8 @@ void	pause_handler(t_visu *visu)
 
 void	speed_handler(t_visu *visu)
 {
+	if (!visu)
+		return ;
 	if (visu->key == 43 && visu->speed == 100)
 		system("afplay visualizer/assets/bip.mp3 &");
 	else if (visu->key == 45 && visu->speed == 0)
@@ -60,7 +60,7 @@ void	speed_handler(t_visu *visu)
 
 void	event_handler(t_visu *visu)
 {
-	if ((visu->key = event_listenner()) > 0)
+	if (visu && (visu->key = event_listenner()) > 0)
 	{
 		if (visu->key == 32 && (visu->pause = 1))
 		{

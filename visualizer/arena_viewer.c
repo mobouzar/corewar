@@ -35,16 +35,18 @@ void	init_struct(t_visu *visu)
 void	move_process(t_visu *visu, unsigned char *arena, t_process *p)
 {
 	int	color;
-
+	// t_corewar *war = get_corewar(0);
 	color = 0;
 	while (p)
 	{
-		if (g_coords[p->pc].id)
-			color = g_coords[p->pc].id + 4;
+		// if (p->pc > 4096)
+		// 	dprintf(2, "x = %d      y = %d  \n",g_coords[4775].x, g_coords[4775].y);
+		if (g_coords[p->pc % 4096].id)
+			color = g_coords[p->pc % 4096].id + 4;
 		else
 			color = OUT_PROCE;
 		wattron(visu->arena, COLOR_PAIR(color));
-		print_byte(&arena[p->pc], visu, g_coords[p->pc].y, g_coords[p->pc].x);
+		print_byte(&arena[p->pc % 4096], visu, g_coords[p->pc % 4096].y, g_coords[p->pc % 4096].x);
 		wattroff(visu->arena, COLOR_PAIR(color));
 		p = p->next;
 	}
@@ -56,11 +58,13 @@ void	print_arena(t_corewar *war, t_visu *visu, int i, int j)
 	int	bold;
 
 	bold = 0;
-	index = -1;
+	index = -1;//cycle |18298|, id |1|, pc |4775|, y |1|, x |36|
 	while (++index < 4096)
 	{
 		if (index != 0 && !(index % 64) && (j = 3))
 			i += 1;
+		// if (get_corewar(0)->cycle == 18298)
+		// 	dprintf(2, "x = %d      y = %d  \n",g_coords[4775].x, g_coords[4775].y);
 		g_coords[index].y = i;
 		g_coords[index].x = j;
 		bold = 0;

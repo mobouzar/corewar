@@ -76,10 +76,10 @@ void	print_winner(t_corewar *war, t_visu *visu)
 		print_winer();
 		return ;
 	}
-	msg = ft_nstrjoin(3, "say congrats",\
-		war->players[visu->win - 5].data_file->prog_name, "&");
 	if (visu->win - 5 >= 0 && visu->win - 5 < 4)
 	{
+		msg = ft_nstrjoin(3, "say congrats",\
+			war->players[visu->win - 5].data_file->prog_name, "&");
 		wattron(visu->menu, A_BOLD);
 		wattron(visu->menu, COLOR_PAIR(visu->win - 4));
 		mvwprintw(visu->menu, 40, 20, "%s",\
@@ -97,4 +97,5 @@ void	print_winner(t_corewar *war, t_visu *visu)
 		while (1)
 			if (event_listenner() == 'q')
 				break ;
+	// system("reset &");
 }
