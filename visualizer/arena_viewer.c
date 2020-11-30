@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:23:19 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/28 12:53:15 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/30 09:45:12 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	init_struct(t_visu *visu)
 	visu->winner = subwin(stdscr, 10, 55, 36, 196);
 	visu->pause = 1;
 	visu->key = 32;
-	visu->last_live_color = BORDER_COLOR;
-	visu->win = BORDER_COLOR;
+	visu->win_color = BORDER_COLOR;
 	visu->cycle_speed = 100000;
 	visu->speed = 50;
 }
@@ -35,18 +34,16 @@ void	init_struct(t_visu *visu)
 void	move_process(t_visu *visu, unsigned char *arena, t_process *p)
 {
 	int	color;
-	// t_corewar *war = get_corewar(0);
+
 	color = 0;
 	while (p)
 	{
-		// if (p->pc > 4096)
-		// 	dprintf(2, "x = %d      y = %d  \n",g_coords[4775].x, g_coords[4775].y);
-		if (g_coords[p->pc % 4096].id)
-			color = g_coords[p->pc % 4096].id + 4;
+		if (g_coords[p->pc].id)
+			color = g_coords[p->pc].id + 4;
 		else
 			color = OUT_PROCE;
 		wattron(visu->arena, COLOR_PAIR(color));
-		print_byte(&arena[p->pc % 4096], visu, g_coords[p->pc % 4096].y, g_coords[p->pc % 4096].x);
+		print_byte(&arena[p->pc], visu, g_coords[p->pc].y, g_coords[p->pc].x);
 		wattroff(visu->arena, COLOR_PAIR(color));
 		p = p->next;
 	}
@@ -58,13 +55,11 @@ void	print_arena(t_corewar *war, t_visu *visu, int i, int j)
 	int	bold;
 
 	bold = 0;
-	index = -1;//cycle |18298|, id |1|, pc |4775|, y |1|, x |36|
+	index = -1;
 	while (++index < 4096)
 	{
 		if (index != 0 && !(index % 64) && (j = 3))
 			i += 1;
-		// if (get_corewar(0)->cycle == 18298)
-		// 	dprintf(2, "x = %d      y = %d  \n",g_coords[4775].x, g_coords[4775].y);
 		g_coords[index].y = i;
 		g_coords[index].x = j;
 		bold = 0;
@@ -85,18 +80,18 @@ void	print_arena(t_corewar *war, t_visu *visu, int i, int j)
 
 void	border_maker(t_visu *visu)
 {
-	wattron(visu->arena, COLOR_PAIR(visu->win));
+	wattron(visu->arena, COLOR_PAIR(visu->win_color));
 	box(visu->arena, ACS_VLINE, ACS_HLINE);
 	wborder(visu->arena, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	wattroff(visu->arena, COLOR_PAIR(visu->win));
-	wattron(visu->menu, COLOR_PAIR(visu->win));
+	wattroff(visu->arena, COLOR_PAIR(visu->win_color));
+	wattron(visu->menu, COLOR_PAIR(visu->win_color));
 	box(visu->menu, ACS_VLINE, ACS_HLINE);
 	wborder(visu->menu, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	wattroff(visu->menu, COLOR_PAIR(visu->win));
-	wattron(visu->winner, COLOR_PAIR(visu->win));
+	wattroff(visu->menu, COLOR_PAIR(visu->win_color));
+	wattron(visu->winner, COLOR_PAIR(visu->win_color));
 	box(visu->winner, ACS_VLINE, ACS_HLINE);
 	wborder(visu->winner, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-	wattroff(visu->winner, COLOR_PAIR(visu->win));
+	wattroff(visu->winner, COLOR_PAIR(visu->win_color));
 }
 
 void	board(t_corewar *war, t_visu *visu)

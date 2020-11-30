@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/20 10:06:05 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/28 12:54:00 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/30 10:09:08 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,55 +47,47 @@ void	print_byte(const void *addr, t_visu *visu, int i, int j)
 	mvwprintw(visu->arena, i, j + 1, "%c", str[p[0] % 16]);
 }
 
-void	get_winner_color(t_corewar *war, t_visu *visu)
+void	say_winner(t_corewar *war, t_visu *visu)
 {
-	int	last_live;
-	int	i;
+	char	*msg;
 
-	i = 0;
-	last_live = 0;
-	visu->win = BORDER_COLOR;
-	while (i < 4)
+	msg = NULL;
+	if (!visu->close)
 	{
-		if (last_live < war->players[i].last_cycle_to_live)
-		{
-			last_live = war->players[i].last_cycle_to_live;
-			visu->win = i + 5;
-		}
-		i++;
+		msg = ft_nstrjoin(3, "gtts-cli 'congratulations ",\
+		war->players[visu->win].data_file->prog_name,\
+		"' -l 'en' -o visualizer/assets/winner.mp3");
+		system(msg);
+		system("afplay visualizer/assets/winner.mp3 &");
+		ft_strdel(&msg);
 	}
-	border_maker(visu);
 }
 
 void	print_winner(t_corewar *war, t_visu *visu)
 {
-	char *msg;
-
 	if (!visu)
 	{
 		print_winer();
 		return ;
 	}
-	if (visu->win - 5 >= 0 && visu->win - 5 < 4)
+	if (visu->win >= 0 && visu->win < 4)
 	{
-		msg = ft_nstrjoin(3, "say congrats",\
-			war->players[visu->win - 5].data_file->prog_name, "&");
 		wattron(visu->menu, A_BOLD);
-		wattron(visu->menu, COLOR_PAIR(visu->win - 4));
+		wattron(visu->menu, COLOR_PAIR(visu->win_color - 4));
 		mvwprintw(visu->menu, 40, 20, "%s",\
-			war->players[visu->win - 5].data_file->prog_name);
-		wattroff(visu->menu, COLOR_PAIR(visu->win - 4));
+			war->players[visu->win].data_file->prog_name);
+		wattroff(visu->menu, COLOR_PAIR(visu->win_color - 4));
 		mvwprintw(visu->menu, 42, 4,\
 			"********* Press q to finish. *********");
 		wattroff(visu->menu, A_BOLD);
+		wrefresh(visu->menu);
+		say_winner(war, visu);
 	}
-	wrefresh(visu->menu);
-	if (!visu->close)
-		system(msg);
-	ft_strdel(&msg);
 	if (!visu->close)
 		while (1)
 			if (event_listenner() == 'q')
+			{
+				system("rm visualizer/assets/winner.mp3");
 				break ;
-	// system("reset &");
+			}
 }

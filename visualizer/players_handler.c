@@ -6,7 +6,7 @@
 /*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 14:00:31 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/25 14:06:49 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/30 09:39:37 by mobouzar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,25 @@ void	player4_handler(t_visu *visu, t_corewar *war)
 		mvwprintw(visu->menu, 34, 6, "Lives in current period : %d",\
 			war->players[3].count_live);
 	}
+}
+
+void	get_winner_color(t_corewar *war, t_visu *visu)
+{
+	int	last_live;
+	int	i;
+
+	i = 0;
+	last_live = 0;
+	visu->win_color = BORDER_COLOR;
+	while (i < 4)
+	{
+		if (last_live < war->players[i].last_cycle_to_live)
+		{
+			last_live = war->players[i].last_cycle_to_live;
+			visu->win = i;
+		}
+		visu->win_color = visu->win + 5;
+		i++;
+	}
+	border_maker(visu);
 }

@@ -36,7 +36,7 @@ typedef struct  s_visu
     int			pause;
 	int			cycle_speed;
 	int			speed;
-	int			last_live_color;
+	int			win_color;
     int			key;
 	int			sleep;
 	int			close;
