@@ -6,7 +6,7 @@
 /*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/04 18:59:08 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/09/20 16:12:26 by yelazrak         ###   ########.fr       */
+/*   Updated: 2020/11/30 11:11:03 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,16 @@
 # include <math.h>
 # include <stdio.h>
 
-# define ZERO	0b0000000000000001
-# define HASH	0b0000000000000010
-# define SPACE	0b0000000000000100
-# define PLUS	0b0000000000001000
-# define MINUS	0b0000000000010000
-# define LONG	0b0000000000100000
-# define LL		0b0000000001000000
-# define H		0b0000000010000000
-# define HH		0b0000000100000000
-# define L_D	0b0000001000000000
-
-# define I(x)	(x - '0')
-# define K(x)	(x + '0')
+# define ZERO 1
+# define HASH 2
+# define SPACE 4
+# define PLUS 8
+# define MINUS 16
+# define LONG 32
+# define LL 64
+# define H 128
+# define HH 256
+# define L_D 512
 
 typedef struct			s_init
 {
@@ -102,5 +99,7 @@ char					*ft_manage_width(t_init *lst, char *str);
 int						ft_get_flag_of_format(t_init *lst, const char *format);
 int						ft_char_nbr(char c);
 int						ft_str_nbr(char *str);
+char					ft_itoc(int c);
+int						ft_ctoi(char c);
 
 #endif

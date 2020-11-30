@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_float2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/16 16:40:42 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/09/17 15:42:34 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/30 11:09:08 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int				ft_ctoi(char c)
+{
+	return (c - '0');
+}
+
+char			ft_itoc(int c)
+{
+	return (c + '0');
+}
 
 static void		ft_check_helper(char **part_e, int prs)
 {
@@ -19,12 +29,13 @@ static void		ft_check_helper(char **part_e, int prs)
 	str = ft_strdup(*part_e);
 	if (prs == 0)
 	{
-		if (I(str[ft_strlen(str) - 1]) % 2 != 0)
+		if (ft_ctoi(str[ft_strlen(str) - 1]) % 2 != 0)
 			*part_e = ft_safe(*part_e, ft_sum(str, "1"));
 	}
 	else
 	{
-		if ((int)ft_strlen(*part_e) >= prs && I(*part_e[prs - 1]) % 2 != 0)
+		if ((int)ft_strlen(*part_e) >= prs &&\
+		ft_ctoi(*part_e[prs - 1]) % 2 != 0)
 			*part_e = ft_safe(*part_e, ft_sum(*part_e, "1"));
 	}
 }
@@ -50,7 +61,7 @@ char			*ft_rounding(char *srcs, char *dst, t_init *lst, int prs)
 	char	*tmp_3;
 
 	tmp = ft_strsub(dst, 0, prs);
-	if ((I(dst[prs]) > 5) && (int)ft_strlen(dst) >= prs)
+	if ((ft_ctoi(dst[prs]) > 5) && (int)ft_strlen(dst) >= prs)
 	{
 		tmp_3 = tmp;
 		if (prs > 0)
@@ -59,9 +70,9 @@ char			*ft_rounding(char *srcs, char *dst, t_init *lst, int prs)
 			return (ft_safe(tmp_3, ft_sum(srcs, "1")));
 		ft_strdel(&tmp_3);
 	}
-	else if ((I(dst[prs]) == 5) && prs > 0)
+	else if ((ft_ctoi(dst[prs]) == 5) && prs > 0)
 		ft_check_rounding(&dst, &tmp, prs);
-	else if ((I(dst[prs]) == 5) && prs == 0)
+	else if ((ft_ctoi(dst[prs]) == 5) && prs == 0)
 		ft_check_rounding(&dst, &srcs, prs);
 	if ((int)ft_strlen(tmp) > prs && prs > 0)
 	{

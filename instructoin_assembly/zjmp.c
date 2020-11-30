@@ -20,11 +20,13 @@ int					ft_zjmp(t_process *p)
 	if (p->carry == 0)
 	{
 		p->pc += 3;
+		p->pc %= 4096;
 		return (0);
 	}
 	byt = 0;
 	war = get_corewar(0);
 	ft_memcpy(&byt, &war->arena[p->pc + 1], 2);
 	p->pc = overrided_pos(ft_sign(byt, 2), p->pc);
+	p->pc %= 4096;
 	return (0);
 }

@@ -31,6 +31,6 @@ int						ft_lld(t_process *p)
 			ft_memcpy(&p->regster[reg - 1], &byt, 4);
 		p->erorr = 0;
 	}
-	p->pc = p->size_of_flg + cursor0;
+	p->pc = (p->size_of_flg + cursor0) % 4096;
 	return (0);
 }

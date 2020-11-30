@@ -48,6 +48,6 @@ int						ft_aff(t_process *p)
 		}
 		p->erorr = 0;
 	}
-	p->pc = p->size_of_flg + cursor0;
+	p->pc = (p->size_of_flg + cursor0) % 4096;
 	return (0);
 }

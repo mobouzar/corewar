@@ -42,6 +42,6 @@ int						ft_add(t_process *p)
 		task_add(p, byt_arg, cr0);
 		p->erorr = 0;
 	}
-	p->pc = p->size_of_flg + cr0;
+	p->pc = (p->size_of_flg + cr0) % 4096;
 	return (0);
 }

@@ -56,7 +56,7 @@ void	say_winner(t_corewar *war, t_visu *visu)
 	{
 		msg = ft_nstrjoin(3, "gtts-cli 'congratulations ",\
 		war->players[visu->win].data_file->prog_name,\
-		"' -l 'en' -o visualizer/assets/winner.mp3");
+		"' -l 'ar' -o visualizer/assets/winner.mp3");
 		system(msg);
 		system("afplay visualizer/assets/winner.mp3 &");
 		ft_strdel(&msg);

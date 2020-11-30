@@ -12,7 +12,7 @@
 
 #include "../include/corewar.h"
 
-void									ft_exec(t_process *p, t_corewar *war)
+void			ft_exec(t_process *p, t_corewar *war)
 {
 	static	int							(*func[])(t_process *) = {ft_live,
 	ft_ld, ft_st,
@@ -33,10 +33,10 @@ void									ft_exec(t_process *p, t_corewar *war)
 			p->cycle_count++;
 	}
 	else
-		p->pc++;
+		p->pc = (p->pc + 1) % 4096;
 }
 
-static	void							task_die_cursor(
+void			task_die_cursor(
 t_process **list_process, t_process *tmp, t_process **head)
 {
 	t_corewar							*war;
@@ -61,32 +61,7 @@ t_process **list_process, t_process *tmp, t_process **head)
 	}
 }
 
-t_process								*die_cursor(t_corewar *war,
-t_process *list_process)
-{
-	t_process							*head;
-	t_process							*tmp;
-
-	head = list_process;
-	tmp = NULL;
-	while (list_process)
-	{
-		if (list_process->is_live_more == 0)
-		{
-			war->nbr_process--;
-			task_die_cursor(&list_process, tmp, &head);
-		}
-		else
-		{
-			list_process->is_live_more = 0;
-			tmp = list_process;
-			list_process = list_process->next;
-		}
-	}
-	return (head);
-}
-
-static	void							ft_controlle(t_corewar *war)
+static void		ft_controlle(t_corewar *war)
 {
 	int									i;
 
@@ -104,7 +79,7 @@ static	void							ft_controlle(t_corewar *war)
 	war->nbr_live = 0;
 }
 
-static	void							task_loop(t_corewar *war)
+static void		task_loop(t_corewar *war)
 {
 	t_process							*p;
 
@@ -122,7 +97,7 @@ static	void							task_loop(t_corewar *war)
 	}
 }
 
-void									ft_loop(void)
+void			ft_loop(void)
 {
 	t_visu								*visu;
 	t_corewar							*war;

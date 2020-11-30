@@ -38,3 +38,27 @@ t_op	g_op_tab[17] =
 	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
+
+t_process	*die_cursor(t_corewar *war, t_process *list_process)
+{
+	t_process							*head;
+	t_process							*tmp;
+
+	head = list_process;
+	tmp = NULL;
+	while (list_process)
+	{
+		if (list_process->is_live_more == 0)
+		{
+			war->nbr_process--;
+			task_die_cursor(&list_process, tmp, &head);
+		}
+		else
+		{
+			list_process->is_live_more = 0;
+			tmp = list_process;
+			list_process = list_process->next;
+		}
+	}
+	return (head);
+}

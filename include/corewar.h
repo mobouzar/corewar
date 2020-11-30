@@ -79,7 +79,10 @@ uint32_t				binary_rev(uint32_t s);
 uint8_t					*ft_get_arena(void);
 t_corewar				*get_corewar(t_corewar *lst);
 t_visu					*get_visu(t_visu *visu);
-
+void					task_die_cursor(t_process **list_process,
+t_process *tmp, t_process **head);
+t_process				*die_cursor(t_corewar *war,
+t_process *list_process);
 void					ft_init_process(t_corewar *war);
 void					ft_print_arena();
 void					cpy_reg_to_arena(t_process *p,

@@ -34,6 +34,6 @@ int						ft_ld(t_process *p)
 		}
 		p->erorr = 0;
 	}
-	p->pc = p->size_of_flg + cr0;
+	p->pc = (p->size_of_flg + cr0) % 4096;
 	return (0);
 }

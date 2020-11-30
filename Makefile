@@ -54,8 +54,12 @@ all: libft_ $(NAME)
 libft_:
 	@make -C libft
 
+
 $(NAME): $(c_srcs) $(VISU) libft/libft.a
 	$(CC) -o $(NAME) $(FLAGS) $(c_srcs) -lncurses $(VISU) -L ./libft -lft -I $(INCLUDES)
+
+install:
+	pip3 install gtts
 
 clean:
 	@make clean -C libft

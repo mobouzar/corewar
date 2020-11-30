@@ -47,6 +47,6 @@ int						ft_ldi(t_process *p)
 		task_ldi(p, cursor0, byt_arg);
 		p->erorr = 0;
 	}
-	p->pc = p->size_of_flg + cursor0;
+	p->pc = (p->size_of_flg + cursor0) % 4096;
 	return (0);
 }

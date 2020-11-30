@@ -95,4 +95,3 @@ void				inedx_color(int id, int start, int end, int alpha)
 		i++;
 	}
 }
-

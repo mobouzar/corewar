@@ -47,5 +47,6 @@ int					ft_lfork(t_process *p)
 	new->cycle_create = war->cycle;
 	task_fork(p, new, war);
 	p->pc += 3;
+	p->pc %= 4096;
 	return (0);
 }

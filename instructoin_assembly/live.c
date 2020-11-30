@@ -29,5 +29,6 @@ int				ft_live(t_process *p)
 		(war->players[id - 1].count_live)++;
 	}
 	p->pc += 5;
+	p->pc %= 4096;
 	return (0);
 }

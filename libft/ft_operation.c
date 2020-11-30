@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_operation.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 09:18:54 by mobouzar          #+#    #+#             */
-/*   Updated: 2019/09/17 15:20:47 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/30 11:10:08 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,12 @@ char			*ft_sum(char *a, char *b)
 	{
 		var.aa = (-1 < var.s_a) ? a[var.s_a--] : '0';
 		var.bb = (-1 < var.s_b) ? b[var.s_b--] : '0';
-		var.result[var.len] = K(((I(var.aa) + I(var.bb) + var.rest) % 10));
+		var.result[var.len] = ft_itoc(((ft_ctoi(var.aa) +\
+		ft_ctoi(var.bb) + var.rest) % 10));
 		var.len--;
-		var.rest = (I(var.aa) + I(var.bb) + var.rest) / 10;
+		var.rest = (ft_ctoi(var.aa) + ft_ctoi(var.bb) + var.rest) / 10;
 	}
-	var.result[var.len] = K(var.rest);
+	var.result[var.len] = ft_itoc(var.rest);
 	var.tmp = var.result;
 	if (*(var.result) == '0')
 		(var.result)++;
@@ -65,12 +66,13 @@ char			*ft_produit(char *a, char *b)
 		while (--var.i >= 0)
 		{
 			var.aa = var.result[var.k];
-			prd = I(b[var.s_b]) * I(a[var.i]);
-			var.result[var.k] = K((prd + I(var.result[var.k]) + var.rest) % 10);
-			var.rest = (prd + I(var.aa) + var.rest) / 10;
+			prd = ft_ctoi(b[var.s_b]) * ft_ctoi(a[var.i]);
+			var.result[var.k] = ft_itoc((prd +\
+			ft_ctoi(var.result[var.k]) + var.rest) % 10);
+			var.rest = (prd + ft_ctoi(var.aa) + var.rest) / 10;
 			var.k--;
 		}
-		var.result[var.k] = K(var.rest);
+		var.result[var.k] = ft_itoc(var.rest);
 	}
 	var.tmp = var.result;
 	while (*(var.result) == '0' && *(var.result + 1) != '\0')

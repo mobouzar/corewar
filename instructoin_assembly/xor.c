@@ -36,6 +36,6 @@ cr0), 4) ^ ft_sign(return_data_of_arg(p, ((byt_arg >> 4) & 0x03), 5, cr0), 4);
 		}
 		p->erorr = 0;
 	}
-	p->pc = p->size_of_flg + cr0;
+	p->pc = (p->size_of_flg + cr0) % 4096;
 	return (0);
 }

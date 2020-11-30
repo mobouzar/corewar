@@ -32,5 +32,6 @@ int					ft_fork(t_process *p)
 	war->last_process->next = new;
 	war->last_process = war->last_process->next;
 	p->pc += 3;
+	p->pc %= 4096;
 	return (0);
 }
