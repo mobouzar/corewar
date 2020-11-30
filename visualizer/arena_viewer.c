@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   arena_viewer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:23:19 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/30 09:45:12 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/30 12:42:04 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 void	init_struct(t_visu *visu)
 {
+	dup2(open("/dev/null", O_WRONLY), 2);
 	initscr();
 	cbreak();
 	nodelay(stdscr, TRUE);

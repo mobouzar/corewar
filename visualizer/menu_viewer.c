@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   menu_viewer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mobouzar <mobouzar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yelazrak <yelazrak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:22:18 by mobouzar          #+#    #+#             */
-/*   Updated: 2020/11/30 10:01:07 by mobouzar         ###   ########.fr       */
+/*   Updated: 2020/11/30 12:41:28 by yelazrak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-void	pause_handler(t_visu *visu)
+void		pause_handler(t_visu *visu)
 {
 	wattron(visu->menu, A_BOLD);
 	if (visu->pause == 1)
@@ -37,7 +37,7 @@ void	pause_handler(t_visu *visu)
 	wattroff(visu->menu, A_BOLD);
 }
 
-void	speed_handler(t_visu *visu)
+void		speed_handler(t_visu *visu)
 {
 	if (!visu)
 		return ;
@@ -58,7 +58,7 @@ void	speed_handler(t_visu *visu)
 	}
 }
 
-void	event_handler(t_visu *visu)
+void		event_handler(t_visu *visu)
 {
 	if (visu && (visu->key = event_listenner()) > 0)
 	{
@@ -76,16 +76,8 @@ void	event_handler(t_visu *visu)
 	}
 }
 
-void	clear_line(t_visu *visu)
+static void	print_menu(t_visu *visu)
 {
-	if (visu->speed == 90 || visu->speed == 0)
-	{
-		wclrtoeol(visu->menu);
-		wattron(visu->menu, COLOR_PAIR(visu->win));
-		box(visu->menu, ACS_VLINE, ACS_HLINE);
-		wborder(visu->menu, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
-		wattroff(visu->menu, COLOR_PAIR(visu->win));
-	}
 	mvwprintw(visu->menu, 46, 19, "EVENT's MENU");
 	mvwprintw(visu->menu, 48, 4, "PLAY/PAUSE   : SPACE");
 	mvwprintw(visu->menu, 50, 4, "SPEED        : +/-");
@@ -95,12 +87,11 @@ void	clear_line(t_visu *visu)
 	"------------------------ aff ------------------------");
 }
 
-void	menu_handler(t_corewar *war, t_visu *visu)
+void		menu_handler(t_corewar *war, t_visu *visu)
 {
 	wattron(visu->menu, A_BOLD);
 	mvwprintw(visu->menu, 4, 4, "Cycles/second limit : ");
-	mvwprintw(visu->menu, 4, 26, "%d", visu->speed);
-	clear_line(visu);
+	mvwprintw(visu->menu, 4, 26, "%d  ", visu->speed);
 	mvwprintw(visu->menu, 7, 4, "Cycle : %d", war->cycle);
 	mvwprintw(visu->menu, 9, 4, "Processes : %d", war->nbr_process);
 	mvwprintw(visu->menu, 11, 4, "CYCLE_TO_DIE : %d", war->cycle_to_die);
@@ -113,6 +104,7 @@ void	menu_handler(t_corewar *war, t_visu *visu)
 	player4_handler(visu, war);
 	mvwprintw(visu->menu, 37, 18, "THE WINNER's BOX");
 	mvwprintw(visu->menu, 40, 4, "The winner is: ");
+	print_menu(visu);
 	wattroff(visu->menu, A_BOLD);
 	wrefresh(visu->menu);
 }
